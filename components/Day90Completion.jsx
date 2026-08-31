@@ -101,6 +101,7 @@ export default function Day90Completion({
         userProfile={userProfile}
         commitments={commitments}
         checkIns={checkIns}
+        cardType="completion"
       />
     </div>
   );

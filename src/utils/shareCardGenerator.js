@@ -62,10 +62,10 @@ export function generateShareCardCanvas({
   ctx.font = '700 24px "JetBrains Mono", monospace';
   ctx.fillText('WINTER ARC 90', 540, 180);
 
-  // 3. Main Title Badge: OFFICIAL PLEDGE vs COMPLETE
+  // 3. Main Title Badge: MY CONTRACT (Day 0) vs COMPLETE (Day 90)
   ctx.fillStyle = '#9fe870';
   ctx.font = '900 72px "Space Grotesk", sans-serif';
-  ctx.fillText(isCompletion ? 'COMPLETE' : 'OFFICIAL PLEDGE', 540, 280);
+  ctx.fillText(isCompletion ? 'COMPLETE' : 'MY CONTRACT', 540, 280);
 
   // Divider Line
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
@@ -118,7 +118,7 @@ export function generateShareCardCanvas({
   ctx.fillText(isCompletion ? `${completedStats.totalPercentage}%` : 'VERIFIED', 730, 590);
   ctx.fillStyle = '#94a3b8';
   ctx.font = '600 22px "Inter", sans-serif';
-  ctx.fillText(isCompletion ? 'CONSISTENCY' : 'CONTRACT STATUS', 730, 630);
+  ctx.fillText(isCompletion ? 'CONSISTENCY' : 'PLEDGE STATUS', 730, 630);
 
   // Date Range Subtext
   ctx.fillStyle = '#9fe870';
