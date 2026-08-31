@@ -36,26 +36,23 @@ export default function UnlockPage() {
 
   const handleCheckout = async () => {
     trackEvent(ANALYTICS_EVENTS.CHECKOUT_STARTED);
-    if (!user) {
-      router.push('/signup?redirect=/unlock');
-      return;
-    }
-
     setLoading(true);
     setErrorMsg('');
 
     try {
+      const savedContract = getFreeContract();
+      const payload = {
+        name: user?.name || savedContract?.name || '',
+        email: user?.email || ''
+      };
+
       const res = await fetch('/api/checkout', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
 
       const data = await res.json();
-
-      if (res.status === 401 && !data.lemonSqueezyError) {
-        router.push('/login');
-        return;
-      }
 
       if (res.ok && data.url) {
         window.location.href = data.url;

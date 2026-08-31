@@ -294,17 +294,13 @@ export default function FreeContractBuilderPage() {
       const res = await fetch('/api/auth/me');
       const data = await res.json();
 
-      if (data.user) {
-        if (data.user.accessStatus === 'PAID') {
-          router.push('/dashboard');
-          return;
-        }
-        router.push('/unlock');
-      } else {
-        router.push('/signup?redirect=/unlock');
+      if (data.user && data.user.accessStatus === 'PAID') {
+        router.push('/dashboard');
+        return;
       }
+      router.push('/unlock');
     } catch (err) {
-      router.push('/signup?redirect=/unlock');
+      router.push('/unlock');
     }
   };
 

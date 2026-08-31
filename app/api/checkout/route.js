@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server';
-import { getSessionUser } from '@/lib/auth';
+import { getSessionUser } from '@/src/lib/auth';
 
 export async function POST(req) {
   try {
     const user = await getSessionUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    let body = {};
+    try {
+      body = await req.json();
+    } catch (e) {
+      body = {};
     }
 
     const apiKey = process.env.LEMON_SQUEEZY_API_KEY;
@@ -23,7 +26,17 @@ export async function POST(req) {
       );
     }
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://winter-arc-2026.vercel.app';
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.arc90.space';
+
+    const checkoutData = {};
+    if (user) {
+      checkoutData.email = user.email;
+      checkoutData.name = user.name;
+      checkoutData.custom = { user_id: user.id };
+    } else if (body.email) {
+      checkoutData.email = body.email;
+      if (body.name) checkoutData.name = body.name;
+    }
 
     const response = await fetch('https://api.lemonsqueezy.com/v1/checkouts', {
       method: 'POST',
@@ -36,13 +49,7 @@ export async function POST(req) {
         data: {
           type: 'checkouts',
           attributes: {
-            checkout_data: {
-              email: user.email,
-              name: user.name,
-              custom: {
-                user_id: user.id
-              }
-            },
+            checkout_data: checkoutData,
             product_options: {
               redirect_url: `${appUrl}/payment/success`
             }
