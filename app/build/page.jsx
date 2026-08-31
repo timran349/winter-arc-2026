@@ -204,6 +204,7 @@ export default function FreeContractBuilderPage() {
     setGenerationProgress(0);
     setGenerationMessageIndex(0);
 
+    // Simulated Contract Generation Flow (4.0 seconds SaaS loading sequence)
     const messages = [
       'Analyzing 90-day commitment trajectory...',
       'Calculating execution density & milestone dates...',
@@ -211,28 +212,28 @@ export default function FreeContractBuilderPage() {
       'Rendering 9:16 high-res poster card...'
     ];
 
-    // Progress timer over 2500ms
+    // Progress timer over 4000ms (4 seconds)
     const interval = setInterval(() => {
       setGenerationProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
           return 100;
         }
-        return prev + 4;
+        return prev + 2;
       });
-    }, 100);
+    }, 80);
 
     const msgInterval = setInterval(() => {
       setGenerationMessageIndex((prev) => (prev < messages.length - 1 ? prev + 1 : prev));
-    }, 600);
+    }, 1000);
 
-    // Transition to Result Screen at 2500ms
+    // Transition to Result Screen at 4000ms (4 seconds)
     setTimeout(() => {
       clearInterval(interval);
       clearInterval(msgInterval);
       setMode('result');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 2600);
+    }, 4100);
   };
 
   // Download contract image
