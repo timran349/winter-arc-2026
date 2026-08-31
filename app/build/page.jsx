@@ -983,20 +983,20 @@ export default function FreeContractBuilderPage() {
               </div>
             </div>
 
-            {/* ACTION BUTTONS: SHARE & DOWNLOAD */}
+            {/* ACTION BUTTONS: VIEW ARC & UNLOCK MY 90 DAYS — $19 */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <button
                 onClick={handleShareCard}
-                className="btn-wise-primary py-4 text-sm font-extrabold gap-2"
+                className="btn-wise-secondary py-4 text-sm font-bold gap-2"
               >
-                <Share2 className="w-4 h-4 text-[#163300]" /> <span>Share My Arc</span>
+                <Share2 className="w-4 h-4 text-[#9fe870]" /> <span>View Arc</span>
               </button>
 
               <button
-                onClick={handleDownloadCard}
-                className="btn-wise-secondary py-4 text-sm font-bold gap-2"
+                onClick={handleUpgradeToPaid}
+                className="btn-wise-primary py-4 text-sm font-extrabold gap-2 shadow-[0_0_25px_rgba(159,232,112,0.4)]"
               >
-                <Download className="w-4 h-4 text-[#9fe870]" /> <span>Download Card</span>
+                <Sparkles className="w-4 h-4 text-[#163300]" /> <span>Unlock My 90 Days — $19</span>
               </button>
             </div>
 
