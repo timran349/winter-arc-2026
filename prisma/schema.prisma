@@ -17,16 +17,18 @@ enum AccessStatus {
 }
 
 model User {
-  id           String       @id @default(cuid())
-  name         String
-  email        String       @unique
-  passwordHash String
-  accessStatus AccessStatus @default(FREE)
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  arcs         Arc[]
-  sessions     Session[]
-  purchases    Purchase[]
+  id               String       @id @default(cuid())
+  name             String
+  email            String       @unique
+  passwordHash     String
+  resetToken       String?
+  resetTokenExpiry DateTime?
+  accessStatus     AccessStatus @default(FREE)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  arcs             Arc[]
+  sessions         Session[]
+  purchases        Purchase[]
 }
 
 model Purchase {
