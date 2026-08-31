@@ -1,19 +1,19 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/logout/route": "app/api/auth/logout/route.js",
   "/api/auth/login/route": "app/api/auth/login/route.js",
   "/api/arc/route": "app/api/arc/route.js",
-  "/api/auth/logout/route": "app/api/auth/logout/route.js",
-  "/api/reviews/route": "app/api/reviews/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/checkins/route": "app/api/checkins/route.js",
   "/api/auth/me/route": "app/api/auth/me/route.js",
   "/api/auth/signup/route": "app/api/auth/signup/route.js",
-  "/api/checkins/route": "app/api/checkins/route.js",
-  "/arc/complete/page": "app/arc/complete/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
+  "/api/reviews/route": "app/api/reviews/route.js",
   "/arc/page": "app/arc/page.js",
+  "/arc/complete/page": "app/arc/complete/page.js",
+  "/reviews/page": "app/reviews/page.js",
   "/login/page": "app/login/page.js",
-  "/progress/page": "app/progress/page.js",
   "/page": "app/page.js",
+  "/progress/page": "app/progress/page.js",
   "/onboarding/page": "app/onboarding/page.js",
   "/signup/page": "app/signup/page.js",
-  "/reviews/page": "app/reviews/page.js"
+  "/dashboard/page": "app/dashboard/page.js"
 }
