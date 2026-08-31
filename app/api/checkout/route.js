@@ -69,9 +69,13 @@ export async function POST(req) {
 
     if (!response.ok || !resData.data?.attributes?.url) {
       console.error('Lemon Squeezy Checkout API error:', resData);
+      const detail = resData.errors?.[0]?.detail || resData.errors?.[0]?.title || 'Failed to create checkout session.';
       return NextResponse.json(
-        { error: resData.errors?.[0]?.detail || 'Failed to create checkout session.' },
-        { status: 500 }
+        {
+          error: `Lemon Squeezy API Error: ${detail}`,
+          lemonSqueezyError: true
+        },
+        { status: 400 }
       );
     }
 

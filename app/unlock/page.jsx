@@ -53,7 +53,7 @@ export default function UnlockPage() {
 
       const data = await res.json();
 
-      if (res.status === 401 || data.error?.toLowerCase().includes('unauthenticat') || data.error?.toLowerCase().includes('unauthoriz')) {
+      if (res.status === 401 && !data.lemonSqueezyError) {
         router.push('/login');
         return;
       }
