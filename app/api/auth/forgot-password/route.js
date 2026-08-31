@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/src/lib/prisma';
 import crypto from 'crypto';
+import { sendPasswordResetEmail } from '@/src/utils/sendEmail';
 
 export async function POST(req) {
   try {
     const { email } = await req.json();
     if (!email || !email.trim()) {
-      return NextResponse.json({ error: 'Email is required.' }, { status: 400 });
+      return NextResponse.json({ error: 'Email address is required.' }, { status: 400 });
     }
 
     const normalizedEmail = email.toLowerCase().trim();
@@ -14,16 +15,19 @@ export async function POST(req) {
       where: { email: normalizedEmail }
     });
 
+    const standardSuccessMessage =
+      'If an account exists for that email address, password reset instructions have been sent to your inbox.';
+
     if (!user) {
-      // Return ambiguous message for privacy
+      // Return uniform message for security & privacy
       return NextResponse.json({
         success: true,
-        message: 'If an account exists for that email, password reset instructions have been generated.'
+        message: standardSuccessMessage
       });
     }
 
-    const token = crypto.randomBytes(24).toString('hex');
-    const expiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour token expiration
 
     await prisma.user.update({
       where: { id: user.id },
@@ -35,11 +39,15 @@ export async function POST(req) {
 
     const resetUrl = `/forgot-password?token=${token}`;
 
+    // Send email securely without exposing token to the client JSON response
+    await sendPasswordResetEmail({
+      to: normalizedEmail,
+      resetUrl
+    });
+
     return NextResponse.json({
       success: true,
-      message: 'Password reset link generated successfully.',
-      resetToken: token,
-      resetUrl
+      message: standardSuccessMessage
     });
   } catch (err) {
     console.error('Forgot Password API error:', err);

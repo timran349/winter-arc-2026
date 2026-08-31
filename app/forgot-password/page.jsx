@@ -3,7 +3,7 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Flame, ArrowRight, ArrowLeft, KeyRound, Check, ShieldCheck, AlertCircle } from 'lucide-react';
+import { Flame, ArrowRight, ArrowLeft, KeyRound, Check, ShieldCheck, AlertCircle, MailCheck } from 'lucide-react';
 
 function ForgotPasswordForm() {
   const router = useRouter();
@@ -15,11 +15,10 @@ function ForgotPasswordForm() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [mode, setMode] = useState(tokenParam ? 'reset' : 'request'); // 'request' | 'reset' | 'success'
+  const [mode, setMode] = useState(tokenParam ? 'reset' : 'request'); // 'request' | 'reset' | 'submitted'
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
-  const [generatedResetUrl, setGeneratedResetUrl] = useState('');
 
   useEffect(() => {
     if (tokenParam) {
@@ -47,10 +46,8 @@ function ForgotPasswordForm() {
         throw new Error(data.error || 'Failed to process password reset.');
       }
 
-      setSuccessMsg(data.message || 'Password reset link sent.');
-      if (data.resetUrl) {
-        setGeneratedResetUrl(data.resetUrl);
-      }
+      setMode('submitted');
+      setSuccessMsg(data.message || 'Check your email inbox for password reset instructions.');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -103,14 +100,20 @@ function ForgotPasswordForm() {
     <div className="w-full max-w-md card-wise p-8 sm:p-10 space-y-6 bg-gradient-to-b from-[#141712] via-[#0e100c] to-[#0b0c0a] border border-[#9fe870]/30 shadow-2xl relative">
       <div className="text-center space-y-2">
         <div className="w-12 h-12 rounded-full bg-[#9fe870]/10 border border-[#9fe870]/30 flex items-center justify-center mx-auto mb-3">
-          <KeyRound className="w-6 h-6 text-[#9fe870]" />
+          {mode === 'submitted' ? (
+            <MailCheck className="w-6 h-6 text-[#9fe870]" />
+          ) : (
+            <KeyRound className="w-6 h-6 text-[#9fe870]" />
+          )}
         </div>
         <h1 className="font-display-wise text-3xl sm:text-4xl font-black text-slate-100 uppercase tracking-tight leading-[0.88]">
-          {mode === 'reset' ? 'Reset Password' : 'Forgot Password'}
+          {mode === 'reset' ? 'Reset Password' : mode === 'submitted' ? 'Check Your Email' : 'Forgot Password'}
         </h1>
         <p className="text-xs text-slate-300 font-semibold leading-relaxed">
           {mode === 'reset'
             ? 'Enter your new password below to regain access to your account.'
+            : mode === 'submitted'
+            ? 'If an account exists for that email address, a password reset link has been sent.'
             : 'Enter your email address and we will send you a secure password reset link.'}
         </p>
       </div>
@@ -123,21 +126,9 @@ function ForgotPasswordForm() {
       )}
 
       {successMsg && (
-        <div className="p-4 rounded-2xl bg-[#e2f6d5] text-[#163300] text-xs font-bold font-mono-code space-y-2">
-          <div className="flex items-center gap-2">
-            <Check className="w-4 h-4 text-[#163300] shrink-0" />
-            <span>{successMsg}</span>
-          </div>
-          {generatedResetUrl && (
-            <div className="pt-2 border-t border-[#163300]/20">
-              <Link
-                href={generatedResetUrl}
-                className="inline-flex items-center gap-1 font-black text-xs text-[#163300] hover:underline"
-              >
-                Click here to reset your password now →
-              </Link>
-            </div>
-          )}
+        <div className="p-4 rounded-2xl bg-[#e2f6d5] text-[#163300] text-xs font-bold font-mono-code flex items-center gap-2">
+          <Check className="w-4 h-4 text-[#163300] shrink-0" />
+          <span>{successMsg}</span>
         </div>
       )}
 
@@ -163,10 +154,24 @@ function ForgotPasswordForm() {
             disabled={loading}
             className="btn-wise-primary w-full py-4 text-sm font-black justify-center gap-2 shadow-[0_0_25px_rgba(159,232,112,0.4)]"
           >
-            <span>{loading ? 'Sending Link...' : 'Send Reset Link'}</span>
+            <span>{loading ? 'Sending Instructions...' : 'Send Reset Link'}</span>
             <ArrowRight className="w-4 h-4 text-[#163300]" />
           </button>
         </form>
+      ) : mode === 'submitted' ? (
+        /* SUBMITTED CONFIRMATION */
+        <div className="space-y-4 pt-2 text-center">
+          <div className="p-4 rounded-2xl bg-[#161813] border border-white/[0.08] text-xs text-slate-300 font-medium leading-relaxed">
+            Please check your email inbox and spam folder for instructions to reset your password.
+          </div>
+          <button
+            type="button"
+            onClick={() => setMode('request')}
+            className="btn-wise-secondary w-full py-3.5 text-xs font-bold"
+          >
+            Try Another Email
+          </button>
+        </div>
       ) : (
         /* NEW PASSWORD RESET FORM */
         <form onSubmit={handleResetPassword} className="space-y-4 pt-2">
