@@ -42,10 +42,10 @@ export default function Navbar({
           </div>
           <div>
             <span className="font-editorial text-lg tracking-tight font-black text-slate-100 group-hover:text-[#9fe870] transition-colors">
-              WINTER ARC
+              WINTER ARC 90
             </span>
             <span className="text-[10px] font-mono-code text-[#9fe870] block -mt-1 tracking-widest uppercase font-bold">
-              2026 MVP
+              SYSTEM
             </span>
           </div>
         </div>

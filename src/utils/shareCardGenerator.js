@@ -57,7 +57,7 @@ export function generateShareCardCanvas({
   ctx.textAlign = 'center';
   ctx.fillStyle = '#9fe870';
   ctx.font = '700 24px "JetBrains Mono", monospace';
-  ctx.fillText('WINTER ARC 2026', 540, 180);
+  ctx.fillText('WINTER ARC 90', 540, 180);
 
   // 3. Main Title Badge: COMPLETE
   ctx.fillStyle = '#9fe870';

@@ -1,7 +1,7 @@
 import '../src/index.css';
 
 export const metadata = {
-  title: 'WINTER ARC 2026 — Start before January. Finish with proof.',
+  title: 'WINTER ARC 90 — Start before January. Finish with proof.',
   description: '90-day personal accountability experience. Choose 4–6 commitments, track them daily, and finish with proof before the new year.',
   icons: {
     icon: '/favicon.svg',

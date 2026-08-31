@@ -327,7 +327,7 @@ export default function FreeContractBuilderPage() {
             </div>
             <div>
               <span className="font-editorial text-lg tracking-tight font-black text-slate-100">
-                WINTER ARC
+                WINTER ARC 90
               </span>
               <span className="text-[10px] font-mono-code text-[#9fe870] block -mt-1 tracking-widest uppercase font-bold">
                 FREE CONTRACT BUILDER
