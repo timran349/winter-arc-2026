@@ -13,10 +13,13 @@ export async function POST(req) {
     const variantId = process.env.LEMON_SQUEEZY_VARIANT_ID;
 
     if (!apiKey || !storeId || !variantId) {
-      console.error('Missing Lemon Squeezy environment variables');
+      console.warn('Missing Lemon Squeezy environment variables');
       return NextResponse.json(
-        { error: 'Payment provider configuration missing on server.' },
-        { status: 500 }
+        {
+          error: 'Lemon Squeezy credentials are missing in Vercel environment variables.',
+          configMissing: true
+        },
+        { status: 400 }
       );
     }
 

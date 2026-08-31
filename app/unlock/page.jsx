@@ -33,6 +33,8 @@ export default function UnlockPage() {
     checkAuth();
   }, [router]);
 
+  const [configMissing, setConfigMissing] = useState(false);
+
   const handleCheckout = async () => {
     if (!user) {
       router.push('/signup');
@@ -41,6 +43,7 @@ export default function UnlockPage() {
 
     setLoading(true);
     setErrorMsg('');
+    setConfigMissing(false);
 
     try {
       const res = await fetch('/api/checkout', {
@@ -55,6 +58,13 @@ export default function UnlockPage() {
         return;
       }
 
+      if (data.configMissing) {
+        setConfigMissing(true);
+        setErrorMsg('Lemon Squeezy credentials have not been added to Vercel environment variables yet.');
+        setLoading(false);
+        return;
+      }
+
       if (res.ok && data.url) {
         window.location.href = data.url;
       } else {
@@ -64,6 +74,22 @@ export default function UnlockPage() {
     } catch (err) {
       console.error('Checkout error:', err);
       setErrorMsg('Network error. Please try again.');
+      setLoading(false);
+    }
+  };
+
+  const handleTestUnlock = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/checkout/test-unlock', { method: 'POST' });
+      if (res.ok) {
+        router.push('/payment/success');
+      } else {
+        setErrorMsg('Test unlock failed.');
+        setLoading(false);
+      }
+    } catch (err) {
+      setErrorMsg('Network error during test unlock.');
       setLoading(false);
     }
   };
@@ -160,28 +186,53 @@ export default function UnlockPage() {
           </div>
 
           {errorMsg && (
-            <div className="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-mono-code">
+            <div className="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-mono-code leading-relaxed">
               {errorMsg}
             </div>
           )}
 
-          <button
-            onClick={handleCheckout}
-            disabled={loading}
-            className="w-full py-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm transition-all shadow-[0_0_25px_rgba(56,189,248,0.4)] flex items-center justify-center gap-2 disabled:opacity-50"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Opening Checkout...</span>
-              </>
-            ) : (
-              <>
-                <span>START MY 90 DAYS — $19</span>
-                <ArrowRight className="w-4 h-4" />
-              </>
-            )}
-          </button>
+          {configMissing ? (
+            <div className="space-y-3">
+              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-mono-code leading-relaxed">
+                💡 <strong>Founder Note:</strong> Add your <code>LEMON_SQUEEZY_*</code> environment variables to Vercel to launch live checkouts. Click below to test unlocking access right now:
+              </div>
+              <button
+                onClick={handleTestUnlock}
+                disabled={loading}
+                className="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition-all shadow-[0_0_25px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Unlocking System...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>SIMULATE $19 UNLOCK (TEST MODE)</span>
+                    <Sparkles className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={handleCheckout}
+              disabled={loading}
+              className="w-full py-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm transition-all shadow-[0_0_25px_rgba(56,189,248,0.4)] flex items-center justify-center gap-2 disabled:opacity-50"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Opening Checkout...</span>
+                </>
+              ) : (
+                <>
+                  <span>START MY 90 DAYS — $19</span>
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </button>
+          )}
 
           <div className="mt-4 text-center text-[11px] text-slate-500 font-mono-code">
             🔒 Secure 256-bit payment via Lemon Squeezy • Instant activation
