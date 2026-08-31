@@ -8,7 +8,8 @@ export default function ShareCardModal({
   onClose,
   userProfile,
   commitments = [],
-  checkIns = {}
+  checkIns = {},
+  cardType = 'contract'
 }) {
   const [dataUrl, setDataUrl] = useState(null);
   const [copied, setCopied] = useState(false);
@@ -22,11 +23,12 @@ export default function ShareCardModal({
         endDate: endDateStr,
         commitments,
         completedStats: { daysCompleted: 90, totalPercentage: 94 },
-        intention: userProfile.intention
+        intention: userProfile.intention,
+        cardType
       });
       setDataUrl(url);
     }
-  }, [isOpen, userProfile, commitments, checkIns]);
+  }, [isOpen, userProfile, commitments, checkIns, cardType]);
 
   if (!isOpen) return null;
 

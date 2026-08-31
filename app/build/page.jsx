@@ -188,14 +188,15 @@ export default function FreeContractBuilderPage() {
       intention: finalIntention
     });
 
-    // Render share card canvas URL
+    // Render share card canvas URL (cardType: 'contract')
     const url = generateShareCardCanvas({
       name: finalName,
       startDate,
       endDate,
       commitments: selectedCommitments,
       completedStats: { daysCompleted: 90, totalPercentage: 100 },
-      intention: finalIntention
+      intention: finalIntention,
+      cardType: 'contract'
     });
     setShareDataUrl(url);
 
@@ -248,24 +249,9 @@ export default function FreeContractBuilderPage() {
     document.body.removeChild(a);
   };
 
-  // Native share or fallback modal
-  const handleShareCard = async () => {
+  // Directly open Instagram Story Card Modal (no OS share popup)
+  const handleShareCard = () => {
     trackEvent(ANALYTICS_EVENTS.CONTRACT_SHARED);
-    if (navigator.share && shareDataUrl) {
-      try {
-        const response = await fetch(shareDataUrl);
-        const blob = await response.blob();
-        const file = new File([blob], 'winter-arc-contract.png', { type: 'image/png' });
-        await navigator.share({
-          title: 'My Winter Arc Contract 2026',
-          text: 'Start before January. Finish with proof.',
-          files: [file]
-        });
-        return;
-      } catch (err) {
-        // Fall back to modal
-      }
-    }
     setIsShareModalOpen(true);
   };
 

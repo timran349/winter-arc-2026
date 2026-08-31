@@ -10,8 +10,9 @@ export function generateShareCardCanvas({
   startDate = '2026-10-01',
   endDate = '2026-12-29',
   commitments = [],
-  completedStats = { daysCompleted: 90, totalPercentage: 92 },
-  intention = 'Get focused'
+  completedStats = { daysCompleted: 90, totalPercentage: 100 },
+  intention = 'Get focused',
+  cardType = 'contract' // 'contract' | 'completion'
 }) {
   const canvas = document.createElement('canvas');
   canvas.width = 1080;
@@ -19,6 +20,8 @@ export function generateShareCardCanvas({
   const ctx = canvas.getContext('2d');
 
   if (!ctx) return null;
+
+  const isCompletion = cardType === 'completion';
 
   // 1. Dark Midnight Obsidian Background
   const bgGrad = ctx.createLinearGradient(0, 0, 1080, 1920);
@@ -59,10 +62,10 @@ export function generateShareCardCanvas({
   ctx.font = '700 24px "JetBrains Mono", monospace';
   ctx.fillText('WINTER ARC 90', 540, 180);
 
-  // 3. Main Title Badge: COMPLETE
+  // 3. Main Title Badge: OFFICIAL PLEDGE vs COMPLETE
   ctx.fillStyle = '#9fe870';
   ctx.font = '900 72px "Space Grotesk", sans-serif';
-  ctx.fillText('COMPLETE', 540, 280);
+  ctx.fillText(isCompletion ? 'COMPLETE' : 'OFFICIAL PLEDGE', 540, 280);
 
   // Divider Line
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
@@ -75,7 +78,7 @@ export function generateShareCardCanvas({
   // 4. User Name
   ctx.fillStyle = '#f8fafc';
   ctx.font = '900 64px "Space Grotesk", sans-serif';
-  ctx.fillText(name, 540, 420);
+  ctx.fillText(name.toUpperCase(), 540, 420);
 
   if (intention) {
     ctx.fillStyle = '#9fe870';
@@ -112,10 +115,10 @@ export function generateShareCardCanvas({
 
   ctx.fillStyle = '#9fe870';
   ctx.font = '700 36px "JetBrains Mono", monospace';
-  ctx.fillText(`${completedStats.totalPercentage}%`, 730, 590);
+  ctx.fillText(isCompletion ? `${completedStats.totalPercentage}%` : 'VERIFIED', 730, 590);
   ctx.fillStyle = '#94a3b8';
   ctx.font = '600 22px "Inter", sans-serif';
-  ctx.fillText('CONSISTENCY', 730, 630);
+  ctx.fillText(isCompletion ? 'CONSISTENCY' : 'CONTRACT STATUS', 730, 630);
 
   // Date Range Subtext
   ctx.fillStyle = '#9fe870';
@@ -125,7 +128,7 @@ export function generateShareCardCanvas({
   // 6. Commitments List Header
   ctx.fillStyle = '#94a3b8';
   ctx.font = '600 22px "Inter", sans-serif';
-  ctx.fillText('PROOF OF COMMITMENTS', 540, 820);
+  ctx.fillText(isCompletion ? 'PROOF OF COMMITMENTS' : 'PROMISED COMMITMENTS', 540, 820);
 
   // Render Commitments as cards
   const startY = 860;
@@ -158,14 +161,14 @@ export function generateShareCardCanvas({
     ctx.textAlign = 'left';
     ctx.fillStyle = '#f1f5f9';
     ctx.font = '700 28px "Inter", sans-serif';
-    ctx.fillText(comm.name, 270, y + 52);
+    ctx.fillText(comm.name.toUpperCase(), 270, y + 52);
 
     // Category tag
     if (comm.category) {
       ctx.textAlign = 'right';
       ctx.fillStyle = '#9fe870';
       ctx.font = '700 20px "JetBrains Mono", monospace';
-      ctx.fillText(comm.category, 890, y + 51);
+      ctx.fillText(comm.category.toUpperCase(), 890, y + 51);
     }
   });
 
