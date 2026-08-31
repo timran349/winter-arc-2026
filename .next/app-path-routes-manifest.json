@@ -1,19 +1,19 @@
 {
+  "/_not-found/page": "/_not-found",
   "/api/auth/logout/route": "/api/auth/logout",
   "/api/auth/login/route": "/api/auth/login",
   "/api/arc/route": "/api/arc",
-  "/_not-found/page": "/_not-found",
   "/api/checkins/route": "/api/checkins",
-  "/api/auth/me/route": "/api/auth/me",
   "/api/auth/signup/route": "/api/auth/signup",
+  "/api/auth/me/route": "/api/auth/me",
   "/api/reviews/route": "/api/reviews",
-  "/arc/page": "/arc",
   "/arc/complete/page": "/arc/complete",
-  "/reviews/page": "/reviews",
+  "/arc/page": "/arc",
   "/login/page": "/login",
-  "/page": "/",
   "/progress/page": "/progress",
-  "/onboarding/page": "/onboarding",
+  "/dashboard/page": "/dashboard",
+  "/reviews/page": "/reviews",
+  "/page": "/",
   "/signup/page": "/signup",
-  "/dashboard/page": "/dashboard"
+  "/onboarding/page": "/onboarding"
 }
