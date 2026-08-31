@@ -47,13 +47,13 @@ export default function ShareCardModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-lg bg-[#0f1117] border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 my-8">
+      <div className="relative w-full max-w-lg card-wise p-6 sm:p-8 space-y-6 my-8 bg-gradient-to-b from-[#141712] to-[#0b0c0a]">
         <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
           <div>
-            <div className="text-xs font-mono-code text-sky-400 uppercase tracking-widest flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5" /> SHAREABLE PROOF CARD
+            <div className="text-xs font-mono-code text-[#9fe870] uppercase tracking-widest flex items-center gap-1.5 font-bold">
+              <Sparkles className="w-3.5 h-3.5 text-[#9fe870]" /> SHAREABLE PROOF CARD
             </div>
-            <h3 className="font-editorial text-2xl text-slate-100 mt-0.5 font-normal">
+            <h3 className="font-display-wise text-2xl text-slate-100 mt-1 font-black uppercase leading-[0.88]">
               Instagram Story (9:16)
             </h3>
           </div>
@@ -72,10 +72,10 @@ export default function ShareCardModal({
             <img
               src={dataUrl}
               alt="Winter Arc Completion Share Card"
-              className="w-full max-w-[280px] h-auto rounded-2xl border border-white/15 shadow-[0_0_30px_rgba(56,189,248,0.2)] object-contain"
+              className="w-full max-w-[280px] h-auto rounded-[24px] border border-white/15 object-contain"
             />
           ) : (
-            <div className="w-[280px] h-[480px] rounded-2xl bg-slate-900 flex items-center justify-center text-xs text-slate-500">
+            <div className="w-[280px] h-[480px] rounded-[24px] bg-[#141712] flex items-center justify-center text-xs text-slate-400 font-semibold font-mono-code">
               Generating High-Res Card...
             </div>
           )}
@@ -85,17 +85,17 @@ export default function ShareCardModal({
         <div className="space-y-3 pt-2">
           <button
             onClick={handleDownload}
-            className="w-full py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm transition-all shadow-[0_0_25px_rgba(56,189,248,0.4)] flex items-center justify-center gap-2"
+            className="btn-wise-primary w-full py-4 text-sm font-extrabold gap-2"
           >
-            <Download className="w-4 h-4" /> Download Share Card PNG
+            <Download className="w-4 h-4 text-[#163300]" /> <span>Download Share Card PNG</span>
           </button>
 
           <button
             onClick={handleCopy}
-            className="w-full py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-slate-200 font-medium text-xs transition-colors flex items-center justify-center gap-2"
+            className="btn-wise-secondary w-full py-3.5 text-xs font-bold gap-2"
           >
-            {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4 text-slate-400" />}
-            {copied ? 'Copied to Clipboard!' : 'Share to Instagram / TikTok'}
+            {copied ? <Check className="w-4 h-4 text-[#9fe870]" /> : <Share2 className="w-4 h-4 text-[#9fe870]" />}
+            <span>{copied ? 'Copied to Clipboard!' : 'Share to Instagram / TikTok'}</span>
           </button>
         </div>
       </div>

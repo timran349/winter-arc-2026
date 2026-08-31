@@ -30,7 +30,7 @@ export function generateShareCardCanvas({
 
   // Subtle frosted ambient glow in center
   const glowGrad = ctx.createRadialGradient(540, 700, 10, 540, 700, 600);
-  glowGrad.addColorStop(0, 'rgba(56, 189, 248, 0.08)');
+  glowGrad.addColorStop(0, 'rgba(159, 232, 112, 0.12)');
   glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
   ctx.fillStyle = glowGrad;
   ctx.fillRect(0, 0, 1080, 1920);
@@ -42,7 +42,7 @@ export function generateShareCardCanvas({
 
   // Corner Accents
   const armLen = 30;
-  ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
+  ctx.strokeStyle = 'rgba(159, 232, 112, 0.6)';
   ctx.lineWidth = 4;
   // Top-left
   ctx.beginPath(); ctx.moveTo(80, 80 + armLen); ctx.lineTo(80, 80); ctx.lineTo(80 + armLen, 80); ctx.stroke();
@@ -55,13 +55,13 @@ export function generateShareCardCanvas({
 
   // 2. Header Brand
   ctx.textAlign = 'center';
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-  ctx.font = '500 24px "JetBrains Mono", monospace';
+  ctx.fillStyle = '#9fe870';
+  ctx.font = '700 24px "JetBrains Mono", monospace';
   ctx.fillText('WINTER ARC 2026', 540, 180);
 
   // 3. Main Title Badge: COMPLETE
-  ctx.fillStyle = '#38bdf8';
-  ctx.font = '700 72px "Plus Jakarta Sans", sans-serif';
+  ctx.fillStyle = '#9fe870';
+  ctx.font = '900 72px "Space Grotesk", sans-serif';
   ctx.fillText('COMPLETE', 540, 280);
 
   // Divider Line
@@ -74,12 +74,12 @@ export function generateShareCardCanvas({
 
   // 4. User Name
   ctx.fillStyle = '#f8fafc';
-  ctx.font = 'normal 64px "Newsreader", Georgia, serif';
+  ctx.font = '900 64px "Space Grotesk", sans-serif';
   ctx.fillText(name, 540, 420);
 
   if (intention) {
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = 'italic 28px "Newsreader", Georgia, serif';
+    ctx.fillStyle = '#9fe870';
+    ctx.font = '600 28px "Inter", sans-serif';
     ctx.fillText(`"${intention}"`, 540, 470);
   }
 
@@ -88,7 +88,7 @@ export function generateShareCardCanvas({
   const endFormatted = formatShortDate(endDate);
 
   ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+  ctx.strokeStyle = 'rgba(159, 232, 112, 0.2)';
   ctx.lineWidth = 2;
   
   // Outer Pill Box for Dates & Days
@@ -101,7 +101,7 @@ export function generateShareCardCanvas({
   ctx.font = '700 36px "JetBrains Mono", monospace';
   ctx.fillText('90 DAYS', 350, 590);
   ctx.fillStyle = '#94a3b8';
-  ctx.font = '400 22px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '600 22px "Inter", sans-serif';
   ctx.fillText('DURATION', 350, 630);
 
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
@@ -110,21 +110,21 @@ export function generateShareCardCanvas({
   ctx.lineTo(540, 650);
   ctx.stroke();
 
-  ctx.fillStyle = '#38bdf8';
+  ctx.fillStyle = '#9fe870';
   ctx.font = '700 36px "JetBrains Mono", monospace';
   ctx.fillText(`${completedStats.totalPercentage}%`, 730, 590);
   ctx.fillStyle = '#94a3b8';
-  ctx.font = '400 22px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '600 22px "Inter", sans-serif';
   ctx.fillText('CONSISTENCY', 730, 630);
 
   // Date Range Subtext
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-  ctx.font = '500 26px "JetBrains Mono", monospace';
+  ctx.fillStyle = '#9fe870';
+  ctx.font = '700 26px "JetBrains Mono", monospace';
   ctx.fillText(`${startFormatted}  →  ${endFormatted}`, 540, 730);
 
   // 6. Commitments List Header
   ctx.fillStyle = '#94a3b8';
-  ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '600 22px "Inter", sans-serif';
   ctx.fillText('PROOF OF COMMITMENTS', 540, 820);
 
   // Render Commitments as cards
@@ -144,27 +144,27 @@ export function generateShareCardCanvas({
     ctx.stroke();
 
     // Check Icon circle
-    ctx.fillStyle = 'rgba(56, 189, 248, 0.15)';
+    ctx.fillStyle = '#9fe870';
     ctx.beginPath();
     ctx.arc(220, y + 42.5, 22, 0, Math.PI * 2);
     ctx.fill();
 
     // Check mark text
-    ctx.fillStyle = '#38bdf8';
-    ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = '#163300';
+    ctx.font = 'bold 24px "Inter", sans-serif';
     ctx.fillText('✓', 220, y + 50);
 
     // Commitment text
     ctx.textAlign = 'left';
     ctx.fillStyle = '#f1f5f9';
-    ctx.font = '600 28px "Plus Jakarta Sans", sans-serif';
+    ctx.font = '700 28px "Inter", sans-serif';
     ctx.fillText(comm.name, 270, y + 52);
 
     // Category tag
     if (comm.category) {
       ctx.textAlign = 'right';
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-      ctx.font = '500 20px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#9fe870';
+      ctx.font = '700 20px "JetBrains Mono", monospace';
       ctx.fillText(comm.category, 890, y + 51);
     }
   });
@@ -178,11 +178,11 @@ export function generateShareCardCanvas({
   ctx.stroke();
 
   ctx.fillStyle = '#f8fafc';
-  ctx.font = 'normal italic 42px "Newsreader", Georgia, serif';
-  ctx.fillText('Start before January.', 540, 1720);
+  ctx.font = '900 42px "Space Grotesk", sans-serif';
+  ctx.fillText('START BEFORE JANUARY.', 540, 1720);
 
-  ctx.fillStyle = '#38bdf8';
-  ctx.font = '700 44px "Plus Jakarta Sans", sans-serif';
+  ctx.fillStyle = '#9fe870';
+  ctx.font = '900 44px "Space Grotesk", sans-serif';
   ctx.fillText('FINISH WITH PROOF.', 540, 1780);
 
   return canvas.toDataURL('image/png');

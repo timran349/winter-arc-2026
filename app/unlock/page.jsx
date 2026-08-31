@@ -77,19 +77,19 @@ export default function UnlockPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#07080a] text-slate-100 flex flex-col justify-between selection:bg-sky-500/20 selection:text-sky-400">
+    <div className="min-h-screen bg-[#0b0c0a] text-slate-100 flex flex-col justify-between">
       {/* Header */}
-      <header className="w-full border-b border-white/[0.08] bg-[#07080a]/90 backdrop-blur-md">
+      <header className="w-full border-b border-white/[0.08] bg-[#0b0c0a]/90 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-slate-900 border border-white/10 flex items-center justify-center">
-              <Flame className="w-4 h-4 text-sky-400" />
+            <div className="w-8 h-8 rounded-full bg-[#9fe870] flex items-center justify-center">
+              <Flame className="w-4 h-4 text-[#163300]" />
             </div>
             <div>
-              <span className="font-editorial text-lg tracking-wide font-medium text-slate-100">
+              <span className="font-editorial text-lg tracking-tight font-black text-slate-100">
                 WINTER ARC
               </span>
-              <span className="text-[10px] font-mono-code text-slate-500 block -mt-1 tracking-widest">
+              <span className="text-[10px] font-mono-code text-[#9fe870] block -mt-1 tracking-widest uppercase font-bold">
                 2026 MVP
               </span>
             </div>

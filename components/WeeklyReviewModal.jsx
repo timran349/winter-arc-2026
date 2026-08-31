@@ -45,14 +45,14 @@ export default function WeeklyReviewModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-2xl bg-[#0f1117] border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 my-8">
+      <div className="relative w-full max-w-2xl card-wise p-6 sm:p-8 space-y-6 my-8 bg-gradient-to-b from-[#141712] to-[#0b0c0a]">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
           <div>
-            <div className="text-xs font-mono-code text-sky-400 uppercase tracking-widest flex items-center gap-1.5">
-              <BookOpen className="w-3.5 h-3.5" /> WEEKLY REFLECTION
+            <div className="text-xs font-mono-code text-[#9fe870] uppercase tracking-widest flex items-center gap-1.5 font-bold">
+              <BookOpen className="w-3.5 h-3.5 text-[#9fe870]" /> WEEKLY REFLECTION
             </div>
-            <h3 className="font-editorial text-3xl text-slate-100 mt-0.5 font-normal">
+            <h3 className="font-display-wise text-3xl text-slate-100 mt-1 font-black uppercase leading-[0.88]">
               Week {currentWeek} complete.
             </h3>
           </div>
@@ -69,20 +69,20 @@ export default function WeeklyReviewModal({
         <div className="flex items-center gap-2 border-b border-white/[0.06] pb-3">
           <button
             onClick={() => setActiveTab('new')}
-            className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
               activeTab === 'new'
-                ? 'bg-sky-500 text-slate-950 font-bold'
-                : 'text-slate-400 hover:text-slate-200 bg-white/[0.02]'
+                ? 'bg-[#9fe870] text-[#163300] scale-105'
+                : 'text-slate-300 hover:text-white bg-white/[0.04]'
             }`}
           >
             Week {currentWeek} Review
           </button>
           <button
             onClick={() => setActiveTab('archive')}
-            className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
               activeTab === 'archive'
-                ? 'bg-sky-500 text-slate-950 font-bold'
-                : 'text-slate-400 hover:text-slate-200 bg-white/[0.02]'
+                ? 'bg-[#9fe870] text-[#163300] scale-105'
+                : 'text-slate-300 hover:text-white bg-white/[0.04]'
             }`}
           >
             Previous Reviews ({reviews.length})
@@ -93,7 +93,7 @@ export default function WeeklyReviewModal({
         {activeTab === 'new' && (
           <form onSubmit={handleSave} className="space-y-5">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-2">
+              <label className="block text-xs font-bold text-slate-300 mb-2 uppercase font-mono-code">
                 What went well?
               </label>
               <textarea
@@ -101,12 +101,12 @@ export default function WeeklyReviewModal({
                 placeholder="What victories or strong routines did you build this week?"
                 value={wentWell}
                 onChange={(e) => setWentWell(e.target.value)}
-                className="w-full bg-slate-900 border border-white/10 rounded-xl p-3.5 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-sky-500"
+                className="w-full bg-[#161813] border border-white/10 rounded-2xl p-4 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870] font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-2">
+              <label className="block text-xs font-bold text-slate-300 mb-2 uppercase font-mono-code">
                 What got in the way?
               </label>
               <textarea
@@ -114,12 +114,12 @@ export default function WeeklyReviewModal({
                 placeholder="Distractions, fatigue, or friction points that slowed you down..."
                 value={obstacles}
                 onChange={(e) => setObstacles(e.target.value)}
-                className="w-full bg-slate-900 border border-white/10 rounded-xl p-3.5 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-sky-500"
+                className="w-full bg-[#161813] border border-white/10 rounded-2xl p-4 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870] font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-2">
+              <label className="block text-xs font-bold text-slate-300 mb-2 uppercase font-mono-code">
                 What will you change next week?
               </label>
               <textarea
@@ -127,7 +127,7 @@ export default function WeeklyReviewModal({
                 placeholder="One small adjustment to improve execution next week..."
                 value={nextWeek}
                 onChange={(e) => setNextWeek(e.target.value)}
-                className="w-full bg-slate-900 border border-white/10 rounded-xl p-3.5 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-sky-500"
+                className="w-full bg-[#161813] border border-white/10 rounded-2xl p-4 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870] font-medium"
               />
             </div>
 
@@ -135,15 +135,15 @@ export default function WeeklyReviewModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2.5 rounded-xl bg-white/[0.04] text-slate-300 text-xs font-medium hover:bg-white/[0.08]"
+                className="btn-wise-secondary px-5 py-2.5 text-xs font-bold"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold transition-all shadow-[0_0_20px_rgba(56,189,248,0.4)] flex items-center gap-2"
+                className="btn-wise-primary px-6 py-2.5 text-xs font-extrabold gap-2"
               >
-                <Save className="w-3.5 h-3.5" /> Save Weekly Review
+                <Save className="w-3.5 h-3.5 text-[#163300]" /> <span>Save Weekly Review</span>
               </button>
             </div>
           </form>
@@ -153,36 +153,36 @@ export default function WeeklyReviewModal({
         {activeTab === 'archive' && (
           <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
             {reviews.length === 0 ? (
-              <div className="text-xs text-slate-500 py-8 text-center">
+              <div className="text-xs text-slate-400 font-semibold py-8 text-center">
                 No saved weekly reviews yet. Complete Week {currentWeek}'s review to build your log.
               </div>
             ) : (
               reviews.map((rev) => (
                 <div
                   key={rev.weekNumber}
-                  className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] space-y-3"
+                  className="p-5 rounded-[24px] bg-[#161813] border border-white/[0.08] space-y-3"
                 >
                   <div className="flex items-center justify-between border-b border-white/[0.06] pb-2">
-                    <span className="font-editorial text-lg text-sky-400 font-medium">
+                    <span className="font-display-wise text-lg text-[#9fe870] font-black uppercase">
                       Week {rev.weekNumber} Review
                     </span>
-                    <span className="text-[10px] font-mono-code text-slate-500">
+                    <span className="text-[10px] font-mono-code text-slate-400 font-bold">
                       {formatShortDate(rev.createdAt)}
                     </span>
                   </div>
 
-                  <div className="space-y-2 text-xs">
+                  <div className="space-y-2 text-xs font-medium">
                     <div>
-                      <span className="font-semibold text-slate-300">Went Well: </span>
-                      <span className="text-slate-400">{rev.wentWell || 'N/A'}</span>
+                      <span className="font-bold text-slate-300">Went Well: </span>
+                      <span className="text-slate-300">{rev.wentWell || 'N/A'}</span>
                     </div>
                     <div>
-                      <span className="font-semibold text-slate-300">Obstacles: </span>
-                      <span className="text-slate-400">{rev.obstacles || 'N/A'}</span>
+                      <span className="font-bold text-slate-300">Obstacles: </span>
+                      <span className="text-slate-300">{rev.obstacles || 'N/A'}</span>
                     </div>
                     <div>
-                      <span className="font-semibold text-slate-300">Next Week Action: </span>
-                      <span className="text-slate-400">{rev.nextWeek || 'N/A'}</span>
+                      <span className="font-bold text-slate-300">Next Week Action: </span>
+                      <span className="text-slate-300">{rev.nextWeek || 'N/A'}</span>
                     </div>
                   </div>
                 </div>
