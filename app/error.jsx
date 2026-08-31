@@ -1,13 +1,23 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Flame, RefreshCw, Home } from 'lucide-react';
+import { Flame, RefreshCw, Home, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function GlobalErrorPage({ error, reset }) {
+  const [showDetails, setShowDetails] = useState(false);
+
   useEffect(() => {
     console.error('Unhandled Client-Side Error:', error);
   }, [error]);
+
+  const handleHardReload = () => {
+    if (typeof window !== 'undefined') {
+      window.location.reload();
+    } else {
+      reset();
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#0b0c0a] text-slate-100 flex flex-col items-center justify-center p-4 selection:bg-[#9fe870] selection:text-[#163300]">
@@ -24,9 +34,26 @@ export default function GlobalErrorPage({ error, reset }) {
           Something went wrong while rendering this view. Your contract progress is saved.
         </p>
 
+        {error?.message && (
+          <div className="text-left pt-2">
+            <button
+              onClick={() => setShowDetails(!showDetails)}
+              className="text-[11px] font-mono-code font-bold text-slate-400 hover:text-slate-200 flex items-center gap-1 mx-auto"
+            >
+              <span>{showDetails ? 'Hide Error Details' : 'Show Error Details'}</span>
+              {showDetails ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+            </button>
+            {showDetails && (
+              <div className="mt-2 p-3 rounded-xl bg-black/50 border border-rose-500/30 text-rose-300 text-[10px] font-mono-code overflow-x-auto max-h-32">
+                {error.message}
+              </div>
+            )}
+          </div>
+        )}
+
         <div className="pt-2 space-y-3">
           <button
-            onClick={() => reset()}
+            onClick={handleHardReload}
             className="btn-wise-primary w-full py-4 text-xs font-black justify-center gap-2 shadow-[0_0_20px_rgba(159,232,112,0.4)]"
           >
             <RefreshCw className="w-4 h-4 text-[#163300]" />

@@ -94,12 +94,14 @@ export default function FreeContractBuilderPage() {
 
   // Handlers for commitments
   const isSelected = (nameStr) =>
-    selectedCommitments.some((c) => c.name.toLowerCase() === nameStr.toLowerCase());
+    selectedCommitments.some(
+      (c) => (c?.name || '').toLowerCase() === (nameStr || '').toLowerCase()
+    );
 
   const toggleSuggested = (item, cat) => {
     if (isSelected(item)) {
       setSelectedCommitments((prev) =>
-        prev.filter((c) => c.name.toLowerCase() !== item.toLowerCase())
+        prev.filter((c) => (c?.name || '').toLowerCase() !== (item || '').toLowerCase())
       );
     } else {
       if (selectedCommitments.length >= 6) return;
