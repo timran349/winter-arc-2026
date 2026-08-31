@@ -308,6 +308,8 @@ export default function FreeContractBuilderPage() {
     }
   };
 
+  const handleUpgradeToPaid = handleUnlockPaid;
+
   const loadingMessages = [
     'Analyzing 90-day commitment trajectory...',
     'Calculating execution density & milestone dates...',
