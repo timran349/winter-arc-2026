@@ -43,6 +43,9 @@ export async function POST(req) {
     return NextResponse.json({ success: true, user });
   } catch (err) {
     console.error('Signup error:', err);
-    return NextResponse.json({ error: 'Failed to create account. Please try again.' }, { status: 500 });
+    return NextResponse.json(
+      { error: err.message || 'Failed to create account. Please try again.' },
+      { status: 500 }
+    );
   }
 }
