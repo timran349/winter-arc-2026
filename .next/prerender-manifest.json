@@ -1,8 +1,7 @@
 {
   "version": 4,
   "routes": {
-    "/_not-found": {
-      "initialStatus": 404,
+    "/dashboard": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -15,8 +14,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/_not-found",
-      "dataRoute": "/_not-found.rsc",
+      "srcRoute": "/dashboard",
+      "dataRoute": "/dashboard.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -26,7 +25,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/arc": {
+    "/onboarding": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -39,8 +38,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/arc",
-      "dataRoute": "/arc.rsc",
+      "srcRoute": "/onboarding",
+      "dataRoute": "/onboarding.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -74,7 +73,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/onboarding": {
+    "/arc": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -87,8 +86,57 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/onboarding",
-      "dataRoute": "/onboarding.rsc",
+      "srcRoute": "/arc",
+      "dataRoute": "/arc.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/arc/complete": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/arc/complete",
+      "dataRoute": "/arc/complete.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/_not-found": {
+      "initialStatus": 404,
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/_not-found",
+      "dataRoute": "/_not-found.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -146,30 +194,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/dashboard": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/dashboard",
-      "dataRoute": "/dashboard.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/signup": {
       "experimentalBypassFor": [
         {
@@ -185,30 +209,6 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/signup",
       "dataRoute": "/signup.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/arc/complete": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/arc/complete",
-      "dataRoute": "/arc/complete.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProgressStats from '@/components/ProgressStats';
+import { getCurrentArcDay } from '@/lib/dates';
 
 export default function ProgressPage() {
   const router = useRouter();
@@ -31,6 +32,10 @@ export default function ProgressPage() {
         }
 
         setArc(arcData.arc);
+
+        const todayStr = new Date().toISOString().split('T')[0];
+        const currentDay = getCurrentArcDay(arcData.arc.startDate, todayStr);
+        setSimulatedDayNum(currentDay);
 
         const cMap = {};
         if (arcData.arc.checkIns) {

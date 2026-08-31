@@ -13,6 +13,7 @@ import { MessageSquare, Flame, ArrowUpRight, Sparkles } from 'lucide-react';
 
 import {
   getDateForDayNumber,
+  getCurrentArcDay,
   getDaysRemaining,
   formatFullDate,
   getWeekForDay,
@@ -25,7 +26,7 @@ export default function DashboardPage() {
   const [arc, setArc] = useState(null);
   const [checkInsMap, setCheckInsMap] = useState({});
   const [reviews, setReviews] = useState([]);
-  const [simulatedDayNum, setSimulatedDayNum] = useState(18);
+  const [simulatedDayNum, setSimulatedDayNum] = useState(1);
   const [loading, setLoading] = useState(true);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
@@ -51,6 +52,11 @@ export default function DashboardPage() {
         }
 
         setArc(arcData.arc);
+
+        // Calculate real day number based on start date
+        const todayStr = new Date().toISOString().split('T')[0];
+        const currentDay = getCurrentArcDay(arcData.arc.startDate, todayStr);
+        setSimulatedDayNum(currentDay);
 
         // Format checkIns into object map by date
         const cMap = {};

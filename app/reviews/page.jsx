@@ -5,13 +5,13 @@ import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WeeklyReviewModal from '@/components/WeeklyReviewModal';
-import { formatFullDate, getWeekForDay } from '@/lib/dates';
+import { formatFullDate, getWeekForDay, getCurrentArcDay } from '@/lib/dates';
 
 export default function ReviewsPage() {
   const router = useRouter();
   const [arc, setArc] = useState(null);
   const [reviews, setReviews] = useState([]);
-  const [simulatedDayNum, setSimulatedDayNum] = useState(18);
+  const [simulatedDayNum, setSimulatedDayNum] = useState(1);
   const [loading, setLoading] = useState(true);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
@@ -33,6 +33,10 @@ export default function ReviewsPage() {
         }
 
         setArc(arcData.arc);
+        const todayStr = new Date().toISOString().split('T')[0];
+        const currentDay = getCurrentArcDay(arcData.arc.startDate, todayStr);
+        setSimulatedDayNum(currentDay);
+
         if (arcData.arc.reviews) setReviews(arcData.arc.reviews);
         setLoading(false);
       } catch (err) {
