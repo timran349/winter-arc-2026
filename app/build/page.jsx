@@ -15,7 +15,10 @@ import {
   ShieldCheck,
   Sparkles,
   AlertCircle,
-  Mail
+  Calendar as CalendarIcon,
+  ChevronLeft,
+  ChevronRight,
+  Loader2
 } from 'lucide-react';
 
 import { calculateEndDate, formatShortDate } from '@/src/utils/dates';
@@ -41,7 +44,7 @@ const SUGGESTED_INTENTIONS = [
 export default function FreeContractBuilderPage() {
   const router = useRouter();
 
-  // Builder Mode: 'form' | 'result'
+  // Builder Mode: 'form' | 'loading' | 'result'
   const [mode, setMode] = useState('form');
   const [step, setStep] = useState(1);
 
@@ -58,6 +61,13 @@ export default function FreeContractBuilderPage() {
   const [intention, setIntention] = useState('Get focused');
   const [customIntention, setCustomIntention] = useState('');
 
+  // Calendar State for Step 3
+  const [currentCalendarMonth, setCurrentCalendarMonth] = useState(new Date(2026, 9, 1)); // Oct 2026
+
+  // Simulated Generation State
+  const [generationProgress, setGenerationProgress] = useState(0);
+  const [generationMessageIndex, setGenerationMessageIndex] = useState(0);
+
   // Result / Lead Capture State
   const [leadEmail, setLeadEmail] = useState('');
   const [leadSaved, setLeadSaved] = useState(false);
@@ -68,7 +78,6 @@ export default function FreeContractBuilderPage() {
   useEffect(() => {
     trackEvent(ANALYTICS_EVENTS.CONTRACT_BUILDER_STARTED);
 
-    // Check if free contract already exists in localStorage
     const saved = getFreeContract();
     if (saved) {
       setName(saved.name || '');
@@ -115,7 +124,50 @@ export default function FreeContractBuilderPage() {
     setSelectedCommitments((prev) => prev.filter((c) => c.id !== id));
   };
 
-  // Generate Contract Action
+  // Calendar Helpers for Step 3
+  const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
+  const getFirstDayOfMonth = (year, month) => {
+    const day = new Date(year, month, 1).getDay();
+    return day === 0 ? 6 : day - 1; // Mon = 0
+  };
+
+  const handleSelectDate = (year, month, day) => {
+    const mStr = String(month + 1).padStart(2, '0');
+    const dStr = String(day).padStart(2, '0');
+    setStartDate(`${year}-${mStr}-${dStr}`);
+  };
+
+  const handlePresetDate = (type) => {
+    const today = new Date();
+    if (type === 'official') {
+      setStartDate('2026-10-01');
+      setCurrentCalendarMonth(new Date(2026, 9, 1));
+    } else if (type === 'today') {
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      setStartDate(`${year}-${month}-${day}`);
+      setCurrentCalendarMonth(new Date(year, today.getMonth(), 1));
+    } else if (type === 'tomorrow') {
+      const tmrw = new Date(today);
+      tmrw.setDate(today.getDate() + 1);
+      const year = tmrw.getFullYear();
+      const month = String(tmrw.getMonth() + 1).padStart(2, '0');
+      const day = String(tmrw.getDate()).padStart(2, '0');
+      setStartDate(`${year}-${month}-${day}`);
+      setCurrentCalendarMonth(new Date(year, tmrw.getMonth(), 1));
+    } else if (type === 'next_monday') {
+      const nextMon = new Date(today);
+      nextMon.setDate(today.getDate() + ((1 + 7 - today.getDay()) % 7 || 7));
+      const year = nextMon.getFullYear();
+      const month = String(nextMon.getMonth() + 1).padStart(2, '0');
+      const day = String(nextMon.getDate()).padStart(2, '0');
+      setStartDate(`${year}-${month}-${day}`);
+      setCurrentCalendarMonth(new Date(year, nextMon.getMonth(), 1));
+    }
+  };
+
+  // Simulated Contract Generation Flow (2.5 seconds SaaS loading sequence)
   const handleGenerateContract = () => {
     const finalIntention =
       intention === 'Create my own' ? customIntention || 'Become consistent' : intention;
@@ -147,8 +199,40 @@ export default function FreeContractBuilderPage() {
     });
     setShareDataUrl(url);
 
-    setMode('result');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Switch to Simulated Loading Mode
+    setMode('loading');
+    setGenerationProgress(0);
+    setGenerationMessageIndex(0);
+
+    const messages = [
+      'Analyzing 90-day commitment trajectory...',
+      'Calculating execution density & milestone dates...',
+      'Forging official Winter Arc 2026 digital seal...',
+      'Rendering 9:16 high-res poster card...'
+    ];
+
+    // Progress timer over 2500ms
+    const interval = setInterval(() => {
+      setGenerationProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prev + 4;
+      });
+    }, 100);
+
+    const msgInterval = setInterval(() => {
+      setGenerationMessageIndex((prev) => (prev < messages.length - 1 ? prev + 1 : prev));
+    }, 600);
+
+    // Transition to Result Screen at 2500ms
+    setTimeout(() => {
+      clearInterval(interval);
+      clearInterval(msgInterval);
+      setMode('result');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 2600);
   };
 
   // Download contract image
@@ -197,7 +281,6 @@ export default function FreeContractBuilderPage() {
     trackEvent(ANALYTICS_EVENTS.UPGRADE_CLICKED);
     trackEvent(ANALYTICS_EVENTS.CHECKOUT_STARTED);
 
-    // Save contract in localStorage
     saveFreeContract({
       name: name.trim() || 'Arc Traveler',
       startDate,
@@ -207,27 +290,30 @@ export default function FreeContractBuilderPage() {
       commitments: selectedCommitments
     });
 
-    // Check if user is logged in
     try {
       const res = await fetch('/api/auth/me');
       const data = await res.json();
 
       if (data.user) {
-        // If logged in & already PAID, go to dashboard
         if (data.user.accessStatus === 'PAID') {
           router.push('/dashboard');
           return;
         }
-        // If logged in & UNPAID, go to unlock checkout
         router.push('/unlock');
       } else {
-        // If not logged in, go to signup with redirect to unlock
         router.push('/signup?redirect=/unlock');
       }
     } catch (err) {
       router.push('/signup?redirect=/unlock');
     }
   };
+
+  const loadingMessages = [
+    'Analyzing 90-day commitment trajectory...',
+    'Calculating execution density & milestone dates...',
+    'Forging official Winter Arc 2026 digital seal...',
+    'Rendering 9:16 high-res poster card...'
+  ];
 
   return (
     <div className="min-h-screen bg-[#0b0c0a] text-slate-100 flex flex-col justify-between">
@@ -458,7 +544,7 @@ export default function FreeContractBuilderPage() {
                 </div>
               )}
 
-              {/* STEP 3: START DATE */}
+              {/* STEP 3: START DATE WITH INTERACTIVE VISUAL CALENDAR SELECTOR */}
               {step === 3 && (
                 <div className="space-y-6">
                   <div>
@@ -469,36 +555,153 @@ export default function FreeContractBuilderPage() {
                       When do you start?
                     </h2>
                     <p className="text-slate-300 text-xs font-semibold mt-1">
-                      Start date computes your exact 90-day trajectory.
+                      Select your launch date from quick presets or the calendar grid below.
                     </p>
                   </div>
 
-                  <div className="space-y-4 pt-2">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-300 mb-2 uppercase font-mono-code">
-                        Selected Start Date
-                      </label>
-                      <input
-                        type="date"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                        className="w-full bg-[#161813] border border-white/10 rounded-full px-5 py-3.5 text-slate-100 focus:outline-none focus:border-[#9fe870] font-mono-code text-xs font-bold"
-                      />
-                      <span className="text-[11px] text-slate-400 mt-1.5 block font-mono-code">
-                        Default: October 1, 2026
-                      </span>
+                  {/* PRESET CHIPS */}
+                  <div className="space-y-2">
+                    <div className="text-xs font-mono-code text-slate-400 font-bold uppercase">
+                      Quick Launch Presets:
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        type="button"
+                        onClick={() => handlePresetDate('official')}
+                        className={`px-3.5 py-2 rounded-full text-xs font-bold transition-all ${
+                          startDate === '2026-10-01'
+                            ? 'bg-[#9fe870] text-[#163300] scale-105'
+                            : 'bg-[#161813] text-slate-300 border border-white/[0.08] hover:border-white/20'
+                        }`}
+                      >
+                        🗓️ Official Launch (Oct 1, 2026)
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handlePresetDate('today')}
+                        className="px-3.5 py-2 rounded-full text-xs font-bold bg-[#161813] text-slate-300 border border-white/[0.08] hover:border-white/20"
+                      >
+                        ⚡ Today
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handlePresetDate('tomorrow')}
+                        className="px-3.5 py-2 rounded-full text-xs font-bold bg-[#161813] text-slate-300 border border-white/[0.08] hover:border-white/20"
+                      >
+                        🚀 Tomorrow
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handlePresetDate('next_monday')}
+                        className="px-3.5 py-2 rounded-full text-xs font-bold bg-[#161813] text-slate-300 border border-white/[0.08] hover:border-white/20"
+                      >
+                        🎯 Next Monday
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* VISUAL INTERACTIVE CALENDAR GRID WIDGET */}
+                  <div className="p-5 rounded-[24px] bg-[#161813] border border-white/[0.08] space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <CalendarIcon className="w-4 h-4 text-[#9fe870]" />
+                        <span className="text-xs font-mono-code text-slate-100 font-extrabold uppercase">
+                          {currentCalendarMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setCurrentCalendarMonth(
+                              new Date(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth() - 1, 1)
+                            )
+                          }
+                          className="p-1.5 rounded-full hover:bg-white/10 text-slate-400 hover:text-slate-200"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setCurrentCalendarMonth(
+                              new Date(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth() + 1, 1)
+                            )
+                          }
+                          className="p-1.5 rounded-full hover:bg-white/10 text-slate-400 hover:text-slate-200"
+                        >
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="p-5 rounded-[24px] bg-[#161813] border border-white/[0.08] flex items-center justify-between">
-                      <div>
-                        <div className="text-xs text-slate-400 font-mono-code uppercase font-bold">Arc Duration</div>
-                        <div className="text-2xl font-black text-slate-100 font-display-wise uppercase">
-                          90 DAYS
-                        </div>
+                    {/* WEEKDAY HEADERS */}
+                    <div className="grid grid-cols-7 gap-1 text-center font-mono-code text-[10px] text-slate-500 font-bold">
+                      <div>MON</div>
+                      <div>TUE</div>
+                      <div>WED</div>
+                      <div>THU</div>
+                      <div>FRI</div>
+                      <div>SAT</div>
+                      <div>SUN</div>
+                    </div>
+
+                    {/* CALENDAR DAYS */}
+                    <div className="grid grid-cols-7 gap-1.5">
+                      {/* Empty leading padding days */}
+                      {Array.from({
+                        length: getFirstDayOfMonth(
+                          currentCalendarMonth.getFullYear(),
+                          currentCalendarMonth.getMonth()
+                        )
+                      }).map((_, i) => (
+                        <div key={'empty_' + i} className="h-8" />
+                      ))}
+
+                      {/* Month Days */}
+                      {Array.from({
+                        length: getDaysInMonth(
+                          currentCalendarMonth.getFullYear(),
+                          currentCalendarMonth.getMonth()
+                        )
+                      }).map((_, idx) => {
+                        const dayNum = idx + 1;
+                        const year = currentCalendarMonth.getFullYear();
+                        const month = currentCalendarMonth.getMonth();
+                        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(dayNum).padStart(2, '0')}`;
+                        const isSelectedDate = startDate === dateStr;
+
+                        return (
+                          <button
+                            key={'day_' + dayNum}
+                            type="button"
+                            onClick={() => handleSelectDate(year, month, dayNum)}
+                            className={`h-8 rounded-full text-xs font-mono-code font-bold transition-all flex items-center justify-center ${
+                              isSelectedDate
+                                ? 'bg-[#9fe870] text-[#163300] scale-110 shadow-md'
+                                : 'bg-[#0b0c0a] text-slate-300 border border-white/[0.05] hover:border-[#9fe870]/50 hover:text-white'
+                            }`}
+                          >
+                            {dayNum}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* COMPUTED TRAJECTORY summary */}
+                  <div className="p-5 rounded-[24px] bg-[#161813] border border-white/[0.08] flex items-center justify-between">
+                    <div>
+                      <div className="text-xs text-slate-400 font-mono-code uppercase font-bold">Calculated Trajectory</div>
+                      <div className="text-2xl font-black text-slate-100 font-display-wise uppercase">
+                        90 DAYS
                       </div>
-                      <div className="text-right font-mono-code text-xs text-[#9fe870] font-bold">
-                        {formatShortDate(startDate)} → {formatShortDate(endDate)}
-                      </div>
+                    </div>
+                    <div className="text-right font-mono-code text-xs text-[#9fe870] font-bold">
+                      {formatShortDate(startDate)} → {formatShortDate(endDate)}
                     </div>
                   </div>
 
@@ -662,6 +865,62 @@ export default function FreeContractBuilderPage() {
               </div>
             </div>
           </div>
+        ) : mode === 'loading' ? (
+          /* ====================================================================
+             HIGH-TECH SIMULATED GENERATION LOADING SCREEN (2.5 SECONDS)
+             ==================================================================== */
+          <div className="max-w-xl mx-auto py-16 text-center space-y-8 card-wise p-8 sm:p-12 bg-gradient-to-b from-[#141712] via-[#0e100c] to-[#0b0c0a] border border-[#9fe870]/40 shadow-2xl">
+            {/* Glowing Flame Icon Loader */}
+            <div className="relative w-20 h-20 mx-auto flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full bg-[#9fe870]/20 animate-ping" />
+              <div className="w-16 h-16 rounded-full bg-[#9fe870] text-[#163300] flex items-center justify-center shadow-[0_0_40px_rgba(159,232,112,0.6)]">
+                <Flame className="w-8 h-8 animate-pulse" />
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="font-mono-code text-xs text-[#9fe870] font-black uppercase tracking-widest">
+                FORGING DIGITAL CONTRACT
+              </div>
+              <h2 className="font-display-wise text-3xl sm:text-4xl font-black text-slate-100 uppercase leading-[0.88]">
+                Creating Your Winter Arc...
+              </h2>
+              <p className="text-xs font-mono-code text-slate-300 h-6 font-bold flex items-center justify-center gap-2">
+                <Loader2 className="w-3.5 h-3.5 text-[#9fe870] animate-spin" />
+                <span>{loadingMessages[generationMessageIndex]}</span>
+              </p>
+            </div>
+
+            {/* HIGH-TECH PROGRESS BAR */}
+            <div className="space-y-2 max-w-md mx-auto">
+              <div className="h-3 w-full bg-[#161813] border border-white/10 rounded-full overflow-hidden p-0.5">
+                <div
+                  className="h-full bg-[#9fe870] rounded-full transition-all duration-100 ease-out shadow-[0_0_15px_rgba(159,232,112,0.8)]"
+                  style={{ width: `${generationProgress}%` }}
+                />
+              </div>
+              <div className="flex justify-between text-[11px] font-mono-code text-slate-400 font-bold px-1">
+                <span>SYSTEM PROCESS</span>
+                <span className="text-[#9fe870] font-extrabold">{generationProgress}%</span>
+              </div>
+            </div>
+
+            {/* VERIFICATION CHECKLIST BADGES */}
+            <div className="pt-4 border-t border-white/[0.08] space-y-2 text-left max-w-sm mx-auto">
+              <div className="flex items-center gap-2 text-xs font-mono-code text-slate-300 font-bold">
+                <span className="text-[#9fe870] font-black">✓</span>
+                <span>Name & 90-day window locked</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-mono-code text-slate-300 font-bold">
+                <span className="text-[#9fe870] font-black">✓</span>
+                <span>{selectedCommitments.length} non-negotiable commitments verified</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-mono-code text-slate-300 font-bold">
+                <span className="text-[#9fe870] font-black">✓</span>
+                <span>High-resolution 9:16 poster rendered</span>
+              </div>
+            </div>
+          </div>
         ) : (
           /* ====================================================================
              CONTRACT RESULT SCREEN & PAID CONVERSION FUNNEL
@@ -669,7 +928,7 @@ export default function FreeContractBuilderPage() {
           <div className="max-w-3xl mx-auto space-y-10 py-4 animate-fade-in">
             {/* HERO SUCCESS HEADER */}
             <div className="text-center space-y-3">
-              <div className="w-14 h-14 rounded-full bg-[#9fe870] text-[#163300] flex items-center justify-center mx-auto mb-4">
+              <div className="w-14 h-14 rounded-full bg-[#9fe870] text-[#163300] flex items-center justify-center mx-auto mb-4 shadow-[0_0_30px_rgba(159,232,112,0.5)]">
                 <ShieldCheck className="w-7 h-7" />
               </div>
               <h1 className="font-display-wise text-4xl sm:text-6xl font-black text-slate-100 uppercase leading-[0.85]">
