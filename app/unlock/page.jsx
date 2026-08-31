@@ -35,7 +35,7 @@ export default function UnlockPage() {
 
   const handleCheckout = async () => {
     if (!user) {
-      router.push('/signup?redirect=/unlock');
+      router.push('/signup');
       return;
     }
 
@@ -49,6 +49,11 @@ export default function UnlockPage() {
       });
 
       const data = await res.json();
+
+      if (res.status === 401 || data.error?.toLowerCase().includes('unauthenticat') || data.error?.toLowerCase().includes('unauthoriz')) {
+        router.push('/login');
+        return;
+      }
 
       if (res.ok && data.url) {
         window.location.href = data.url;
