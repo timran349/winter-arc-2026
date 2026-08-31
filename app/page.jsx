@@ -91,76 +91,80 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Visual Preview Widget */}
+        {/* Sleek Product Showcase Card */}
         <div className="mt-16 max-w-4xl mx-auto text-left">
-          <div className="frost-glass rounded-2xl p-6 sm:p-8 glow-subtle border border-white/10 relative overflow-hidden">
+          <div className="frost-glass rounded-3xl p-6 sm:p-10 border border-white/10 glow-subtle relative overflow-hidden bg-gradient-to-br from-slate-900/60 to-slate-950">
             <div className="flex items-center justify-between border-b border-white/[0.08] pb-5 mb-6">
-              <div>
-                <div className="text-xs font-mono-code text-slate-400 uppercase tracking-widest">
-                  LIVE DASHBOARD PREVIEW
-                </div>
-                <div className="font-editorial text-2xl text-slate-100 font-medium mt-1">
-                  MY WINTER ARC <span className="text-slate-500 text-base font-normal font-sans ml-2">Day 18 of 90</span>
-                </div>
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse" />
+                <span className="text-xs font-mono-code text-sky-400 uppercase tracking-widest">
+                  PRODUCT EXPERIENCE PREVIEW
+                </span>
               </div>
-              <div className="text-right">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 font-mono-code text-xs font-bold">
-                  20% COMPLETE
-                </div>
-                <div className="text-[11px] text-slate-400 font-mono-code mt-1">72 days remaining</div>
-              </div>
+              <span className="text-xs font-mono-code text-slate-500">90-Day Personal Arc</span>
             </div>
 
-            <div className="space-y-3">
-              <div className="text-xs font-mono-code text-slate-400 uppercase tracking-wider mb-2">
-                Today's Commitments ({completedCount} / 5 complete)
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+              <div className="space-y-3">
+                <h3 className="font-editorial text-2xl sm:text-3xl text-slate-100 font-normal">
+                  Track 4–6 non-negotiable personal commitments.
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  Every day, check off what you completed. If life gets busy and you miss a day, your Arc never resets. Keep building forward.
+                </p>
+                <div className="pt-2">
+                  <Link
+                    href="/signup"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-sky-400 hover:text-sky-300 font-mono-code uppercase tracking-wider"
+                  >
+                    Start Your Arc Now →
+                  </Link>
+                </div>
               </div>
 
-              {[
-                { id: 'c1', label: 'Train 45 mins', category: 'BODY' },
-                { id: 'c2', label: 'Read 20 pages', category: 'MIND' },
-                { id: 'c3', label: 'No phone before 9 AM', category: 'FOCUS' },
-                { id: 'c4', label: 'Deep work 60 mins', category: 'FOCUS' },
-                { id: 'c5', label: 'Sleep 7+ hours', category: 'BODY' }
-              ].map((item) => {
-                const checked = mockChecks[item.id];
-                return (
-                  <div
-                    key={item.id}
-                    onClick={() => toggleMock(item.id)}
-                    className={`flex items-center justify-between p-3.5 rounded-xl border transition-all cursor-pointer select-none ${
-                      checked
-                        ? 'bg-sky-500/[0.06] border-sky-500/30 text-slate-100'
-                        : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:border-white/20'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`w-5 h-5 rounded-md flex items-center justify-center transition-all ${
-                          checked
-                            ? 'bg-sky-500 text-slate-950'
-                            : 'border border-slate-700 bg-slate-900'
-                        }`}
-                      >
-                        {checked && <CheckCircle2 className="w-4 h-4 text-slate-950" />}
+              {/* Sample Interactive Checkbox Mock */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] space-y-2.5">
+                <div className="text-[11px] font-mono-code text-slate-400 uppercase tracking-wider mb-3">
+                  Sample Daily Check-In ({completedCount} / 5 complete)
+                </div>
+
+                {[
+                  { id: 'c1', label: 'Train 45 mins', category: 'BODY' },
+                  { id: 'c2', label: 'Read 20 pages', category: 'MIND' },
+                  { id: 'c3', label: 'No phone before 9 AM', category: 'FOCUS' },
+                  { id: 'c4', label: 'Deep work 60 mins', category: 'FOCUS' },
+                  { id: 'c5', label: 'Sleep 7+ hours', category: 'BODY' }
+                ].map((item) => {
+                  const checked = mockChecks[item.id];
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => toggleMock(item.id)}
+                      className={`flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer select-none ${
+                        checked
+                          ? 'bg-sky-500/[0.08] border-sky-500/30 text-slate-100'
+                          : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:border-white/20'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div
+                          className={`w-4 h-4 rounded flex items-center justify-center transition-all ${
+                            checked ? 'bg-sky-400 text-slate-950' : 'border border-slate-700 bg-slate-900'
+                          }`}
+                        >
+                          {checked && <CheckCircle2 className="w-3.5 h-3.5 text-slate-950" />}
+                        </div>
+                        <span className={`text-xs font-medium ${checked ? 'line-through text-slate-300' : ''}`}>
+                          {item.label}
+                        </span>
                       </div>
-                      <span className={`text-sm font-medium ${checked ? 'line-through text-slate-300' : ''}`}>
-                        {item.label}
+                      <span className="text-[9px] font-mono-code px-2 py-0.5 rounded bg-white/[0.04] text-slate-400">
+                        {item.category}
                       </span>
                     </div>
-                    <span className="text-[10px] font-mono-code px-2 py-0.5 rounded bg-white/[0.05] text-slate-400">
-                      {item.category}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs text-slate-400">
-              <span>Interactive Preview • Click toggles to test</span>
-              <Link href="/signup" className="text-sky-400 hover:text-sky-300 font-medium underline underline-offset-4">
-                Build Your Arc →
-              </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
