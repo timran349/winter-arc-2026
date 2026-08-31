@@ -36,22 +36,34 @@ export function getDaysRemaining(currentDay) {
 
 export function formatShortDate(dateStr) {
   if (!dateStr) return '';
-  const d = new Date(dateStr + 'T00:00:00');
-  const day = String(d.getDate()).padStart(2, '0');
-  const month = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
-  const year = String(d.getFullYear()).slice(-2);
-  return `${day} ${month} 20${year}`;
+  try {
+    const cleanDateStr = dateStr.includes('T') ? dateStr : `${dateStr}T00:00:00`;
+    const d = new Date(cleanDateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+    const year = d.getFullYear();
+    return `${day} ${month} ${year}`;
+  } catch (e) {
+    return dateStr;
+  }
 }
 
 export function formatFullDate(dateStr) {
   if (!dateStr) return '';
-  const d = new Date(dateStr + 'T00:00:00');
-  return d.toLocaleDateString('en-US', {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric'
-  });
+  try {
+    const cleanDateStr = dateStr.includes('T') ? dateStr : `${dateStr}T00:00:00`;
+    const d = new Date(cleanDateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    return d.toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  } catch (e) {
+    return dateStr;
+  }
 }
 
 export function getWeekForDay(dayNumber) {

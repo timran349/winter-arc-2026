@@ -167,74 +167,85 @@ export default function FreeContractBuilderPage() {
     }
   };
 
-  // Simulated Contract Generation Flow (2.5 seconds SaaS loading sequence)
+  // Simulated Contract Generation Flow (4.0 seconds SaaS loading sequence)
   const handleGenerateContract = () => {
-    const finalIntention =
-      intention === 'Create my own' ? customIntention || 'Become consistent' : intention;
-    const finalName = name.trim() || 'Arc Traveler';
+    try {
+      const finalIntention =
+        intention === 'Create my own' ? customIntention || 'Become consistent' : intention;
+      const finalName = name.trim() || 'Arc Traveler';
 
-    const contractData = {
-      name: finalName,
-      startDate,
-      endDate,
-      duration: 90,
-      intention: finalIntention,
-      commitments: selectedCommitments
-    };
+      const contractData = {
+        name: finalName,
+        startDate,
+        endDate,
+        duration: 90,
+        intention: finalIntention,
+        commitments: selectedCommitments
+      };
 
-    saveFreeContract(contractData);
-    trackEvent(ANALYTICS_EVENTS.CONTRACT_GENERATED, {
-      commitmentsCount: selectedCommitments.length,
-      intention: finalIntention
-    });
-
-    // Render share card canvas URL (cardType: 'contract')
-    const url = generateShareCardCanvas({
-      name: finalName,
-      startDate,
-      endDate,
-      commitments: selectedCommitments,
-      completedStats: { daysCompleted: 90, totalPercentage: 100 },
-      intention: finalIntention,
-      cardType: 'contract'
-    });
-    setShareDataUrl(url);
-
-    // Switch to Simulated Loading Mode
-    setMode('loading');
-    setGenerationProgress(0);
-    setGenerationMessageIndex(0);
-
-    // Simulated Contract Generation Flow (4.0 seconds SaaS loading sequence)
-    const messages = [
-      'Analyzing 90-day commitment trajectory...',
-      'Calculating execution density & milestone dates...',
-      'Forging official Winter Arc 2026 digital seal...',
-      'Rendering 9:16 high-res poster card...'
-    ];
-
-    // Progress timer over 4000ms (4 seconds)
-    const interval = setInterval(() => {
-      setGenerationProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        return prev + 2;
+      saveFreeContract(contractData);
+      trackEvent(ANALYTICS_EVENTS.CONTRACT_GENERATED, {
+        commitmentsCount: selectedCommitments.length,
+        intention: finalIntention
       });
-    }, 80);
 
-    const msgInterval = setInterval(() => {
-      setGenerationMessageIndex((prev) => (prev < messages.length - 1 ? prev + 1 : prev));
-    }, 1000);
+      // Render share card canvas URL (cardType: 'contract')
+      if (typeof window !== 'undefined') {
+        try {
+          const url = generateShareCardCanvas({
+            name: finalName,
+            startDate,
+            endDate,
+            commitments: selectedCommitments,
+            completedStats: { daysCompleted: 90, totalPercentage: 100 },
+            intention: finalIntention,
+            cardType: 'contract'
+          });
+          if (url) setShareDataUrl(url);
+        } catch (canvasErr) {
+          console.error('Canvas error:', canvasErr);
+        }
+      }
 
-    // Transition to Result Screen at 4000ms (4 seconds)
-    setTimeout(() => {
-      clearInterval(interval);
-      clearInterval(msgInterval);
+      // Switch to Simulated Loading Mode
+      setMode('loading');
+      setGenerationProgress(0);
+      setGenerationMessageIndex(0);
+
+      // Simulated Contract Generation Flow (4.0 seconds SaaS loading sequence)
+      const messages = [
+        'Analyzing 90-day commitment trajectory...',
+        'Calculating execution density & milestone dates...',
+        'Forging official Winter Arc 2026 digital seal...',
+        'Rendering 9:16 high-res poster card...'
+      ];
+
+      // Progress timer over 4000ms (4 seconds)
+      const interval = setInterval(() => {
+        setGenerationProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            return 100;
+          }
+          return prev + 2;
+        });
+      }, 80);
+
+      const msgInterval = setInterval(() => {
+        setGenerationMessageIndex((prev) => (prev < messages.length - 1 ? prev + 1 : prev));
+      }, 1000);
+
+      // Transition to Result Screen at 4000ms (4 seconds)
+      setTimeout(() => {
+        clearInterval(interval);
+        clearInterval(msgInterval);
+        setMode('result');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 4100);
+    } catch (err) {
+      console.error('Error handling generate contract:', err);
       setMode('result');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 4100);
+    }
   };
 
   // Download contract image
