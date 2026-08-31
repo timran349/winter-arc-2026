@@ -27,18 +27,34 @@ export function trackEvent(eventName, payload = {}) {
     // Log to console for development visibility
     console.log(`[Analytics Event] ${eventName}`, eventData);
 
-    // Save to localStorage history
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const existing = JSON.parse(localStorage.getItem('winter_arc_analytics') || '[]');
-      existing.push(eventData);
-      localStorage.setItem('winter_arc_analytics', JSON.stringify(existing.slice(-100)));
+    // Save to localStorage history safely
+    if (typeof window !== 'undefined') {
+      try {
+        const raw = localStorage.getItem('winter_arc_analytics');
+        let existing = [];
+        if (raw) {
+          try {
+            existing = JSON.parse(raw);
+          } catch (e) {
+            existing = [];
+          }
+        }
+        if (!Array.isArray(existing)) existing = [];
+        existing.push(eventData);
+        localStorage.setItem('winter_arc_analytics', JSON.stringify(existing.slice(-100)));
+      } catch (storageErr) {
+        // Silently ignore private browsing or storage quota errors
+      }
     }
 
-    // Call window.gtag or va if available
+    // Call window.va if Vercel Analytics is present
     if (typeof window !== 'undefined' && window.va) {
-      window.va('event', { name: eventName, data: payload });
+      try {
+        window.va('event', { name: eventName, data: payload });
+      } catch (e) {}
     }
   } catch (err) {
+    // Never let analytics error crash the app
     console.warn('Analytics tracking error:', err);
   }
 }

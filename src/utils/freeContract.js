@@ -9,12 +9,12 @@ export function saveFreeContract(data) {
   if (typeof window === 'undefined') return;
   try {
     const payload = {
-      name: data.name || 'Tushar',
-      startDate: data.startDate || '2026-10-01',
-      endDate: data.endDate || '2026-12-29',
-      duration: Number(data.duration) || 90,
-      intention: data.intention || 'Get focused',
-      commitments: data.commitments || [],
+      name: data?.name || 'Arc Traveler',
+      startDate: data?.startDate || '2026-10-01',
+      endDate: data?.endDate || '2026-12-29',
+      duration: Number(data?.duration) || 90,
+      intention: data?.intention || 'Get focused',
+      commitments: Array.isArray(data?.commitments) ? data.commitments : [],
       createdAt: new Date().toISOString()
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
@@ -27,7 +27,9 @@ export function getFreeContract() {
   if (typeof window === 'undefined') return null;
   try {
     const item = localStorage.getItem(STORAGE_KEY);
-    return item ? JSON.parse(item) : null;
+    if (!item || item === 'undefined' || item === 'null') return null;
+    const parsed = JSON.parse(item);
+    return typeof parsed === 'object' && parsed !== null ? parsed : null;
   } catch (err) {
     console.error('Error reading free contract from localStorage:', err);
     return null;
