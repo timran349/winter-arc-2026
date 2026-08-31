@@ -1,0 +1,90 @@
+// Winter Arc 2026 Prisma Schema
+// Database: Neon Postgres (or SQLite local fallback)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  arcs         Arc[]
+  sessions     Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Arc {
+  id          String         @id @default(cuid())
+  userId      String
+  startDate   String         // e.g. "2026-10-01"
+  duration    Int            @default(90)
+  intention   String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  commitments Commitment[]
+  checkIns    DailyCheckIn[]
+  reviews     WeeklyReview[]
+
+  @@index([userId])
+}
+
+model Commitment {
+  id        String         @id @default(cuid())
+  arcId     String
+  name      String
+  category  String?
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  arc       Arc            @relation(fields: [arcId], references: [id], onDelete: Cascade)
+  checkIns  DailyCheckIn[]
+
+  @@index([arcId])
+}
+
+model DailyCheckIn {
+  id           String     @id @default(cuid())
+  arcId        String
+  commitmentId String
+  date         String     // e.g. "2026-10-18"
+  completed    Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  arc          Arc        @relation(fields: [arcId], references: [id], onDelete: Cascade)
+  commitment   Commitment @relation(fields: [commitmentId], references: [id], onDelete: Cascade)
+
+  @@unique([arcId, commitmentId, date])
+  @@index([arcId, date])
+}
+
+model WeeklyReview {
+  id         String   @id @default(cuid())
+  arcId      String
+  weekNumber Int
+  wentWell   String?  @db.Text
+  obstacles  String?  @db.Text
+  nextWeek   String?  @db.Text
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  arc        Arc      @relation(fields: [arcId], references: [id], onDelete: Cascade)
+
+  @@unique([arcId, weekNumber])
+  @@index([arcId])
+}
