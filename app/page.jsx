@@ -158,8 +158,8 @@ export default function Home() {
 
             <div className="mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs text-slate-400">
               <span>Interactive Preview • Click toggles to test</span>
-              <Link href="/dashboard" className="text-sky-400 hover:text-sky-300 font-medium underline underline-offset-4">
-                Launch App →
+              <Link href="/signup" className="text-sky-400 hover:text-sky-300 font-medium underline underline-offset-4">
+                Build Your Arc →
               </Link>
             </div>
           </div>
