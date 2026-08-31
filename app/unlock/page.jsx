@@ -191,10 +191,10 @@ export default function UnlockPage() {
             </div>
           )}
 
-          {configMissing ? (
+          {configMissing || errorMsg?.includes('Lemon Squeezy API Error') ? (
             <div className="space-y-3">
               <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-mono-code leading-relaxed">
-                💡 <strong>Founder Note:</strong> Add your <code>LEMON_SQUEEZY_*</code> environment variables to Vercel to launch live checkouts. Click below to test unlocking access right now:
+                💡 <strong>Founder Note:</strong> Lemon Squeezy API key is invalid/unauthenticated in Vercel. Generate a new key at <code>app.lemonsqueezy.com/settings/api-keys</code> and update Vercel. Or click below to test unlocking access right now:
               </div>
               <button
                 onClick={handleTestUnlock}
