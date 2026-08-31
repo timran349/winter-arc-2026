@@ -63,6 +63,12 @@
       "namedRegex": "^/onboarding(?:/)?$"
     },
     {
+      "page": "/payment/success",
+      "regex": "^/payment/success(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/payment/success(?:/)?$"
+    },
+    {
       "page": "/progress",
       "regex": "^/progress(?:/)?$",
       "routeKeys": {},
@@ -79,6 +85,12 @@
       "regex": "^/signup(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/signup(?:/)?$"
+    },
+    {
+      "page": "/unlock",
+      "regex": "^/unlock(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/unlock(?:/)?$"
     }
   ],
   "dataRoutes": [],

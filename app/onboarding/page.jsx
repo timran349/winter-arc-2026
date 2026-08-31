@@ -107,7 +107,7 @@ export default function OnboardingPage() {
         return;
       }
 
-      router.push('/dashboard');
+      router.push(user?.accessStatus === 'PAID' ? '/dashboard' : '/arc');
     } catch (err) {
       setError('Something went wrong creating your Arc.');
       setSubmitting(false);

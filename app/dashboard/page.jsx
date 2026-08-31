@@ -41,6 +41,11 @@ export default function DashboardPage() {
           return;
         }
 
+        if (meData.user.accessStatus !== 'PAID') {
+          router.push('/unlock');
+          return;
+        }
+
         setUser(meData.user);
 
         const arcRes = await fetch('/api/arc');

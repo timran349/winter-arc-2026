@@ -9,6 +9,13 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    if (user.accessStatus !== 'PAID') {
+      return NextResponse.json(
+        { error: 'Paid access required for daily check-ins.' },
+        { status: 403 }
+      );
+    }
+
     const arc = await prisma.arc.findFirst({
       where: { userId: user.id },
       orderBy: { createdAt: 'desc' }
@@ -34,6 +41,13 @@ export async function POST(req) {
     const user = await getSessionUser();
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    if (user.accessStatus !== 'PAID') {
+      return NextResponse.json(
+        { error: 'Paid access required for daily check-ins.' },
+        { status: 403 }
+      );
     }
 
     const { date, completedCommitmentIds } = await req.json();

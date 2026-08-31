@@ -24,6 +24,11 @@ export default function ProgressPage() {
           return;
         }
 
+        if (meData.user.accessStatus !== 'PAID') {
+          router.push('/unlock');
+          return;
+        }
+
         const arcRes = await fetch('/api/arc');
         const arcData = await arcRes.json();
         if (!arcData.arc) {

@@ -60,6 +60,7 @@ export async function getSessionUser() {
             id: true,
             name: true,
             email: true,
+            accessStatus: true,
             createdAt: true
           }
         }
