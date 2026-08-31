@@ -41,28 +41,28 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07080a] flex items-center justify-center p-4">
-      <div className="w-full max-w-md frost-glass rounded-3xl p-8 border border-white/10 shadow-2xl space-y-8">
+    <div className="min-h-screen bg-[#0b0c0a] flex items-center justify-center p-4">
+      <div className="w-full max-w-md card-wise p-8 sm:p-10 space-y-8">
         <div className="text-center">
           <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
-            <div className="w-10 h-10 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center group-hover:border-sky-500/50 transition-colors">
-              <Flame className="w-5 h-5 text-sky-400" />
+            <div className="w-10 h-10 rounded-full bg-[#9fe870] flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Flame className="w-5 h-5 text-[#163300]" />
             </div>
           </Link>
-          <h1 className="font-editorial text-3xl font-normal text-slate-100">Start Your Arc</h1>
-          <p className="text-slate-400 text-xs mt-1">Create an account to begin your 90 days before January.</p>
+          <h1 className="font-display-wise text-4xl font-black text-slate-100 uppercase leading-[0.88]">Start Your Arc</h1>
+          <p className="text-slate-400 text-xs font-semibold mt-2">Create an account to begin your 90 days before January.</p>
         </div>
 
         {error && (
-          <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2 font-mono-code">
-            <AlertCircle className="w-4 h-4 shrink-0" />
+          <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2 font-mono-code leading-relaxed">
+            <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
             <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Your Name</label>
+            <label className="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider font-mono-code">Your Name</label>
             <div className="relative">
               <input
                 type="text"
@@ -70,14 +70,14 @@ export default function SignupPage() {
                 placeholder="Marcus Vance"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full bg-slate-900 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-sky-500 transition-colors"
+                className="w-full bg-[#161813] border border-white/10 rounded-full pl-10 pr-4 py-3.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870] transition-all font-medium"
               />
               <User className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Email Address</label>
+            <label className="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider font-mono-code">Email Address</label>
             <div className="relative">
               <input
                 type="email"
@@ -85,14 +85,14 @@ export default function SignupPage() {
                 placeholder="you@domain.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-slate-900 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-sky-500 transition-colors"
+                className="w-full bg-[#161813] border border-white/10 rounded-full pl-10 pr-4 py-3.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870] transition-all font-medium"
               />
               <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
+            <label className="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider font-mono-code">Password</label>
             <div className="relative">
               <input
                 type="password"
@@ -100,7 +100,7 @@ export default function SignupPage() {
                 placeholder="Min 6 characters"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-slate-900 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-sky-500 transition-colors"
+                className="w-full bg-[#161813] border border-white/10 rounded-full pl-10 pr-4 py-3.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870] transition-all font-medium"
               />
               <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
             </div>
@@ -109,16 +109,16 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition-all shadow-[0_0_20px_rgba(56,189,248,0.4)] disabled:opacity-50 flex items-center justify-center gap-2 mt-2"
+            className="btn-wise-primary w-full py-4 text-sm font-extrabold gap-2 mt-4 disabled:opacity-50"
           >
-            {loading ? 'Creating account...' : 'Build My Arc'}
-            <ArrowRight className="w-4 h-4" />
+            <span>{loading ? 'Creating account...' : 'Build My Arc'}</span>
+            <ArrowRight className="w-4 h-4 text-[#163300]" />
           </button>
         </form>
 
-        <div className="text-center text-xs text-slate-500 border-t border-white/[0.08] pt-4">
+        <div className="text-center text-xs text-slate-400 border-t border-white/[0.08] pt-4 font-semibold">
           Already have an Arc account?{' '}
-          <Link href="/login" className="text-sky-400 hover:text-sky-300 font-medium underline underline-offset-4">
+          <Link href="/login" className="text-[#9fe870] hover:underline font-bold">
             Sign in
           </Link>
         </div>

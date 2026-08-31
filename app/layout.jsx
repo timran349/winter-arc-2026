@@ -12,11 +12,11 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@700;900&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#07080a] text-[#f1f5f9] antialiased selection:bg-[#38bdf8]/20 selection:text-[#38bdf8] font-sans min-h-screen">
+      <body className="bg-[#0b0c0a] text-[#f4f6f3] antialiased selection:bg-[#9fe870] selection:text-[#163300] font-sans min-h-screen">
         {children}
       </body>
     </html>

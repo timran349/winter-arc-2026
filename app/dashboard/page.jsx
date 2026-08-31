@@ -173,30 +173,30 @@ export default function DashboardPage() {
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 w-full">
         {/* HERO PROGRESS CARD */}
-        <div className="frost-glass rounded-3xl p-6 sm:p-10 border border-white/10 glow-subtle relative overflow-hidden bg-gradient-to-br from-slate-900/80 via-[#0f1117]/90 to-[#07080a]">
+        <div className="card-wise p-6 sm:p-10 relative overflow-hidden bg-gradient-to-br from-[#131610] via-[#0e100c] to-[#0b0c0a]">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 font-mono-code text-xs mb-3">
-                <Flame className="w-3.5 h-3.5" /> MY WINTER ARC
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e2f6d5] text-[#163300] font-mono-code text-xs font-bold mb-4">
+                <Flame className="w-3.5 h-3.5 text-[#163300]" /> MY WINTER ARC
               </div>
 
-              <h1 className="font-editorial text-4xl sm:text-6xl font-normal text-slate-100 tracking-tight">
-                Day {simulatedDayNum} <span className="text-slate-500 text-3xl sm:text-5xl font-light">of 90</span>
+              <h1 className="font-display-wise text-5xl sm:text-7xl font-black text-slate-100 uppercase tracking-tight leading-[0.85]">
+                <span className="text-[#9fe870]">Day {simulatedDayNum}</span> <span className="text-slate-400 font-extrabold text-3xl sm:text-5xl">of 90</span>
               </h1>
 
-              <div className="flex flex-wrap items-center gap-4 text-xs font-mono-code text-slate-400 mt-2">
-                <span>{daysRemaining} days remaining</span>
+              <div className="flex flex-wrap items-center gap-4 text-xs font-mono-code text-slate-300 font-semibold mt-4">
+                <span className="text-[#9fe870] font-bold">{daysRemaining} days remaining</span>
                 <span>•</span>
-                <span className="text-slate-300 font-medium">{formatFullDate(currentDateStr)}</span>
+                <span className="text-slate-300">{formatFullDate(currentDateStr)}</span>
               </div>
 
-              <p className="text-slate-400 text-xs sm:text-sm font-editorial italic mt-4">
+              <p className="text-slate-300 text-xs sm:text-sm font-semibold mt-4 font-mono-code uppercase tracking-wide border-l-2 border-[#9fe870] pl-3 py-0.5">
                 "{arc?.intention || 'Start before January. Finish with proof.'}"
               </p>
             </div>
 
             {/* CIRCULAR PROGRESS RING */}
-            <div className="flex items-center gap-6 p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] shrink-0">
+            <div className="flex items-center gap-6 p-6 rounded-[24px] bg-[#0b0c0a] border border-white/[0.08] shrink-0">
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
                   <circle cx="50" cy="50" r="42" className="stroke-slate-800" strokeWidth="8" fill="none" />
@@ -204,7 +204,7 @@ export default function DashboardPage() {
                     cx="50"
                     cy="50"
                     r="42"
-                    className="stroke-sky-400 transition-all duration-1000"
+                    className="stroke-[#9fe870] transition-all duration-1000"
                     strokeWidth="8"
                     strokeDasharray="264"
                     strokeDashoffset={264 - (264 * arcProgressPct) / 100}
@@ -213,25 +213,25 @@ export default function DashboardPage() {
                   />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                  <span className="font-mono-code font-bold text-xl sm:text-2xl text-slate-100">
+                  <span className="font-display-wise font-black text-2xl sm:text-3xl text-slate-100">
                     {arcProgressPct}%
                   </span>
-                  <span className="text-[9px] font-mono-code text-sky-400 uppercase tracking-widest -mt-1">
+                  <span className="text-[9px] font-mono-code text-[#9fe870] uppercase tracking-widest font-bold -mt-1">
                     COMPLETE
                   </span>
                 </div>
               </div>
 
               <div className="space-y-1">
-                <div className="text-xs font-mono-code text-slate-400">Week {currentWeekNum} of 12</div>
-                <div className="text-sm font-semibold text-slate-200 font-editorial">
+                <div className="text-xs font-mono-code text-slate-400 font-bold uppercase">Week {currentWeekNum} of 12</div>
+                <div className="text-sm font-bold text-slate-200">
                   You're still in the Arc.
                 </div>
                 <button
                   onClick={() => setIsReviewModalOpen(true)}
-                  className="inline-flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300 font-mono-code pt-1 underline underline-offset-4"
+                  className="inline-flex items-center gap-1 text-xs text-[#9fe870] font-mono-code font-bold pt-1 hover:underline"
                 >
-                  Week {currentWeekNum} Review <ArrowUpRight className="w-3 h-3" />
+                  Week {currentWeekNum} Review <ArrowUpRight className="w-3.5 h-3.5 text-[#9fe870]" />
                 </button>
               </div>
             </div>

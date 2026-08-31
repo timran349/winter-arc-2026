@@ -60,21 +60,21 @@ export default function ArcPage() {
       />
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
         {user?.accessStatus !== 'PAID' && (
-          <div className="frost-glass rounded-3xl p-6 sm:p-8 border border-sky-500/30 bg-gradient-to-r from-sky-950/40 via-slate-900 to-slate-950 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[0_0_30px_rgba(56,189,248,0.15)]">
+          <div className="card-wise p-6 sm:p-8 bg-gradient-to-r from-[#141712] via-[#0e100c] to-[#0b0c0a] flex flex-col sm:flex-row items-center justify-between gap-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 font-mono-code text-xs mb-2">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e2f6d5] text-[#163300] font-mono-code text-xs font-bold mb-3">
                 YOUR ARC IS READY
               </div>
-              <h2 className="font-editorial text-2xl sm:text-3xl text-slate-100 font-normal">
+              <h2 className="font-display-wise text-3xl sm:text-4xl text-slate-100 font-black uppercase leading-[0.88]">
                 Now make it real.
               </h2>
-              <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl font-sans">
+              <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl font-semibold">
                 Track 90 days. Review every week. See your progress. Finish with proof.
               </p>
             </div>
             <button
               onClick={() => router.push('/unlock')}
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition-all shadow-[0_0_20px_rgba(56,189,248,0.4)] shrink-0 flex items-center justify-center gap-2"
+              className="btn-wise-primary w-full sm:w-auto px-6 py-3.5 text-xs font-extrabold shrink-0"
             >
               <span>UNLOCK MY ARC — $19</span>
             </button>
