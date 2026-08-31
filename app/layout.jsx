@@ -3,12 +3,16 @@ import '../src/index.css';
 export const metadata = {
   title: 'WINTER ARC 2026 — Start before January. Finish with proof.',
   description: '90-day personal accountability experience. Choose 4–6 commitments, track them daily, and finish with proof before the new year.',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
       <head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

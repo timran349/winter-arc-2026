@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Flame, ShieldCheck, CheckCircle2, ArrowRight, Lock, Sparkles, Loader2 } from 'lucide-react';
+import { trackEvent, ANALYTICS_EVENTS } from '@/src/utils/analytics';
 
 export default function UnlockPage() {
   const router = useRouter();
@@ -34,8 +35,9 @@ export default function UnlockPage() {
   }, [router]);
 
   const handleCheckout = async () => {
+    trackEvent(ANALYTICS_EVENTS.CHECKOUT_STARTED);
     if (!user) {
-      router.push('/signup');
+      router.push('/signup?redirect=/unlock');
       return;
     }
 

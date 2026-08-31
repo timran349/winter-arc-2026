@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Flame, ArrowRight, Lock, Mail, AlertCircle } from 'lucide-react';
+import { getFreeContract } from '@/src/utils/freeContract';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -33,10 +34,39 @@ export default function LoginPage() {
       }
 
       // Check if user has an active Arc
-      const arcRes = await fetch('/api/arc');
-      const arcData = await arcRes.json();
+      let arcRes = await fetch('/api/arc');
+      let arcData = await arcRes.json();
 
-      if (arcData?.arc) {
+      // If user has no Arc but has a saved free contract in localStorage, transfer it!
+      if (!arcData?.arc) {
+        const freeContract = getFreeContract();
+        if (freeContract && freeContract.commitments && freeContract.commitments.length >= 4) {
+          try {
+            await fetch('/api/arc', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                startDate: freeContract.startDate || '2026-10-01',
+                duration: freeContract.duration || 90,
+                intention: freeContract.intention || 'Get focused',
+                commitments: freeContract.commitments
+              })
+            });
+            arcRes = await fetch('/api/arc');
+            arcData = await arcRes.json();
+          } catch (arcErr) {
+            console.error('Failed to transfer free contract on login:', arcErr);
+          }
+        }
+      }
+
+      // Honor redirect parameter if present
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirectUrl = urlParams.get('redirect');
+
+      if (redirectUrl) {
+        router.push(redirectUrl);
+      } else if (arcData?.arc) {
         router.push('/dashboard');
       } else {
         router.push('/onboarding');

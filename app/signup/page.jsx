@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Flame, ArrowRight, Lock, Mail, User, AlertCircle } from 'lucide-react';
+import { getFreeContract } from '@/src/utils/freeContract';
+import { trackEvent, ANALYTICS_EVENTS } from '@/src/utils/analytics';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -17,6 +19,7 @@ export default function SignupPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
+    trackEvent(ANALYTICS_EVENTS.SIGNUP_STARTED);
 
     try {
       const res = await fetch('/api/auth/signup', {
@@ -33,7 +36,31 @@ export default function SignupPage() {
         return;
       }
 
-      router.push('/onboarding');
+      trackEvent(ANALYTICS_EVENTS.SIGNUP_COMPLETED);
+
+      // Automatically migrate free contract from localStorage if present
+      const freeContract = getFreeContract();
+      if (freeContract && freeContract.commitments && freeContract.commitments.length >= 4) {
+        try {
+          await fetch('/api/arc', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              startDate: freeContract.startDate || '2026-10-01',
+              duration: freeContract.duration || 90,
+              intention: freeContract.intention || 'Get focused',
+              commitments: freeContract.commitments
+            })
+          });
+        } catch (arcErr) {
+          console.error('Failed to auto-save free contract to user account:', arcErr);
+        }
+      }
+
+      // Check URL query parameters for redirect
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirectUrl = urlParams.get('redirect') || '/onboarding';
+      router.push(redirectUrl);
     } catch (err) {
       setError('Something went wrong. Please try again.');
       setLoading(false);

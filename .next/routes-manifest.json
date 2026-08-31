@@ -45,6 +45,12 @@
       "namedRegex": "^/arc/complete(?:/)?$"
     },
     {
+      "page": "/build",
+      "regex": "^/build(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/build(?:/)?$"
+    },
+    {
       "page": "/dashboard",
       "regex": "^/dashboard(?:/)?$",
       "routeKeys": {},
