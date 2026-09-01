@@ -18,8 +18,13 @@ export default function ReviewsPage() {
   useEffect(() => {
     async function loadData() {
       try {
-        const meRes = await fetch('/api/auth/me');
+        const [meRes, arcRes] = await Promise.all([
+          fetch('/api/auth/me'),
+          fetch('/api/arc')
+        ]);
         const meData = await meRes.json();
+        const arcData = await arcRes.json();
+
         if (!meData.user) {
           router.push('/login');
           return;
@@ -30,8 +35,6 @@ export default function ReviewsPage() {
           return;
         }
 
-        const arcRes = await fetch('/api/arc');
-        const arcData = await arcRes.json();
         if (!arcData.arc) {
           router.push('/onboarding');
           return;

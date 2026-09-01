@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Flame, Calendar, BarChart3, BookOpen, ShieldCheck, UserCheck, LogOut } from 'lucide-react';
@@ -10,12 +12,26 @@ export default function Navbar({
   onLogout
 }) {
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState(currentView || 'dashboard');
+
+  useEffect(() => {
+    if (currentView) {
+      setActiveTab(currentView);
+    }
+  }, [currentView]);
+
+  // Warm up page caches in the browser background for instant transitions
+  useEffect(() => {
+    router.prefetch('/dashboard');
+    router.prefetch('/progress');
+    router.prefetch('/reviews');
+    router.prefetch('/arc');
+  }, [router]);
 
   const handleNavClick = (viewId) => {
+    setActiveTab(viewId);
     if (setCurrentView) {
       setCurrentView(viewId);
-    } else {
-      router.push(`/${viewId === 'dashboard' ? 'dashboard' : viewId}`);
     }
   };
 
@@ -28,12 +44,20 @@ export default function Navbar({
     }
   };
 
+  const navItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: Flame, href: '/dashboard' },
+    { id: 'progress', label: 'Progress', icon: BarChart3, href: '/progress' },
+    { id: 'reviews', label: 'Weekly Reviews', icon: BookOpen, href: '/reviews' },
+    { id: 'arc', label: 'My Arc', icon: ShieldCheck, href: '/arc' }
+  ];
+
   return (
     <header className="sticky top-0 z-40 w-full border-b border-zinc-200/60 bg-white/80 backdrop-blur-md">
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
         {/* Brand Logo */}
-        <div
+        <Link
+          href="/dashboard"
           onClick={() => handleNavClick('dashboard')}
           className="flex items-center gap-2.5 cursor-pointer group"
         >
@@ -45,23 +69,20 @@ export default function Navbar({
               Arc 90
             </span>
           </div>
-        </div>
+        </Link>
 
         {/* View Tabs */}
         <nav className="hidden md:flex items-center gap-1 bg-zinc-100/80 border border-zinc-200/80 p-1 rounded-full">
-          {[
-            { id: 'dashboard', label: 'Dashboard', icon: Flame },
-            { id: 'progress', label: 'Progress', icon: BarChart3 },
-            { id: 'reviews', label: 'Weekly Reviews', icon: BookOpen },
-            { id: 'arc', label: 'My Arc', icon: ShieldCheck }
-          ].map((tab) => {
+          {navItems.map((tab) => {
             const Icon = tab.icon;
-            const isActive = currentView === tab.id;
+            const isActive = activeTab === tab.id;
             return (
-              <button
+              <Link
                 key={tab.id}
+                href={tab.href}
+                prefetch={true}
                 onClick={() => handleNavClick(tab.id)}
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-medium transition-all duration-200 active:scale-95 ${
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-medium transition-all duration-150 active:scale-95 ${
                   isActive
                     ? 'bg-zinc-900 text-white shadow-sm scale-105'
                     : 'text-zinc-500 hover:text-zinc-900 hover:bg-white'
@@ -69,7 +90,7 @@ export default function Navbar({
               >
                 <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-zinc-400'}`} />
                 {tab.label}
-              </button>
+              </Link>
             );
           })}
         </nav>
@@ -78,13 +99,14 @@ export default function Navbar({
         <div className="flex items-center gap-3">
           {userProfile ? (
             <div className="flex items-center gap-2">
-              <button
+              <Link
+                href="/arc"
                 onClick={() => handleNavClick('arc')}
                 className="flex items-center gap-2 text-xs text-zinc-700 bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 px-4 py-1.5 rounded-full transition-all hover:scale-105 active:scale-95"
               >
                 <UserCheck className="w-3.5 h-3.5 text-[#FF4500]" />
                 <span className="font-semibold">{userProfile.name}</span>
-              </button>
+              </Link>
               <button
                 onClick={handleSignOut}
                 className="p-2 text-zinc-400 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-all active:scale-90"
@@ -106,17 +128,14 @@ export default function Navbar({
 
       {/* Mobile Bottom Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 border-t border-zinc-200 backdrop-blur-lg px-2 py-2 flex items-center justify-around">
-        {[
-          { id: 'dashboard', label: 'Home', icon: Flame },
-          { id: 'progress', label: 'Progress', icon: BarChart3 },
-          { id: 'reviews', label: 'Reviews', icon: BookOpen },
-          { id: 'arc', label: 'Arc', icon: ShieldCheck }
-        ].map((tab) => {
+        {navItems.map((tab) => {
           const Icon = tab.icon;
-          const isActive = currentView === tab.id;
+          const isActive = activeTab === tab.id;
           return (
-            <button
+            <Link
               key={tab.id}
+              href={tab.href}
+              prefetch={true}
               onClick={() => handleNavClick(tab.id)}
               className={`flex flex-col items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-semibold transition-all active:scale-95 ${
                 isActive ? 'text-[#FF4500]' : 'text-zinc-400 hover:text-zinc-900'
@@ -124,7 +143,7 @@ export default function Navbar({
             >
               <Icon className="w-4 h-4" />
               {tab.label}
-            </button>
+            </Link>
           );
         })}
       </div>
