@@ -42,7 +42,7 @@ export default function Navbar({
           </div>
           <div>
             <span className="font-fraunces text-lg tracking-tight font-medium text-zinc-900 group-hover:text-[#FF4500] transition-colors">
-              Stalkr Arc
+              Arc 90
             </span>
           </div>
         </div>

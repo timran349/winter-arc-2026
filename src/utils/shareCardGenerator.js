@@ -77,7 +77,7 @@ export function generateShareCardCanvas({
     ctx.textAlign = 'center';
     ctx.fillStyle = '#FF4500';
     ctx.font = '700 24px "JetBrains Mono", monospace';
-    ctx.fillText('STALKR ARC • WINTER ARC 90', 540, 180);
+    ctx.fillText('ARC 90', 540, 180);
 
     // 3. Main Title Badge: MY CONTRACT (Day 0) vs COMPLETE (Day 90)
     ctx.fillStyle = '#FF4500';

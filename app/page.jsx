@@ -41,12 +41,12 @@ export default function Home() {
 
   const faqs = [
     {
-      q: 'What is Winter Arc 90?',
-      a: 'Winter Arc 90 is a 90-day personal accountability run. You choose 4–6 non-negotiable commitments to execute consistently before the new year.'
+      q: 'What is Arc 90?',
+      a: 'Arc 90 is a 90-day personal accountability run. You choose 4–6 non-negotiable commitments to execute consistently before the new year.'
     },
     {
       q: 'How long is it?',
-      a: 'Winter Arc lasts exactly 90 days.'
+      a: 'Arc 90 lasts exactly 90 days.'
     },
     {
       q: 'How many commitments can I choose?',
@@ -58,11 +58,11 @@ export default function Home() {
     },
     {
       q: 'Do I have to start October 1?',
-      a: 'October 1, 2026 is the main launch date for the Winter Arc movement, but late joiners can start November 1, 2026 or any day they choose before January.'
+      a: 'October 1, 2026 is the main launch date for Arc 90, but late joiners can start November 1, 2026 or any day they choose before January.'
     },
     {
       q: 'Is the contract really free?',
-      a: 'Yes. Building, customizing, downloading, and sharing your personal Winter Arc contract card is 100% free with no account or credit card required.'
+      a: 'Yes. Building, customizing, downloading, and sharing your personal Arc 90 contract card is 100% free with no account or credit card required.'
     },
     {
       q: 'What do I get for $19?',
@@ -70,7 +70,7 @@ export default function Home() {
     },
     {
       q: 'Is this 75 Hard?',
-      a: 'No. Winter Arc is built for real-world consistency with your own rules, not arbitrary extreme constraints or forced restarts.'
+      a: 'No. Arc 90 is built for real-world consistency with your own rules, not arbitrary extreme constraints or forced restarts.'
     },
     {
       q: 'Can I join after October 1?',
@@ -88,7 +88,7 @@ export default function Home() {
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 stalkr-grain opacity-60 z-0"></div>
       <div aria-hidden="true" className="pointer-events-none absolute -top-64 left-1/2 h-[700px] w-[1200px] -translate-x-1/2 rounded-[9999px] bg-gradient-to-b from-zinc-100/80 to-transparent blur-3xl z-0"></div>
 
-      {/* HEADER / NAVIGATION (STALKR LIGHT GLASS HEADER) */}
+      {/* HEADER / NAVIGATION */}
       <header className="sticky top-0 z-40 w-full border-b border-zinc-200/60 bg-white/80 backdrop-blur-md">
         <div className="max-w-[1200px] mx-auto px-6 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
@@ -96,7 +96,7 @@ export default function Home() {
               <Flame className="w-4 h-4 text-[#FF4500]" />
             </span>
             <span className="font-fraunces font-medium tracking-[-0.01em] text-zinc-900 text-[18px]">
-              Stalkr Arc
+              Arc 90
             </span>
           </Link>
 
@@ -122,7 +122,7 @@ export default function Home() {
             <Link
               href="/build"
               onClick={handleHeroCtaClick}
-              className="group flex items-center gap-1.5 rounded-full bg-zinc-900 px-4 py-2 text-[14px] font-medium text-white transition-all hover:bg-zinc-800 active:scale-95"
+              className="group flex items-center gap-1.5 rounded-full bg-zinc-900 px-4 py-2 text-[14px] font-medium text-white transition-all hover:bg-zinc-800 active:scale-95 shadow-sm"
             >
               <span>Build My Arc</span>
               <ArrowRight className="w-3.5 h-3.5 text-white transition-transform group-hover:translate-x-0.5" />
@@ -133,28 +133,22 @@ export default function Home() {
 
       {/* MAIN CONTENT */}
       <main className="relative z-10 flex-1">
-        {/* ====================================================================
-           1. HERO SECTION & LIVE HERO CONTRACT PREVIEW
-           ==================================================================== */}
+        {/* HERO SECTION */}
         <section className="max-w-[1200px] mx-auto px-6 pt-16 sm:pt-24 pb-20 text-center">
-          {/* Eyebrow Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-zinc-200 bg-white text-[#FF4500] text-[11px] font-semibold uppercase tracking-[0.18em] mb-6 shadow-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-[#FF4500] animate-pulse"></span>
-            <span>WINTER ARC 2026 SYSTEM</span>
+            <span>ARC 90 SYSTEM</span>
           </div>
 
-          {/* Headline with Fraunces Accent */}
           <h1 className="font-funnel text-[32px] sm:text-[46px] md:text-[58px] lg:text-[64px] font-semibold leading-[1.01] tracking-[-0.035em] text-zinc-900 uppercase max-w-5xl mx-auto">
             START BEFORE JANUARY. <br />
             <span className="font-fraunces text-[#FF4500] normal-case italic font-normal tracking-tight">Finish with proof.</span>
           </h1>
 
-          {/* Subhead */}
           <p className="mt-6 text-[16px] md:text-[17px] text-zinc-500 max-w-2xl mx-auto font-sans font-normal leading-[1.55]">
-            Build your Winter Arc in 30 seconds. Choose 4–6 commitments, generate your contract, and lock in your 90-day run.
+            Build your Arc 90 contract in 30 seconds. Choose 4–6 commitments, generate your contract, and lock in your 90-day run.
           </p>
 
-          {/* CTAs & Microcopy */}
           <div className="mt-8 flex flex-col items-center justify-center gap-3">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
               <Link
@@ -162,7 +156,7 @@ export default function Home() {
                 onClick={handleHeroCtaClick}
                 className="group flex h-12 shrink-0 items-center justify-center gap-2 rounded-full px-7 text-[15px] font-medium bg-zinc-900 text-white hover:bg-zinc-800 active:scale-95 transition-all shadow-md w-full sm:w-auto"
               >
-                <span>BUILD MY WINTER ARC</span>
+                <span>BUILD MY ARC 90</span>
                 <ArrowRight className="w-4 h-4 text-white transition-transform group-hover:translate-x-0.5" />
               </Link>
 
@@ -189,14 +183,12 @@ export default function Home() {
               <span className="text-zinc-400 font-sans text-xs">Edit name below</span>
             </div>
 
-            {/* STALKR LIGHT CARD POSTER */}
             <div className="card-wise p-6 sm:p-10 space-y-6 bg-white border border-zinc-200/80 shadow-[0_30px_80px_-30px_rgba(24,24,27,0.15)] relative overflow-hidden rounded-2xl">
               <div className="text-center border-b border-zinc-100 pb-5">
                 <div className="font-mono-code text-[11px] text-[#FF4500] tracking-[0.18em] font-semibold uppercase mb-1">
-                  WINTER ARC 90
+                  ARC 90
                 </div>
 
-                {/* Stalkr Light Search Input Box Style inside Hero Poster */}
                 <div className="flex h-12 w-full max-w-md mx-auto items-center gap-2.5 rounded-full border border-zinc-200 bg-white text-zinc-900 shadow-[0_14px_38px_rgba(24,24,27,0.08)] focus-within:border-zinc-900 focus-within:ring-2 focus-within:ring-zinc-900/10 transition-all px-4 my-3">
                   <Flame className="w-4 h-4 text-[#FF4500] shrink-0" />
                   <input
@@ -246,7 +238,7 @@ export default function Home() {
                   Start before January. Finish with proof.
                 </div>
                 <div className="font-mono-code text-[11px] font-semibold text-[#FF4500] uppercase tracking-[0.18em] mt-1">
-                  WINTER ARC 2026
+                  ARC 90
                 </div>
               </div>
             </div>
@@ -262,27 +254,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* STALKR TESTIMONIAL BANNER (LIGHT MODE) */}
-        <section aria-label="Customer testimonial" className="relative z-10 border-y border-zinc-200/70 bg-zinc-50/70">
-          <figure className="mx-auto grid max-w-[1180px] items-center gap-7 px-6 py-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-10 md:py-12">
-            <blockquote className="relative max-w-[820px] border-l-2 border-[#FF4500] pl-5 text-[22px] font-fraunces font-medium leading-[1.35] tracking-[-0.025em] text-zinc-900 sm:pl-7 sm:text-[27px] md:text-[30px]">
-              “I set my 90-day Winter Arc contract on October 1st. By January 1st, I had completed 90 straight days of execution with proof.”
-            </blockquote>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-[#FF4500]/10 border border-[#FF4500]/30 flex items-center justify-center text-[#FF4500] font-bold font-fraunces text-lg">
-                WA
-              </div>
-              <cite className="not-italic">
-                <span className="block text-[14px] font-semibold leading-tight text-zinc-900">Jack F.</span>
-                <span className="mt-1 block text-[12.5px] leading-none text-zinc-500">@jackfriks</span>
-              </cite>
-            </div>
-          </figure>
-        </section>
-
-        {/* ====================================================================
-           3. FREE CONTRACT SECTION
-           ==================================================================== */}
+        {/* FREE CONTRACT SECTION */}
         <section className="max-w-[1200px] mx-auto px-6 py-20 border-t border-zinc-200/60">
           <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FF4500] flex items-center justify-center gap-2">
@@ -329,16 +301,14 @@ export default function Home() {
               href="/build"
               className="btn-wise-primary px-8 py-4 text-sm font-medium active:scale-95"
             >
-              <span>BUILD MY WINTER ARC</span>
+              <span>BUILD MY ARC 90</span>
               <ArrowRight className="w-4 h-4 ml-1.5" />
             </Link>
           </div>
         </section>
 
-        {/* ====================================================================
-           4. FREE → PAID TRANSITION (CLEAN TWO-COLUMN COMPARISON)
-           ==================================================================== */}
-        <section className="max-w-[1200px] mx-auto px-6 py-20 border-t border-zinc-200/60">
+        {/* FREE → PAID TRANSITION */}
+        <section id="the-system" className="max-w-[1200px] mx-auto px-6 py-20 border-t border-zinc-200/60">
           <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FF4500]">
               THE VALUE PROPOSITION
@@ -353,7 +323,6 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* FREE CONTRACT COLUMN */}
             <div className="card-wise card-wise-hover p-8 sm:p-10 space-y-6 bg-white border border-zinc-200/80 flex flex-col justify-between shadow-[0_20px_60px_-20px_rgba(24,24,27,0.06)]">
               <div className="space-y-6">
                 <div>
@@ -365,7 +334,7 @@ export default function Home() {
                 <div className="space-y-3 text-xs font-medium border-t border-zinc-100 pt-6">
                   {[
                     'Choose 4–6 commitments',
-                    'Create your Winter Arc',
+                    'Create your Arc 90 contract',
                     'Generate your contract card',
                     'Download high-res PNG',
                     'Share to Stories & TikTok'
@@ -388,7 +357,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* PAID 90-DAY SYSTEM COLUMN (STALKR HIGHLIGHTED LIGHT CARD) */}
             <div className="card-wise card-wise-hover p-8 sm:p-10 space-y-6 bg-white border-2 border-[#FF4500] flex flex-col justify-between shadow-[0_20px_60px_-15px_rgba(255,69,0,0.12)]">
               <div className="space-y-6">
                 <div>
@@ -428,9 +396,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ====================================================================
-           5. STALKR STEP-BY-STEP METHOD ("HOW IT WORKS" 01, 02, 03)
-           ==================================================================== */}
+        {/* STEP-BY-STEP METHOD ("HOW IT WORKS" 01, 02, 03) */}
         <section id="how-it-works" className="relative max-w-[1200px] mx-auto px-6 py-24 border-t border-zinc-200/60">
           <div>
             <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FF4500]">
@@ -442,11 +408,10 @@ export default function Home() {
               <span className="font-fraunces text-[#FF4500] normal-case italic font-normal">See what needs execution.</span>
             </h2>
             <p className="mt-5 max-w-[620px] text-[15px] leading-relaxed text-zinc-500 md:text-[17px]">
-              Winter Arc watches your 90-day progress and turns raw daily check-ins into verified proof of consistency.
+              Arc 90 watches your 90-day progress and turns raw daily check-ins into verified proof of consistency.
             </p>
           </div>
 
-          {/* Stalkr Light Timeline Steps */}
           <div className="relative mt-16 md:mt-20">
             <ol className="space-y-12 md:space-y-16">
               <li className="relative grid grid-cols-[auto_1fr] gap-5 md:gap-10">
@@ -458,7 +423,7 @@ export default function Home() {
                 <div className="pt-1">
                   <h3 className="text-2xl md:text-3xl font-semibold font-funnel text-zinc-900 uppercase tracking-tight">Choose 4–6 Commitments.</h3>
                   <p className="mt-2 max-w-xl text-zinc-500 text-sm md:text-base leading-relaxed">
-                    Tell Winter Arc what to watch. Add your physical training, reading, deep work, sleep, and digital boundaries.
+                    Tell Arc 90 what to watch. Add your physical training, reading, deep work, sleep, and digital boundaries.
                   </p>
                 </div>
               </li>
@@ -494,9 +459,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ====================================================================
-           6. FAQ SECTION
-           ==================================================================== */}
+        {/* FAQ SECTION */}
         <section id="faq" className="max-w-4xl mx-auto px-6 py-20 border-t border-zinc-200/60">
           <div className="text-center mb-16 space-y-2">
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FF4500]">
@@ -538,16 +501,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ====================================================================
-           7. FINAL CTA
-           ==================================================================== */}
+        {/* FINAL CTA */}
         <section className="max-w-4xl mx-auto px-6 py-24 text-center border-t border-zinc-200/60">
           <h2 className="font-funnel text-4xl sm:text-6xl font-semibold text-zinc-900 uppercase leading-[0.95] tracking-tight">
             JANUARY IS COMING. <br />
             <span className="font-fraunces text-[#FF4500] normal-case italic font-normal">Don't wait for it.</span>
           </h2>
           <p className="mt-6 text-[#FF4500] font-funnel text-2xl sm:text-3xl font-bold uppercase tracking-tight">
-            Build your Winter Arc today.
+            Build your Arc 90 contract today.
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-3">
@@ -556,7 +517,7 @@ export default function Home() {
               onClick={handleHeroCtaClick}
               className="group flex h-12 shrink-0 items-center justify-center gap-2 rounded-full px-8 text-[15px] font-medium bg-zinc-900 text-white hover:bg-zinc-800 active:scale-95 transition-all shadow-md"
             >
-              <span>BUILD MY WINTER ARC</span>
+              <span>BUILD MY ARC 90</span>
               <ArrowRight className="w-4 h-4 text-white transition-transform group-hover:translate-x-0.5" />
             </Link>
             <div className="text-xs font-mono-code text-zinc-500 font-medium pt-1">
@@ -573,13 +534,13 @@ export default function Home() {
           onClick={handleHeroCtaClick}
           className="btn-wise-primary w-full py-3.5 text-xs font-medium text-center justify-center"
         >
-          BUILD MY WINTER ARC — FREE
+          BUILD MY ARC 90 — FREE
         </Link>
       </div>
 
       {/* Footer */}
       <footer className="w-full border-t border-zinc-200/60 py-6 text-center text-xs text-zinc-500 font-mono-code">
-        WINTER ARC 2026 • START BEFORE JANUARY. FINISH WITH PROOF.
+        ARC 90 • START BEFORE JANUARY. FINISH WITH PROOF.
       </footer>
     </div>
   );

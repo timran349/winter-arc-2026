@@ -120,18 +120,18 @@ export default function PaymentSuccessPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-zinc-100 flex flex-col justify-between selection:bg-[#FF4500] selection:text-white font-sans">
-      <header className="w-full border-b border-zinc-800/80 bg-[#09090b]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div className="min-h-screen bg-white text-zinc-900 flex flex-col justify-between selection:bg-[#FF4500] selection:text-white font-sans">
+      <header className="w-full border-b border-zinc-200/60 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center shadow-[0_0_20px_rgba(255,69,0,0.4)]">
-              <Flame className="w-4 h-4 text-white" />
+            <div className="w-7 h-7 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center">
+              <Flame className="w-4 h-4 text-[#FF4500]" />
             </div>
             <div>
-              <span className="font-fraunces text-lg tracking-tight font-bold text-white">
-                Stalkr Arc
+              <span className="font-fraunces text-lg tracking-tight font-medium text-zinc-900">
+                Arc 90
               </span>
-              <span className="text-[10px] font-mono-code text-[#FF4500] block -mt-1 tracking-widest uppercase font-bold">
+              <span className="text-[10px] font-mono-code text-[#FF4500] block -mt-1 tracking-widest uppercase font-semibold">
                 SYSTEM
               </span>
             </div>
@@ -141,12 +141,12 @@ export default function PaymentSuccessPage() {
 
       <main className="flex-1 max-w-2xl mx-auto px-4 sm:px-6 py-12 text-center flex flex-col justify-center items-center">
         {isVerified ? (
-          <div className="card-wise p-8 sm:p-12 w-full space-y-6 bg-zinc-900 border border-[#FF4500]/40 shadow-2xl">
-            <div className="w-14 h-14 rounded-full bg-[#FF4500] text-white flex items-center justify-center mx-auto shadow-[0_0_25px_rgba(255,69,0,0.4)]">
+          <div className="card-wise p-8 sm:p-12 w-full space-y-6 bg-white border-2 border-[#FF4500] shadow-[0_20px_60px_-15px_rgba(255,69,0,0.12)]">
+            <div className="w-14 h-14 rounded-full bg-[#FF4500] text-white flex items-center justify-center mx-auto shadow-md">
               <ShieldCheck className="w-7 h-7" />
             </div>
 
-            <h1 className="font-fraunces text-4xl sm:text-5xl font-bold text-white uppercase leading-tight">
+            <h1 className="font-fraunces text-4xl sm:text-5xl font-bold text-zinc-900 uppercase leading-tight">
               WELCOME TO YOUR ARC.
             </h1>
 
@@ -154,14 +154,14 @@ export default function PaymentSuccessPage() {
               Your 90 days start now.
             </p>
 
-            <p className="text-xs text-zinc-400 font-medium max-w-md mx-auto leading-relaxed">
+            <p className="text-xs text-zinc-600 font-medium max-w-md mx-auto leading-relaxed">
               Your payment has been verified. You have full access to daily check-ins, weekly reviews, and progress tracking.
             </p>
 
             <div className="pt-4">
               <Link
                 href="/dashboard"
-                className="btn-wise-primary w-full py-4 text-sm font-semibold gap-2"
+                className="btn-wise-orange w-full py-4 text-sm font-semibold gap-2"
               >
                 <span>ENTER MY DASHBOARD</span>
                 <ArrowRight className="w-4 h-4 text-white" />
@@ -169,44 +169,44 @@ export default function PaymentSuccessPage() {
             </div>
           </div>
         ) : user ? (
-          <div className="card-wise p-8 sm:p-12 w-full space-y-6 bg-zinc-900 border border-zinc-800 shadow-2xl">
-            <div className="w-14 h-14 rounded-full bg-zinc-950 border border-zinc-800 text-[#FF4500] flex items-center justify-center mx-auto">
+          <div className="card-wise p-8 sm:p-12 w-full space-y-6 bg-white border border-zinc-200/80 shadow-[0_20px_60px_-20px_rgba(24,24,27,0.08)]">
+            <div className="w-14 h-14 rounded-full bg-zinc-50 border border-zinc-200 text-[#FF4500] flex items-center justify-center mx-auto">
               <Loader2 className="w-6 h-6 animate-spin text-[#FF4500]" />
             </div>
 
-            <h1 className="font-fraunces text-3xl sm:text-4xl font-bold text-white uppercase leading-tight">
+            <h1 className="font-fraunces text-3xl sm:text-4xl font-bold text-zinc-900 uppercase leading-tight">
               PAYMENT RECEIVED
             </h1>
 
-            <p className="text-sm text-zinc-300 font-medium">
-              Unlocking your Winter Arc System...
+            <p className="text-sm text-zinc-600 font-medium">
+              Unlocking your Arc 90 System...
             </p>
 
             <div className="pt-2 space-y-3">
               <Link
                 href="/dashboard"
-                className="btn-wise-primary block w-full py-4 text-xs font-semibold"
+                className="btn-wise-primary block w-full py-4 text-xs font-semibold text-center"
               >
                 Continue to Dashboard →
               </Link>
             </div>
           </div>
         ) : (
-          <div className="card-wise p-8 sm:p-10 w-full space-y-6 bg-zinc-900 border border-[#FF4500]/40 shadow-2xl text-left">
+          <div className="card-wise p-8 sm:p-10 w-full space-y-6 bg-white border-2 border-[#FF4500] shadow-[0_20px_60px_-15px_rgba(255,69,0,0.12)] text-left">
             <div className="text-center space-y-2">
-              <div className="w-12 h-12 rounded-full bg-[#FF4500]/10 border border-[#FF4500]/30 flex items-center justify-center mx-auto mb-2 shadow-[0_0_20px_rgba(255,69,0,0.3)]">
+              <div className="w-12 h-12 rounded-full bg-[#FF4500]/10 border border-[#FF4500]/30 flex items-center justify-center mx-auto mb-2">
                 <Sparkles className="w-6 h-6 text-[#FF4500]" />
               </div>
-              <h1 className="font-fraunces text-3xl sm:text-4xl font-bold text-white uppercase leading-tight">
+              <h1 className="font-fraunces text-3xl sm:text-4xl font-bold text-zinc-900 uppercase leading-tight">
                 PAYMENT SUCCESSFUL!
               </h1>
-              <p className="text-xs text-zinc-400 font-medium leading-relaxed">
-                Set a password to save your 90-day Arc contract and access your tracking dashboard.
+              <p className="text-xs text-zinc-500 font-medium leading-relaxed">
+                Set a password to save your Arc 90 contract and access your tracking dashboard.
               </p>
             </div>
 
             {claimError && (
-              <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-bold font-mono-code leading-relaxed">
+              <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-700 text-xs font-bold font-mono-code leading-relaxed">
                 {claimError}
               </div>
             )}
@@ -222,7 +222,7 @@ export default function PaymentSuccessPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your Name"
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-full px-4 py-3 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500]"
+                  className="w-full bg-zinc-50 border border-zinc-200 rounded-full px-4 py-3 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-[#FF4500]"
                 />
               </div>
 
@@ -236,7 +236,7 @@ export default function PaymentSuccessPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="The email used on Lemon Squeezy"
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-full px-4 py-3 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500]"
+                  className="w-full bg-zinc-50 border border-zinc-200 rounded-full px-4 py-3 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-[#FF4500]"
                 />
               </div>
 
@@ -251,14 +251,14 @@ export default function PaymentSuccessPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="At least 6 characters"
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-full px-4 py-3 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500]"
+                  className="w-full bg-zinc-50 border border-zinc-200 rounded-full px-4 py-3 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-[#FF4500]"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={claimLoading}
-                className="btn-wise-primary w-full py-4 text-sm font-semibold justify-center gap-2"
+                className="btn-wise-orange w-full py-4 text-sm font-semibold justify-center gap-2"
               >
                 {claimLoading ? (
                   <>
@@ -277,8 +277,8 @@ export default function PaymentSuccessPage() {
         )}
       </main>
 
-      <footer className="w-full border-t border-zinc-800/60 py-6 text-center text-xs text-zinc-500 font-mono-code">
-        WINTER ARC 2026 • START BEFORE JANUARY. FINISH WITH PROOF.
+      <footer className="w-full border-t border-zinc-200/60 py-6 text-center text-xs text-zinc-500 font-mono-code">
+        ARC 90 • START BEFORE JANUARY. FINISH WITH PROOF.
       </footer>
     </div>
   );

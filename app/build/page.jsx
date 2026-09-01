@@ -92,7 +92,6 @@ export default function FreeContractBuilderPage() {
   const endDate = calculateEndDate(startDate, 90);
   const isStep2Valid = selectedCommitments.length >= 4 && selectedCommitments.length <= 6;
 
-  // Handlers for commitments
   const isSelected = (nameStr) =>
     selectedCommitments.some(
       (c) => (c?.name || '').toLowerCase() === (nameStr || '').toLowerCase()
@@ -126,11 +125,10 @@ export default function FreeContractBuilderPage() {
     setSelectedCommitments((prev) => prev.filter((c) => c.id !== id));
   };
 
-  // Calendar Helpers for Step 3
   const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
   const getFirstDayOfMonth = (year, month) => {
     const day = new Date(year, month, 1).getDay();
-    return day === 0 ? 6 : day - 1; // Mon = 0
+    return day === 0 ? 6 : day - 1;
   };
 
   const handleSelectDate = (year, month, day) => {
@@ -169,7 +167,6 @@ export default function FreeContractBuilderPage() {
     }
   };
 
-  // Simulated Contract Generation Flow (4.0 seconds SaaS loading sequence)
   const handleGenerateContract = () => {
     try {
       const finalIntention =
@@ -191,7 +188,6 @@ export default function FreeContractBuilderPage() {
         intention: finalIntention
       });
 
-      // Render share card canvas URL (cardType: 'contract')
       if (typeof window !== 'undefined') {
         try {
           const url = generateShareCardCanvas({
@@ -209,20 +205,17 @@ export default function FreeContractBuilderPage() {
         }
       }
 
-      // Switch to Simulated Loading Mode
       setMode('loading');
       setGenerationProgress(0);
       setGenerationMessageIndex(0);
 
-      // Simulated Contract Generation Flow (4.0 seconds SaaS loading sequence)
       const messages = [
         'Analyzing 90-day commitment trajectory...',
         'Calculating execution density & milestone dates...',
-        'Forging official Winter Arc 2026 digital seal...',
+        'Forging official Arc 90 digital seal...',
         'Rendering 9:16 high-res poster card...'
       ];
 
-      // Progress timer over 4000ms (4 seconds)
       const interval = setInterval(() => {
         setGenerationProgress((prev) => {
           if (prev >= 100) {
@@ -237,7 +230,6 @@ export default function FreeContractBuilderPage() {
         setGenerationMessageIndex((prev) => (prev < messages.length - 1 ? prev + 1 : prev));
       }, 1000);
 
-      // Transition to Result Screen at 4000ms (4 seconds)
       setTimeout(() => {
         clearInterval(interval);
         clearInterval(msgInterval);
@@ -250,25 +242,22 @@ export default function FreeContractBuilderPage() {
     }
   };
 
-  // Download contract image
   const handleDownloadCard = () => {
     if (!shareDataUrl) return;
     trackEvent(ANALYTICS_EVENTS.CONTRACT_DOWNLOADED);
     const a = document.createElement('a');
     a.href = shareDataUrl;
-    a.download = `Winter_Arc_Contract_${(name || 'Arc').replace(/\s+/g, '_')}.png`;
+    a.download = `Arc_90_Contract_${(name || 'Arc').replace(/\s+/g, '_')}.png`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
   };
 
-  // Directly open Instagram Story Card Modal (no OS share popup)
   const handleShareCard = () => {
     trackEvent(ANALYTICS_EVENTS.CONTRACT_SHARED);
     setIsShareModalOpen(true);
   };
 
-  // Lead Email Save
   const handleSaveLead = (e) => {
     e.preventDefault();
     if (!leadEmail.trim()) return;
@@ -276,7 +265,6 @@ export default function FreeContractBuilderPage() {
     trackEvent('lead_email_captured', { email: leadEmail });
   };
 
-  // Paid Upgrade Flow
   const handleUnlockPaid = async () => {
     trackEvent(ANALYTICS_EVENTS.UPGRADE_CLICKED);
     trackEvent(ANALYTICS_EVENTS.CHECKOUT_STARTED);
@@ -309,25 +297,25 @@ export default function FreeContractBuilderPage() {
   const loadingMessages = [
     'Analyzing 90-day commitment trajectory...',
     'Calculating execution density & milestone dates...',
-    'Forging official Winter Arc 2026 digital seal...',
+    'Forging official Arc 90 digital seal...',
     'Rendering 9:16 high-res poster card...'
   ];
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-zinc-100 flex flex-col justify-between selection:bg-[#FF4500] selection:text-white">
+    <div className="min-h-screen bg-white text-zinc-900 flex flex-col justify-between selection:bg-[#FF4500] selection:text-white font-sans">
       {/* Header Navigation */}
-      <header className="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-[#09090b]/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-40 w-full border-b border-zinc-200/60 bg-white/80 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,69,0,0.4)]">
-              <Flame className="w-4 h-4 text-white" />
+            <div className="w-7 h-7 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center group-hover:scale-105 transition-transform">
+              <Flame className="w-4 h-4 text-[#FF4500]" />
             </div>
             <div>
-              <span className="font-fraunces text-lg tracking-tight font-bold text-white">
-                Stalkr Arc
+              <span className="font-fraunces text-lg tracking-tight font-medium text-zinc-900">
+                Arc 90
               </span>
-              <span className="text-[10px] font-mono-code text-[#FF4500] block -mt-1 tracking-widest uppercase font-bold">
-                CONTRACT BUILDER
+              <span className="text-[10px] font-mono-code text-[#FF4500] block -mt-1 tracking-widest uppercase font-semibold">
+                BUILDER
               </span>
             </div>
           </Link>
@@ -335,7 +323,7 @@ export default function FreeContractBuilderPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/login"
-              className="text-xs font-bold text-zinc-400 hover:text-white px-4 py-2 rounded-full hover:bg-white/[0.05] transition-all"
+              className="text-xs font-semibold text-zinc-500 hover:text-zinc-900 px-4 py-2 rounded-full hover:bg-zinc-100 transition-all"
             >
               Sign In
             </Link>
@@ -352,19 +340,16 @@ export default function FreeContractBuilderPage() {
       {/* MAIN CONTAINER */}
       <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full">
         {mode === 'form' ? (
-          /* ====================================================================
-             BUILDER FORM MODE (WITH LIVE CONTRACT PREVIEW)
-             ==================================================================== */
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* LEFT COLUMN: INTERACTIVE BUILDER FORM */}
-            <div className="lg:col-span-7 card-wise p-6 sm:p-10 space-y-6">
+            <div className="lg:col-span-7 card-wise p-6 sm:p-10 space-y-6 bg-white border border-zinc-200/80 shadow-[0_20px_60px_-20px_rgba(24,24,27,0.06)]">
               {/* Progress Bar */}
               <div className="flex items-center gap-2 mb-4">
                 {[1, 2, 3, 4].map((s) => (
                   <div
                     key={s}
                     className={`h-2 flex-1 rounded-full transition-all ${
-                      s <= step ? 'bg-[#FF4500]' : 'bg-zinc-800'
+                      s <= step ? 'bg-[#FF4500]' : 'bg-zinc-200'
                     }`}
                   />
                 ))}
@@ -377,17 +362,17 @@ export default function FreeContractBuilderPage() {
                     <span className="text-xs font-mono-code text-[#FF4500] font-bold uppercase tracking-widest">
                       STEP 01 OF 04
                     </span>
-                    <h1 className="font-funnel text-4xl sm:text-5xl font-semibold uppercase tracking-tight leading-[0.95] text-white mt-1">
-                      Build your Winter Arc.
+                    <h1 className="font-funnel text-4xl sm:text-5xl font-semibold uppercase tracking-tight leading-[0.95] text-zinc-900 mt-1">
+                      Build your Arc 90.
                     </h1>
-                    <p className="text-zinc-400 text-xs sm:text-sm font-medium mt-2">
+                    <p className="text-zinc-500 text-xs sm:text-sm font-medium mt-2">
                       Pick what you're committing to before January. Free. Takes 30 seconds.
                     </p>
                   </div>
 
                   <div className="space-y-4 pt-2">
                     <div>
-                      <label className="block text-xs font-bold text-zinc-400 mb-2 uppercase font-mono-code">
+                      <label className="block text-xs font-bold text-zinc-600 mb-2 uppercase font-mono-code">
                         Your Name
                       </label>
                       <input
@@ -395,7 +380,7 @@ export default function FreeContractBuilderPage() {
                         placeholder="Your name (e.g. Alex)"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full bg-zinc-950 border border-zinc-800 rounded-full px-5 py-4 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500] font-medium transition-all"
+                        className="w-full bg-zinc-50 border border-zinc-200 rounded-full px-5 py-4 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-[#FF4500] font-medium transition-all"
                       />
                     </div>
                   </div>
@@ -403,10 +388,10 @@ export default function FreeContractBuilderPage() {
                   <div className="pt-4 flex justify-end">
                     <button
                       onClick={() => setStep(2)}
-                      className="btn-wise-primary px-8 py-3.5 text-sm font-extrabold gap-2"
+                      className="btn-wise-primary px-6 py-3.5 text-xs font-semibold gap-2"
                     >
-                      <span>Next: Commitments</span>
-                      <ArrowRight className="w-4 h-4 text-[#163300]" />
+                      <span>Next: Choose Commitments</span>
+                      <ArrowRight className="w-4 h-4 text-white" />
                     </button>
                   </div>
                 </div>
@@ -417,74 +402,73 @@ export default function FreeContractBuilderPage() {
                 <div className="space-y-6">
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono-code text-[#9fe870] font-bold uppercase tracking-widest">
+                      <span className="text-xs font-mono-code text-[#FF4500] font-bold uppercase tracking-widest">
                         STEP 02 OF 04
                       </span>
                       <span
-                        className={`text-xs font-mono-code px-3 py-1 rounded-full font-bold ${
+                        className={`text-xs font-mono-code font-bold px-2.5 py-0.5 rounded-full ${
                           isStep2Valid
-                            ? 'bg-[#e2f6d5] text-[#163300]'
-                            : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                            ? 'bg-[#FF4500]/10 text-[#FF4500]'
+                            : 'bg-amber-100 text-amber-800'
                         }`}
                       >
-                        {selectedCommitments.length} / 6 SELECTED (MIN 4)
+                        {selectedCommitments.length}/6 selected (min 4)
                       </span>
                     </div>
-                    <h2 className="font-display-wise text-3xl sm:text-4xl font-black uppercase leading-[0.88] text-slate-100 mt-1">
-                      What are you committing to?
+                    <h2 className="font-funnel text-3xl sm:text-4xl font-semibold uppercase leading-[0.95] text-zinc-900 mt-1">
+                      Choose non-negotiables
                     </h2>
-                    <p className="text-slate-300 text-xs font-semibold mt-1">
-                      Choose 4–6 things you want to show up for.
+                    <p className="text-zinc-500 text-xs font-medium mt-1">
+                      Select 4 to 6 commitments to execute for 90 days.
                     </p>
                   </div>
 
-                  {/* Selected Commitments Chips */}
-                  <div className="p-4 sm:p-5 rounded-[24px] bg-[#161813] border border-white/[0.08] space-y-2">
-                    <div className="text-xs font-mono-code text-[#9fe870] font-bold uppercase">
-                      Selected Commitments ({selectedCommitments.length} / 6):
-                    </div>
-                    {selectedCommitments.length === 0 && (
-                      <div className="text-xs text-slate-400 italic font-semibold">
-                        No commitments selected yet. Choose 4–6 below.
+                  {/* Selected Pills */}
+                  {selectedCommitments.length > 0 && (
+                    <div className="p-4 sm:p-5 rounded-[20px] bg-zinc-50 border border-zinc-200/80 space-y-2">
+                      <div className="text-[10px] font-mono-code text-zinc-400 font-bold uppercase tracking-wider">
+                        YOUR 90-DAY CONTRACT ITEMS ({selectedCommitments.length})
                       </div>
-                    )}
-                    <div className="flex flex-wrap gap-2 pt-1">
-                      {selectedCommitments.map((item) => (
-                        <span
-                          key={item.id}
-                          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e2f6d5] text-[#163300] text-xs font-bold"
-                        >
-                          <span>✓ {item.name}</span>
-                          <button
-                            onClick={() => handleRemoveCommitment(item.id)}
-                            className="hover:text-red-600 transition-colors"
+                      <div className="flex flex-wrap gap-2 pt-1">
+                        {selectedCommitments.map((comm) => (
+                          <div
+                            key={comm.id}
+                            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FF4500]/10 text-[#FF4500] border border-[#FF4500]/30 text-xs font-semibold"
                           >
-                            <X className="w-3.5 h-3.5 text-[#163300]" />
-                          </button>
-                        </span>
-                      ))}
+                            <span>{comm.name}</span>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveCommitment(comm.id)}
+                              className="hover:text-red-500 transition-colors"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
-                  {/* Category Options */}
-                  <div className="space-y-4 max-h-[260px] overflow-y-auto pr-2">
-                    {Object.entries(SUGGESTED_COMMITMENTS).map(([cat, list]) => (
-                      <div key={cat}>
-                        <div className="text-[11px] font-mono-code text-[#9fe870] font-bold mb-2 uppercase">
-                          {cat}
+                  {/* Category Grid */}
+                  <div className="space-y-4 pt-1">
+                    {Object.entries(SUGGESTED_COMMITMENTS).map(([catKey, items]) => (
+                      <div key={catKey} className="space-y-2">
+                        <div className="text-[11px] font-mono-code text-[#FF4500] font-bold uppercase tracking-wider">
+                          {catKey}
                         </div>
                         <div className="flex flex-wrap gap-2">
-                          {list.map((item) => {
+                          {items.map((item) => {
                             const active = isSelected(item);
                             return (
                               <button
                                 key={item}
                                 type="button"
-                                onClick={() => toggleSuggested(item, cat)}
-                                className={`px-3.5 py-2 rounded-full text-xs font-bold transition-all ${
+                                onClick={() => toggleSuggested(item, catKey)}
+                                disabled={!active && selectedCommitments.length >= 6}
+                                className={`px-3.5 py-2 rounded-full text-xs font-semibold transition-all ${
                                   active
-                                    ? 'bg-[#9fe870] text-[#163300] scale-105'
-                                    : 'bg-[#161813] text-slate-300 border border-white/[0.08] hover:border-white/20'
+                                    ? 'bg-[#FF4500] text-white scale-105 shadow-sm'
+                                    : 'bg-zinc-50 text-zinc-700 border border-zinc-200 hover:border-zinc-300 disabled:opacity-40'
                                 }`}
                               >
                                 {active ? '✓ ' : '+ '}
@@ -497,7 +481,7 @@ export default function FreeContractBuilderPage() {
                     ))}
                   </div>
 
-                  {/* Custom Commitment Add */}
+                  {/* Custom Add */}
                   <form onSubmit={handleAddCustom} className="flex gap-2">
                     <input
                       type="text"
@@ -505,19 +489,19 @@ export default function FreeContractBuilderPage() {
                       value={customInput}
                       onChange={(e) => setCustomInput(e.target.value)}
                       disabled={selectedCommitments.length >= 6}
-                      className="flex-1 bg-[#161813] border border-white/10 rounded-full px-5 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870] disabled:opacity-50 font-medium"
+                      className="flex-1 bg-zinc-50 border border-zinc-200 rounded-full px-5 py-2.5 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-[#FF4500] disabled:opacity-50 font-medium"
                     />
                     <button
                       type="submit"
                       disabled={!customInput.trim() || selectedCommitments.length >= 6}
-                      className="btn-wise-secondary px-5 py-2.5 text-xs font-bold gap-1 shrink-0"
+                      className="btn-wise-secondary px-5 py-2.5 text-xs font-semibold gap-1 shrink-0"
                     >
-                      <Plus className="w-3.5 h-3.5 text-[#9fe870]" /> Add
+                      <Plus className="w-3.5 h-3.5 text-[#FF4500]" /> Add
                     </button>
                   </form>
 
                   {!isStep2Valid && (
-                    <div className="flex items-center gap-2 text-amber-400 text-xs font-mono-code font-bold">
+                    <div className="flex items-center gap-2 text-amber-600 text-xs font-mono-code font-bold">
                       <AlertCircle className="w-4 h-4" /> Please select between 4 and 6 commitments to continue.
                     </div>
                   )}
@@ -525,41 +509,41 @@ export default function FreeContractBuilderPage() {
                   <div className="pt-2 flex justify-between">
                     <button
                       onClick={() => setStep(1)}
-                      className="btn-wise-secondary px-5 py-2.5 text-xs font-bold gap-1.5"
+                      className="btn-wise-secondary px-5 py-2.5 text-xs font-semibold gap-1.5"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5 text-[#9fe870]" /> Back
+                      <ArrowLeft className="w-3.5 h-3.5 text-[#FF4500]" /> Back
                     </button>
 
                     <button
                       disabled={!isStep2Valid}
                       onClick={() => setStep(3)}
-                      className="btn-wise-primary px-6 py-3 text-xs font-extrabold gap-2"
+                      className="btn-wise-primary px-6 py-3.5 text-xs font-semibold gap-2"
                     >
                       <span>Next: Start Date</span>
-                      <ArrowRight className="w-4 h-4 text-[#163300]" />
+                      <ArrowRight className="w-4 h-4 text-white" />
                     </button>
                   </div>
                 </div>
               )}
 
-              {/* STEP 3: START DATE WITH INTERACTIVE VISUAL CALENDAR SELECTOR */}
+              {/* STEP 3: START DATE */}
               {step === 3 && (
                 <div className="space-y-6">
                   <div>
-                    <span className="text-xs font-mono-code text-[#9fe870] font-bold uppercase tracking-widest">
+                    <span className="text-xs font-mono-code text-[#FF4500] font-bold uppercase tracking-widest">
                       STEP 03 OF 04
                     </span>
-                    <h2 className="font-display-wise text-3xl sm:text-4xl font-black uppercase leading-[0.88] text-slate-100 mt-1">
+                    <h2 className="font-funnel text-3xl sm:text-4xl font-semibold uppercase leading-[0.95] text-zinc-900 mt-1">
                       When do you start?
                     </h2>
-                    <p className="text-slate-300 text-xs font-semibold mt-1">
+                    <p className="text-zinc-500 text-xs font-medium mt-1">
                       Select your launch date from quick presets or the calendar grid below.
                     </p>
                   </div>
 
                   {/* PRESET CHIPS */}
                   <div className="space-y-2">
-                    <div className="text-xs font-mono-code text-slate-400 font-bold uppercase">
+                    <div className="text-xs font-mono-code text-zinc-500 font-bold uppercase">
                       Quick Launch Presets:
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -568,8 +552,8 @@ export default function FreeContractBuilderPage() {
                         onClick={() => handlePresetDate('official')}
                         className={`px-3.5 py-2 rounded-full text-xs font-bold transition-all ${
                           startDate === '2026-10-01'
-                            ? 'bg-[#9fe870] text-[#163300] scale-105'
-                            : 'bg-[#161813] text-slate-300 border border-white/[0.08] hover:border-white/20'
+                            ? 'bg-[#FF4500] text-white scale-105'
+                            : 'bg-zinc-50 text-zinc-700 border border-zinc-200 hover:border-zinc-300'
                         }`}
                       >
                         🗓️ Official Launch (Oct 1, 2026)
@@ -578,7 +562,7 @@ export default function FreeContractBuilderPage() {
                       <button
                         type="button"
                         onClick={() => handlePresetDate('today')}
-                        className="px-3.5 py-2 rounded-full text-xs font-bold bg-[#161813] text-slate-300 border border-white/[0.08] hover:border-white/20"
+                        className="px-3.5 py-2 rounded-full text-xs font-bold bg-zinc-50 text-zinc-700 border border-zinc-200 hover:border-zinc-300"
                       >
                         ⚡ Today
                       </button>
@@ -586,7 +570,7 @@ export default function FreeContractBuilderPage() {
                       <button
                         type="button"
                         onClick={() => handlePresetDate('tomorrow')}
-                        className="px-3.5 py-2 rounded-full text-xs font-bold bg-[#161813] text-slate-300 border border-white/[0.08] hover:border-white/20"
+                        className="px-3.5 py-2 rounded-full text-xs font-bold bg-zinc-50 text-zinc-700 border border-zinc-200 hover:border-zinc-300"
                       >
                         🚀 Tomorrow
                       </button>
@@ -594,20 +578,20 @@ export default function FreeContractBuilderPage() {
                       <button
                         type="button"
                         onClick={() => handlePresetDate('next_monday')}
-                        className="px-3.5 py-2 rounded-full text-xs font-bold bg-[#161813] text-slate-300 border border-white/[0.08] hover:border-white/20"
+                        className="px-3.5 py-2 rounded-full text-xs font-bold bg-zinc-50 text-zinc-700 border border-zinc-200 hover:border-zinc-300"
                       >
                         🎯 Next Monday
                       </button>
                     </div>
                   </div>
 
-                  {/* VISUAL INTERACTIVE CALENDAR GRID WIDGET */}
-                  <div className="p-5 rounded-[24px] bg-[#161813] border border-white/[0.08] space-y-4">
-                    <div className="flex items-center justify-between">
+                  {/* INTERACTIVE CALENDAR SELECTOR */}
+                  <div className="p-5 rounded-[20px] bg-zinc-50 border border-zinc-200/80 space-y-4">
+                    <div className="flex items-center justify-between border-b border-zinc-200 pb-3">
                       <div className="flex items-center gap-2">
-                        <CalendarIcon className="w-4 h-4 text-[#9fe870]" />
-                        <span className="text-xs font-mono-code text-slate-100 font-extrabold uppercase">
-                          {currentCalendarMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}
+                        <CalendarIcon className="w-4 h-4 text-[#FF4500]" />
+                        <span className="text-xs font-mono-code text-zinc-900 font-extrabold uppercase">
+                          {currentCalendarMonth.toLocaleString('en-US', { month: 'long', year: 'numeric' })}
                         </span>
                       </div>
                       <div className="flex items-center gap-1">
@@ -618,7 +602,7 @@ export default function FreeContractBuilderPage() {
                               new Date(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth() - 1, 1)
                             )
                           }
-                          className="p-1.5 rounded-full hover:bg-white/10 text-slate-400 hover:text-slate-200"
+                          className="p-1.5 rounded-full hover:bg-zinc-200 text-zinc-600 transition-colors"
                         >
                           <ChevronLeft className="w-4 h-4" />
                         </button>
@@ -629,58 +613,46 @@ export default function FreeContractBuilderPage() {
                               new Date(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth() + 1, 1)
                             )
                           }
-                          className="p-1.5 rounded-full hover:bg-white/10 text-slate-400 hover:text-slate-200"
+                          className="p-1.5 rounded-full hover:bg-zinc-200 text-zinc-600 transition-colors"
                         >
                           <ChevronRight className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
 
-                    {/* WEEKDAY HEADERS */}
-                    <div className="grid grid-cols-7 gap-1 text-center font-mono-code text-[10px] text-slate-500 font-bold">
-                      <div>MON</div>
-                      <div>TUE</div>
-                      <div>WED</div>
-                      <div>THU</div>
-                      <div>FRI</div>
-                      <div>SAT</div>
-                      <div>SUN</div>
+                    <div className="grid grid-cols-7 gap-1 text-center font-mono-code text-[10px] text-zinc-400 font-bold">
+                      {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, i) => (
+                        <div key={i} className="py-1">{day}</div>
+                      ))}
                     </div>
 
-                    {/* CALENDAR DAYS */}
-                    <div className="grid grid-cols-7 gap-1.5">
-                      {/* Empty leading padding days */}
+                    <div className="grid grid-cols-7 gap-1">
                       {Array.from({
-                        length: getFirstDayOfMonth(
-                          currentCalendarMonth.getFullYear(),
-                          currentCalendarMonth.getMonth()
-                        )
-                      }).map((_, i) => (
-                        <div key={'empty_' + i} className="h-8" />
+                        length: getFirstDayOfMonth(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth())
+                      }).map((_, idx) => (
+                        <div key={`empty-${idx}`} className="h-9" />
                       ))}
 
-                      {/* Month Days */}
                       {Array.from({
-                        length: getDaysInMonth(
-                          currentCalendarMonth.getFullYear(),
-                          currentCalendarMonth.getMonth()
-                        )
+                        length: getDaysInMonth(currentCalendarMonth.getFullYear(), currentCalendarMonth.getMonth())
                       }).map((_, idx) => {
                         const dayNum = idx + 1;
-                        const year = currentCalendarMonth.getFullYear();
-                        const month = currentCalendarMonth.getMonth();
-                        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(dayNum).padStart(2, '0')}`;
-                        const isSelectedDate = startDate === dateStr;
+                        const yr = currentCalendarMonth.getFullYear();
+                        const mo = currentCalendarMonth.getMonth();
+                        const mStr = String(mo + 1).padStart(2, '0');
+                        const dStr = String(dayNum).padStart(2, '0');
+                        const dateString = `${yr}-${mStr}-${dStr}`;
+                        const isCurrentSelected = dateString === startDate;
 
                         return (
                           <button
-                            key={'day_' + dayNum}
+                            key={dayNum}
                             type="button"
-                            onClick={() => handleSelectDate(year, month, dayNum)}
-                            className={`h-8 rounded-full text-xs font-mono-code font-bold transition-all flex items-center justify-center ${
-                              isSelectedDate
-                                ? 'bg-[#9fe870] text-[#163300] scale-110 shadow-md'
-                                : 'bg-[#0b0c0a] text-slate-300 border border-white/[0.05] hover:border-[#9fe870]/50 hover:text-white'
+                            onClick={() => handleSelectDate(yr, mo, dayNum)}
+                            className={`h-9 rounded-full text-xs font-mono-code font-bold transition-all flex items-center justify-center ${
+                              isCurrentSelected
+                                ? 'bg-[#FF4500] text-white scale-105 shadow-sm'
+                                : 'bg-white text-zinc-800 border border-zinc-200 hover:border-[#FF4500]/50 hover:text-zinc-900'
                             }`}
                           >
                             {dayNum}
@@ -690,421 +662,330 @@ export default function FreeContractBuilderPage() {
                     </div>
                   </div>
 
-                  {/* COMPUTED TRAJECTORY summary */}
-                  <div className="p-5 rounded-[24px] bg-[#161813] border border-white/[0.08] flex items-center justify-between">
+                  <div className="p-4 rounded-[20px] bg-zinc-50 border border-zinc-200/80 flex items-center justify-between">
                     <div>
-                      <div className="text-xs text-slate-400 font-mono-code uppercase font-bold">Calculated Trajectory</div>
-                      <div className="text-2xl font-black text-slate-100 font-display-wise uppercase">
-                        90 DAYS
+                      <div className="text-xs text-zinc-500 font-mono-code uppercase font-bold">Calculated Trajectory</div>
+                      <div className="text-2xl font-bold text-zinc-900 font-funnel uppercase">
+                        {formatShortDate(startDate)} → {formatShortDate(endDate)}
                       </div>
                     </div>
-                    <div className="text-right font-mono-code text-xs text-[#9fe870] font-bold">
-                      {formatShortDate(startDate)} → {formatShortDate(endDate)}
+                    <div className="text-right font-mono-code text-xs text-[#FF4500] font-bold">
+                      90 DAYS
                     </div>
                   </div>
 
                   <div className="pt-2 flex justify-between">
                     <button
                       onClick={() => setStep(2)}
-                      className="btn-wise-secondary px-5 py-2.5 text-xs font-bold gap-1.5"
+                      className="btn-wise-secondary px-5 py-2.5 text-xs font-semibold gap-1.5"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5 text-[#9fe870]" /> Back
+                      <ArrowLeft className="w-3.5 h-3.5 text-[#FF4500]" /> Back
                     </button>
 
                     <button
                       onClick={() => setStep(4)}
-                      className="btn-wise-primary px-6 py-3 text-xs font-extrabold gap-2"
+                      className="btn-wise-primary px-6 py-3.5 text-xs font-semibold gap-2"
                     >
-                      <span>Next: Intention</span>
-                      <ArrowRight className="w-4 h-4 text-[#163300]" />
+                      <span>Next: Intent & Purpose</span>
+                      <ArrowRight className="w-4 h-4 text-white" />
                     </button>
                   </div>
                 </div>
               )}
 
-              {/* STEP 4: OPTIONAL INTENTION & GENERATE */}
+              {/* STEP 4: INTENTION */}
               {step === 4 && (
                 <div className="space-y-6">
                   <div>
-                    <span className="text-xs font-mono-code text-[#9fe870] font-bold uppercase tracking-widest">
-                      STEP 04 OF 04 • INTENTION (OPTIONAL)
+                    <span className="text-xs font-mono-code text-[#FF4500] font-bold uppercase tracking-widest">
+                      STEP 04 OF 04
                     </span>
-                    <h2 className="font-display-wise text-3xl sm:text-4xl font-black uppercase leading-[0.88] text-slate-100 mt-1">
-                      What is this Arc about?
+                    <h2 className="font-funnel text-3xl sm:text-4xl font-semibold uppercase leading-[0.95] text-zinc-900 mt-1">
+                      Why are you doing this?
                     </h2>
-                    <p className="text-slate-300 text-xs font-semibold mt-1">
-                      Select a statement to keep you anchored for 90 days.
+                    <p className="text-zinc-500 text-xs font-medium mt-1">
+                      Select your core intent for this 90-day run.
                     </p>
                   </div>
 
                   <div className="space-y-3 pt-2">
-                    {SUGGESTED_INTENTIONS.map((opt) => {
-                      const active = intention === opt;
+                    {SUGGESTED_INTENTIONS.map((item) => {
+                      const active = intention === item;
                       return (
                         <button
-                          key={opt}
-                          onClick={() => setIntention(opt)}
-                          className={`w-full p-4 rounded-full text-left border transition-all flex items-center justify-between px-6 ${
+                          key={item}
+                          type="button"
+                          onClick={() => setIntention(item)}
+                          className={`w-full p-4 rounded-2xl border text-left text-xs font-semibold transition-all flex items-center justify-between ${
                             active
-                              ? 'bg-[#9fe870]/10 border-[#9fe870]/50 text-slate-100 scale-105'
-                              : 'bg-[#161813] border-white/[0.08] text-slate-300 hover:border-white/20'
+                              ? 'bg-[#FF4500]/10 border-[#FF4500] text-zinc-900 scale-105'
+                              : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-300'
                           }`}
                         >
-                          <span className="text-xs font-bold">{opt}</span>
-                          {active && <Check className="w-4 h-4 text-[#9fe870]" />}
+                          <span>"{item}"</span>
+                          {active && <Check className="w-4 h-4 text-[#FF4500]" />}
                         </button>
                       );
                     })}
 
                     <button
+                      type="button"
                       onClick={() => setIntention('Create my own')}
-                      className={`w-full p-4 rounded-full text-left border transition-all flex items-center justify-between px-6 ${
+                      className={`w-full p-4 rounded-2xl border text-left text-xs font-semibold transition-all flex items-center justify-between ${
                         intention === 'Create my own'
-                          ? 'bg-[#9fe870]/10 border-[#9fe870]/50 text-slate-100 scale-105'
-                          : 'bg-[#161813] border-white/[0.08] text-slate-300 hover:border-white/20'
+                          ? 'bg-[#FF4500]/10 border-[#FF4500] text-zinc-900 scale-105'
+                          : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-300'
                       }`}
                     >
-                      <span className="text-xs font-bold">+ Create my own</span>
-                      {intention === 'Create my own' && <Check className="w-4 h-4 text-[#9fe870]" />}
+                      <span>+ Create my own intention</span>
+                      {intention === 'Create my own' && <Check className="w-4 h-4 text-[#FF4500]" />}
                     </button>
 
                     {intention === 'Create my own' && (
                       <input
                         type="text"
-                        placeholder="Enter your custom intention..."
+                        placeholder="Type your personal intention..."
                         value={customIntention}
                         onChange={(e) => setCustomIntention(e.target.value)}
-                        className="w-full bg-[#161813] border border-white/10 rounded-full px-5 py-3 text-xs text-slate-100 focus:outline-none focus:border-[#9fe870] font-medium"
+                        className="w-full bg-zinc-50 border border-zinc-200 rounded-full px-5 py-3 text-xs text-zinc-900 focus:outline-none focus:border-[#FF4500] font-medium"
                       />
                     )}
                   </div>
 
-                  <div className="pt-4 flex justify-between">
+                  <div className="pt-4 flex justify-between items-center">
                     <button
                       onClick={() => setStep(3)}
-                      className="btn-wise-secondary px-5 py-2.5 text-xs font-bold gap-1.5"
+                      className="btn-wise-secondary px-5 py-2.5 text-xs font-semibold gap-1.5"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5 text-[#9fe870]" /> Back
+                      <ArrowLeft className="w-3.5 h-3.5 text-[#FF4500]" /> Back
                     </button>
 
                     <button
                       onClick={handleGenerateContract}
-                      className="btn-wise-primary px-8 py-3.5 text-sm font-black gap-2 shadow-[0_0_30px_rgba(159,232,112,0.4)]"
+                      className="btn-wise-orange px-8 py-4 text-xs font-semibold gap-2 shadow-lg"
                     >
-                      <Sparkles className="w-4 h-4 text-[#163300]" /> <span>Generate My Arc</span>
+                      <Sparkles className="w-4 h-4 text-white" />
+                      <span>GENERATE MY CONTRACT</span>
                     </button>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* RIGHT COLUMN: LIVE CONTRACT POSTER PREVIEW */}
+            {/* RIGHT COLUMN: LIVE CONTRACT CARD PREVIEW */}
             <div className="lg:col-span-5 sticky top-24">
-              <div className="text-xs font-mono-code text-[#9fe870] font-bold uppercase tracking-widest mb-3 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#9fe870] animate-pulse" />
-                LIVE CONTRACT PREVIEW
+              <div className="text-xs font-mono-code text-[#FF4500] font-bold uppercase tracking-widest mb-3 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#FF4500] animate-pulse" />
+                LIVE PREVIEW
               </div>
 
-              {/* POSTER CARD */}
-              <div className="card-wise p-6 sm:p-8 space-y-6 bg-gradient-to-b from-[#141712] via-[#0e100c] to-[#0b0c0a] border border-[#9fe870]/30 shadow-2xl relative overflow-hidden">
-                <div className="text-center border-b border-white/[0.08] pb-5">
-                  <div className="font-mono-code text-xs text-[#9fe870] tracking-widest font-bold uppercase mb-1">
-                    MY WINTER ARC
+              <div className="card-wise p-6 sm:p-8 space-y-6 bg-white border border-zinc-200/80 shadow-[0_20px_60px_-20px_rgba(24,24,27,0.08)] relative overflow-hidden rounded-2xl">
+                <div className="text-center border-b border-zinc-100 pb-5">
+                  <div className="font-mono-code text-xs text-[#FF4500] tracking-widest font-bold uppercase mb-1">
+                    ARC 90
                   </div>
-                  <div className="font-display-wise text-3xl font-black text-slate-100 uppercase tracking-tight">
+                  <div className="font-funnel text-3xl font-bold text-zinc-900 uppercase tracking-tight">
                     {name.trim() || 'YOUR NAME'}
                   </div>
-                  <div className="font-mono-code text-xs text-slate-300 font-bold mt-2 flex items-center justify-center gap-2">
+                  <div className="font-mono-code text-xs text-zinc-500 font-bold mt-2 flex items-center justify-center gap-2">
                     <span>{formatShortDate(startDate)}</span>
-                    <span className="text-[#9fe870]">→</span>
+                    <span className="text-[#FF4500]">→</span>
                     <span>{formatShortDate(endDate)}</span>
                   </div>
-                  <div className="inline-block mt-2 px-3 py-0.5 rounded-full bg-[#e2f6d5] text-[#163300] text-[10px] font-mono-code font-extrabold uppercase">
+                  <div className="inline-block mt-2 px-3 py-0.5 rounded-full bg-[#FF4500]/10 text-[#FF4500] border border-[#FF4500]/30 text-[10px] font-mono-code font-extrabold uppercase">
                     90 DAYS
                   </div>
                 </div>
 
                 <div>
-                  <div className="text-[10px] font-mono-code text-[#9fe870] font-bold uppercase tracking-wider mb-3 text-center">
-                    MY COMMITMENTS ({selectedCommitments.length})
+                  <div className="text-[10px] font-mono-code text-[#FF4500] font-bold uppercase tracking-wider mb-3 text-center">
+                    PROMISED COMMITMENTS
                   </div>
                   <div className="space-y-2">
-                    {selectedCommitments.map((c) => (
+                    {selectedCommitments.map((comm) => (
                       <div
-                        key={c.id}
-                        className="p-3 rounded-full bg-[#161813] border border-white/[0.08] flex items-center justify-between text-xs font-bold text-slate-200 px-4"
+                        key={comm.id}
+                        className="p-3 rounded-full bg-zinc-50 border border-zinc-200 flex items-center justify-between text-xs font-bold text-zinc-800 px-4"
                       >
-                        <div className="flex items-center gap-2.5">
-                          <span className="text-[#9fe870] font-black">✓</span>
-                          <span className="uppercase">{c.name}</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[#FF4500] font-black">✓</span>
+                          <span className="uppercase">{comm.name}</span>
                         </div>
-                        <span className="text-[9px] font-mono-code text-[#9fe870] font-bold">
-                          {c.category || 'ARC'}
-                        </span>
+                        {comm.category && (
+                          <span className="text-[9px] font-mono-code text-[#FF4500] font-bold">
+                            {comm.category}
+                          </span>
+                        )}
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {intention && (
-                  <div className="text-center italic text-xs text-[#9fe870] font-mono-code font-bold uppercase">
+                  <div className="text-center italic text-xs text-[#FF4500] font-mono-code font-bold uppercase">
                     "{intention === 'Create my own' ? customIntention || 'Become consistent' : intention}"
                   </div>
                 )}
 
-                <div className="text-center pt-4 border-t border-white/[0.08]">
-                  <div className="font-display-wise text-base font-black text-slate-100 uppercase tracking-wide">
-                    START BEFORE JANUARY.
+                <div className="text-center pt-4 border-t border-zinc-100">
+                  <div className="font-fraunces text-xs font-medium text-zinc-900 tracking-tight">
+                    Start before January. Finish with proof.
                   </div>
-                  <div className="font-display-wise text-sm font-black text-[#9fe870] uppercase tracking-wide mt-0.5">
-                    FINISH WITH PROOF.
+                  <div className="font-funnel text-sm font-bold text-[#FF4500] uppercase tracking-wide mt-0.5">
+                    ARC 90
                   </div>
                 </div>
               </div>
             </div>
           </div>
         ) : mode === 'loading' ? (
-          /* ====================================================================
-             HIGH-TECH SIMULATED GENERATION LOADING SCREEN (2.5 SECONDS)
-             ==================================================================== */
-          <div className="max-w-xl mx-auto py-16 text-center space-y-8 card-wise p-8 sm:p-12 bg-gradient-to-b from-[#141712] via-[#0e100c] to-[#0b0c0a] border border-[#9fe870]/40 shadow-2xl">
-            {/* Glowing Flame Icon Loader */}
-            <div className="relative w-20 h-20 mx-auto flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full bg-[#9fe870]/20 animate-ping" />
-              <div className="w-16 h-16 rounded-full bg-[#9fe870] text-[#163300] flex items-center justify-center shadow-[0_0_40px_rgba(159,232,112,0.6)]">
+          /* SIMULATED GENERATION SCREEN */
+          <div className="max-w-xl mx-auto py-16 text-center space-y-8 card-wise p-8 sm:p-12 bg-white border border-zinc-200/80 shadow-[0_30px_80px_-30px_rgba(24,24,27,0.12)]">
+            <div className="relative w-16 h-16 mx-auto">
+              <div className="absolute inset-0 rounded-full bg-[#FF4500]/20 animate-ping" />
+              <div className="w-16 h-16 rounded-full bg-[#FF4500] text-white flex items-center justify-center shadow-lg">
                 <Flame className="w-8 h-8 animate-pulse" />
               </div>
             </div>
 
             <div className="space-y-3">
-              <div className="font-mono-code text-xs text-[#9fe870] font-black uppercase tracking-widest">
-                FORGING DIGITAL CONTRACT
+              <div className="font-mono-code text-xs text-[#FF4500] font-black uppercase tracking-widest">
+                GENERATING CONTRACT
               </div>
-              <h2 className="font-display-wise text-3xl sm:text-4xl font-black text-slate-100 uppercase leading-[0.88]">
-                Creating Your Winter Arc...
+              <h2 className="font-funnel text-3xl sm:text-4xl font-bold text-zinc-900 uppercase leading-[0.95]">
+                Forging your Arc 90...
               </h2>
-              <p className="text-xs font-mono-code text-slate-300 h-6 font-bold flex items-center justify-center gap-2">
-                <Loader2 className="w-3.5 h-3.5 text-[#9fe870] animate-spin" />
+              <p className="text-xs font-mono-code text-zinc-500 h-6 font-bold flex items-center justify-center gap-2">
+                <Loader2 className="w-3.5 h-3.5 text-[#FF4500] animate-spin" />
                 <span>{loadingMessages[generationMessageIndex]}</span>
               </p>
             </div>
 
-            {/* HIGH-TECH PROGRESS BAR */}
-            <div className="space-y-2 max-w-md mx-auto">
-              <div className="h-3 w-full bg-[#161813] border border-white/10 rounded-full overflow-hidden p-0.5">
+            {/* SaaS Progress Bar */}
+            <div className="space-y-2">
+              <div className="h-3 w-full bg-zinc-100 rounded-full overflow-hidden p-0.5 border border-zinc-200">
                 <div
-                  className="h-full bg-[#9fe870] rounded-full transition-all duration-100 ease-out shadow-[0_0_15px_rgba(159,232,112,0.8)]"
+                  className="h-full bg-[#FF4500] rounded-full transition-all duration-100 ease-out"
                   style={{ width: `${generationProgress}%` }}
                 />
               </div>
-              <div className="flex justify-between text-[11px] font-mono-code text-slate-400 font-bold px-1">
-                <span>SYSTEM PROCESS</span>
-                <span className="text-[#9fe870] font-extrabold">{generationProgress}%</span>
+              <div className="flex justify-between text-[11px] font-mono-code text-zinc-400 font-semibold px-1">
+                <span>Rendering High-Res Poster</span>
+                <span className="text-[#FF4500] font-bold">{generationProgress}%</span>
               </div>
             </div>
 
-            {/* VERIFICATION CHECKLIST BADGES */}
-            <div className="pt-4 border-t border-white/[0.08] space-y-2 text-left max-w-sm mx-auto">
-              <div className="flex items-center gap-2 text-xs font-mono-code text-slate-300 font-bold">
-                <span className="text-[#9fe870] font-black">✓</span>
-                <span>Name & 90-day window locked</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs font-mono-code text-slate-300 font-bold">
-                <span className="text-[#9fe870] font-black">✓</span>
-                <span>{selectedCommitments.length} non-negotiable commitments verified</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs font-mono-code text-slate-300 font-bold">
-                <span className="text-[#9fe870] font-black">✓</span>
-                <span>High-resolution 9:16 poster rendered</span>
-              </div>
+            <div className="pt-4 border-t border-zinc-100 space-y-2 text-left max-w-sm mx-auto">
+              {[
+                'Verifying non-negotiable count (4-6)',
+                'Calculating 90-day timeline & end date',
+                'Generating shareable 9:16 Instagram Story card'
+              ].map((msg, idx) => (
+                <div key={idx} className="flex items-center gap-2 text-xs text-zinc-600 font-medium">
+                  <span className="text-[#FF4500] font-bold">✓</span>
+                  <span>{msg}</span>
+                </div>
+              ))}
             </div>
           </div>
         ) : (
-          /* ====================================================================
-             CONTRACT RESULT SCREEN & PAID CONVERSION FUNNEL
-             ==================================================================== */
-          <div className="max-w-3xl mx-auto space-y-10 py-4 animate-fade-in">
-            {/* HERO SUCCESS HEADER */}
+          /* RESULT / DOWNLOAD / UPGRADE SCREEN */
+          <div className="max-w-4xl mx-auto space-y-8 py-4">
             <div className="text-center space-y-3">
-              <div className="w-14 h-14 rounded-full bg-[#9fe870] text-[#163300] flex items-center justify-center mx-auto mb-4 shadow-[0_0_30px_rgba(159,232,112,0.5)]">
-                <ShieldCheck className="w-7 h-7" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FF4500]/10 text-[#FF4500] border border-[#FF4500]/30 font-mono-code text-xs font-bold">
+                <Sparkles className="w-3.5 h-3.5 text-[#FF4500]" />
+                <span>ARC 90 CONTRACT GENERATED</span>
               </div>
-              <h1 className="font-display-wise text-4xl sm:text-6xl font-black text-slate-100 uppercase leading-[0.85]">
-                YOUR ARC IS SET.
+
+              <h1 className="font-funnel text-4xl sm:text-6xl font-bold uppercase tracking-tight text-zinc-900 leading-[0.95]">
+                YOUR ARC IS FORGED.
               </h1>
-              <p className="text-base text-slate-300 font-semibold max-w-lg mx-auto">
-                90 days. 4–6 commitments. One promise to yourself.
+
+              <p className="text-sm text-zinc-500 font-medium max-w-md mx-auto">
+                Download your official Arc 90 contract card or unlock full 90-day tracking access.
               </p>
             </div>
 
-            {/* PROMINENT COMPLETED CONTRACT CARD */}
-            <div className="card-wise p-8 sm:p-12 space-y-6 bg-gradient-to-b from-[#141712] via-[#0e100c] to-[#0b0c0a] border border-[#9fe870]/40 shadow-2xl relative">
-              <div className="text-center border-b border-white/[0.08] pb-6">
-                <div className="font-mono-code text-xs text-[#9fe870] tracking-widest font-bold uppercase mb-1">
-                  WINTER ARC 2026 • OFFICIAL CONTRACT
+            {/* ACTION CARD GRID */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+              {/* LEFT: CONTRACT CARD DOWNLOAD & SHARE */}
+              <div className="card-wise p-6 sm:p-8 space-y-6 bg-white border border-zinc-200/80 shadow-[0_20px_60px_-20px_rgba(24,24,27,0.08)]">
+                <div className="flex items-center justify-between border-b border-zinc-100 pb-4">
+                  <div>
+                    <h3 className="font-funnel text-xl font-bold text-zinc-900 uppercase">
+                      Official Contract Card
+                    </h3>
+                    <p className="text-xs text-zinc-500 font-mono-code">9:16 Instagram & TikTok Format</p>
+                  </div>
+                  <button
+                    onClick={() => setMode('form')}
+                    className="text-xs font-mono-code text-[#FF4500] hover:underline font-bold"
+                  >
+                    Edit Contract
+                  </button>
                 </div>
-                <div className="font-display-wise text-4xl sm:text-5xl font-black text-slate-100 uppercase tracking-tight">
-                  {name || 'ARC TRAVELER'}
-                </div>
-                <div className="font-mono-code text-sm text-slate-300 font-bold mt-3 flex items-center justify-center gap-3">
-                  <span>{formatShortDate(startDate)}</span>
-                  <span className="text-[#9fe870]">→</span>
-                  <span>{formatShortDate(endDate)}</span>
-                </div>
-                <div className="inline-block mt-3 px-4 py-1 rounded-full bg-[#e2f6d5] text-[#163300] text-xs font-mono-code font-black uppercase">
-                  90 DAYS
+
+                {shareDataUrl && (
+                  <div className="relative rounded-2xl overflow-hidden border border-zinc-200 shadow-md max-w-xs mx-auto">
+                    <img
+                      src={shareDataUrl}
+                      alt="Arc 90 Contract Card"
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                )}
+
+                <div className="space-y-3">
+                  <button
+                    onClick={handleDownloadCard}
+                    className="btn-wise-primary w-full py-4 text-xs font-semibold gap-2"
+                  >
+                    <Download className="w-4 h-4 text-white" />
+                    <span>DOWNLOAD CONTRACT CARD (PNG)</span>
+                  </button>
+
+                  <button
+                    onClick={handleShareCard}
+                    className="btn-wise-secondary w-full py-3.5 text-xs font-semibold gap-2"
+                  >
+                    <Share2 className="w-4 h-4 text-[#FF4500]" />
+                    <span>SHARE TO INSTAGRAM STORIES / TIKTOK</span>
+                  </button>
                 </div>
               </div>
 
-              <div>
-                <div className="text-xs font-mono-code text-[#9fe870] font-bold uppercase tracking-wider mb-4 text-center">
-                  PROMISED COMMITMENTS ({selectedCommitments.length})
+              {/* RIGHT: UPGRADE TO $19 SYSTEM */}
+              <div className="card-wise p-6 sm:p-8 space-y-6 bg-white border-2 border-[#FF4500] shadow-[0_20px_60px_-15px_rgba(255,69,0,0.12)]">
+                <div>
+                  <div className="inline-block px-3 py-1 rounded-full bg-[#FF4500] text-white text-[10px] font-mono-code font-bold uppercase mb-2">
+                    RECOMMENDED NEXT STEP
+                  </div>
+                  <h3 className="font-funnel text-2xl font-bold text-zinc-900 uppercase leading-tight">
+                    Unlock the 90-Day System
+                  </h3>
+                  <div className="text-3xl font-funnel font-bold text-[#FF4500] mt-1">$19 <span className="text-xs font-mono-code text-zinc-400 uppercase font-bold">ONE TIME</span></div>
                 </div>
-                <div className="space-y-2.5 max-w-md mx-auto">
-                  {selectedCommitments.map((c) => (
-                    <div
-                      key={c.id}
-                      className="p-4 rounded-full bg-[#161813] border border-white/[0.08] flex items-center justify-between text-sm font-extrabold text-slate-100 px-6"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="text-[#9fe870] font-black text-base">✓</span>
-                        <span className="uppercase">{c.name}</span>
-                      </div>
-                      <span className="text-[10px] font-mono-code text-[#9fe870] font-bold">
-                        {c.category || 'ARC'}
-                      </span>
+
+                <div className="space-y-3 border-t border-zinc-100 pt-4">
+                  {[
+                    'Interactive daily check-in dashboard',
+                    'Missed day tracking & consistency analytics',
+                    '7-day reflection & weekly review log',
+                    'Verified Day 90 completion certificate proof'
+                  ].map((feat, idx) => (
+                    <div key={idx} className="flex items-start gap-2 text-xs text-zinc-700 font-medium">
+                      <Check className="w-4 h-4 text-[#FF4500] shrink-0 mt-0.5" />
+                      <span>{feat}</span>
                     </div>
                   ))}
                 </div>
-              </div>
-
-              {intention && (
-                <div className="text-center text-xs text-[#9fe870] font-mono-code font-bold uppercase pt-2">
-                  "{intention === 'Create my own' ? customIntention || 'Become consistent' : intention}"
-                </div>
-              )}
-
-              <div className="text-center pt-5 border-t border-white/[0.08]">
-                <div className="font-display-wise text-xl font-black text-slate-100 uppercase tracking-wide">
-                  START BEFORE JANUARY.
-                </div>
-                <div className="font-display-wise text-lg font-black text-[#9fe870] uppercase tracking-wide mt-1">
-                  FINISH WITH PROOF.
-                </div>
-              </div>
-            </div>
-
-            {/* ACTION BUTTONS: VIEW ARC & UNLOCK MY 90 DAYS — $19 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <button
-                onClick={handleShareCard}
-                className="btn-wise-secondary py-4 text-sm font-bold gap-2"
-              >
-                <Share2 className="w-4 h-4 text-[#9fe870]" /> <span>View Arc</span>
-              </button>
-
-              <button
-                onClick={handleUpgradeToPaid}
-                className="btn-wise-primary py-4 text-sm font-extrabold gap-2 shadow-[0_0_25px_rgba(159,232,112,0.4)]"
-              >
-                <Sparkles className="w-4 h-4 text-[#163300]" /> <span>Unlock My 90 Days — $19</span>
-              </button>
-            </div>
-
-            {/* OPTIONAL LEAD CAPTURE */}
-            <div className="p-6 rounded-[24px] bg-[#141712] border border-white/[0.08] text-center space-y-4">
-              <div className="text-xs font-mono-code text-[#9fe870] font-bold uppercase tracking-wider">
-                WANT US TO SAVE YOUR ARC?
-              </div>
-              <p className="text-xs text-slate-300 font-semibold max-w-sm mx-auto">
-                Enter your email to receive a backup copy of your contract card.
-              </p>
-              {leadSaved ? (
-                <div className="p-3 rounded-full bg-[#e2f6d5] text-[#163300] text-xs font-bold font-mono-code">
-                  ✓ Contract saved to {leadEmail}!
-                </div>
-              ) : (
-                <form onSubmit={handleSaveLead} className="flex gap-2 max-w-md mx-auto">
-                  <input
-                    type="email"
-                    required
-                    placeholder="you@domain.com"
-                    value={leadEmail}
-                    onChange={(e) => setLeadEmail(e.target.value)}
-                    className="flex-1 bg-[#0b0c0a] border border-white/10 rounded-full px-5 py-3 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870]"
-                  />
-                  <button
-                    type="submit"
-                    className="btn-wise-secondary px-5 py-3 text-xs font-bold shrink-0"
-                  >
-                    Save My Arc
-                  </button>
-                </form>
-              )}
-            </div>
-
-            {/* ====================================================================
-               HIGH-CONVERSION MOMENT CARD (PAID UPGRADE PROMPT)
-               ==================================================================== */}
-            <div className="card-wise p-8 sm:p-10 space-y-6 bg-gradient-to-br from-[#192212] via-[#141712] to-[#0b0c0a] border-2 border-[#9fe870]">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#9fe870] text-[#163300] font-mono-code text-xs font-black uppercase">
-                <Sparkles className="w-4 h-4 text-[#163300]" /> 90-DAY SYSTEM
-              </div>
-
-              <div className="space-y-2">
-                <h2 className="font-display-wise text-3xl sm:text-5xl font-black text-slate-100 uppercase leading-[0.85]">
-                  YOUR ARC IS READY. <br />
-                  <span className="text-[#9fe870]">NOW ACTUALLY LIVE IT.</span>
-                </h2>
-                <p className="text-sm text-slate-200 font-bold pt-1">
-                  Your contract is the commitment. The dashboard is how you keep it.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-semibold pt-2">
-                <div className="p-3.5 rounded-full bg-[#161813] border border-white/[0.08] flex items-center gap-3">
-                  <span className="text-[#9fe870] font-black text-base">✓</span>
-                  <span>Daily 20-second check-ins</span>
-                </div>
-                <div className="p-3.5 rounded-full bg-[#161813] border border-white/[0.08] flex items-center gap-3">
-                  <span className="text-[#9fe870] font-black text-base">✓</span>
-                  <span>90-day consistency grid</span>
-                </div>
-                <div className="p-3.5 rounded-full bg-[#161813] border border-white/[0.08] flex items-center gap-3">
-                  <span className="text-[#9fe870] font-black text-base">✓</span>
-                  <span>Every 7 days reflection log</span>
-                </div>
-                <div className="p-3.5 rounded-full bg-[#161813] border border-white/[0.08] flex items-center gap-3">
-                  <span className="text-[#9fe870] font-black text-base">✓</span>
-                  <span>Verified Day 90 completion proof</span>
-                </div>
-              </div>
-
-              <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/[0.08]">
-                <div>
-                  <div className="text-2xl sm:text-3xl font-display-wise font-black text-slate-100">
-                    $19 <span className="text-xs font-mono-code text-[#9fe870] uppercase font-bold">ONE TIME</span>
-                  </div>
-                  <div className="text-[11px] text-slate-400 font-mono-code font-bold">
-                    Full 90-day tracking system • Lifetime access
-                  </div>
-                </div>
 
                 <button
-                  onClick={handleUnlockPaid}
-                  className="btn-wise-primary py-4 px-8 text-base font-black w-full sm:w-auto shadow-[0_0_30px_rgba(159,232,112,0.5)] gap-2"
+                  onClick={handleUpgradeToPaid}
+                  className="btn-wise-orange w-full py-4 text-xs font-semibold gap-2 shadow-md"
                 >
-                  <span>Unlock My 90 Days — $19</span>
-                  <ArrowRight className="w-5 h-5 text-[#163300]" />
-                </button>
-              </div>
-
-              <div className="text-center pt-2">
-                <button
-                  onClick={() => setMode('form')}
-                  className="text-xs font-mono-code text-slate-400 hover:text-slate-200 underline font-bold"
-                >
-                  Edit My Contract
+                  <span>START MY 90 DAYS — $19</span>
+                  <ArrowRight className="w-4 h-4 text-white" />
                 </button>
               </div>
             </div>
@@ -1112,62 +993,9 @@ export default function FreeContractBuilderPage() {
         )}
       </main>
 
-      {/* FALLBACK SHARE MODAL */}
-      {isShareModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-          <div className="relative w-full max-w-lg card-wise p-6 sm:p-8 space-y-6 bg-gradient-to-b from-[#141712] to-[#0b0c0a]">
-            <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
-              <div>
-                <div className="text-xs font-mono-code text-[#9fe870] uppercase tracking-widest font-bold">
-                  SHAREABLE CONTRACT CARD
-                </div>
-                <h3 className="font-display-wise text-2xl text-slate-100 font-black uppercase">
-                  Instagram Story (9:16)
-                </h3>
-              </div>
-              <button
-                onClick={() => setIsShareModalOpen(false)}
-                className="p-2 rounded-full text-slate-400 hover:text-slate-200"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {shareDataUrl && (
-              <div className="flex justify-center my-4">
-                <img
-                  src={shareDataUrl}
-                  alt="Winter Arc Contract Share Card"
-                  className="w-full max-w-[280px] rounded-[24px] border border-white/15 object-contain"
-                />
-              </div>
-            )}
-
-            <div className="space-y-3 pt-2">
-              <button
-                onClick={handleDownloadCard}
-                className="btn-wise-primary w-full py-4 text-sm font-extrabold gap-2"
-              >
-                <Download className="w-4 h-4 text-[#163300]" /> <span>Download PNG</span>
-              </button>
-              <button
-                onClick={() => {
-                  navigator.clipboard?.writeText(window.location.href);
-                  setCopiedLink(true);
-                  setTimeout(() => setCopiedLink(false), 2000);
-                }}
-                className="btn-wise-secondary w-full py-3.5 text-xs font-bold gap-2"
-              >
-                <span>{copiedLink ? 'Link Copied!' : 'Copy Contract Link'}</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Footer */}
-      <footer className="w-full border-t border-white/[0.06] py-6 text-center text-xs text-slate-400 font-mono-code font-bold">
-        WINTER ARC 2026 • START BEFORE JANUARY. FINISH WITH PROOF.
+      <footer className="w-full border-t border-zinc-200/60 py-6 text-center text-xs text-zinc-500 font-mono-code">
+        ARC 90 • START BEFORE JANUARY. FINISH WITH PROOF.
       </footer>
     </div>
   );

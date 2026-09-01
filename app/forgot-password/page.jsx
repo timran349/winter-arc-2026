@@ -95,19 +95,19 @@ function ForgotPasswordForm() {
   };
 
   return (
-    <div className="w-full max-w-md card-wise p-8 sm:p-10 space-y-6 bg-zinc-900 border border-zinc-800 shadow-2xl relative">
+    <div className="w-full max-w-md card-wise p-8 sm:p-10 space-y-6 bg-white border border-zinc-200/80 shadow-[0_20px_60px_-20px_rgba(24,24,27,0.08)] relative">
       <div className="text-center space-y-2">
-        <div className="w-12 h-12 rounded-full bg-[#FF4500]/10 border border-[#FF4500]/30 flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(255,69,0,0.3)]">
+        <div className="w-12 h-12 rounded-full bg-[#FF4500]/10 border border-[#FF4500]/30 flex items-center justify-center mx-auto mb-3">
           {mode === 'submitted' ? (
             <MailCheck className="w-6 h-6 text-[#FF4500]" />
           ) : (
             <KeyRound className="w-6 h-6 text-[#FF4500]" />
           )}
         </div>
-        <h1 className="font-fraunces text-3xl font-bold text-white uppercase leading-tight">
+        <h1 className="font-fraunces text-3xl font-bold text-zinc-900 uppercase leading-tight">
           {mode === 'reset' ? 'Reset Password' : mode === 'submitted' ? 'Check Your Email' : 'Forgot Password'}
         </h1>
-        <p className="text-xs text-zinc-400 font-medium leading-relaxed">
+        <p className="text-xs text-zinc-500 font-medium leading-relaxed">
           {mode === 'reset'
             ? 'Enter your new password below to regain access to your account.'
             : mode === 'submitted'
@@ -117,14 +117,14 @@ function ForgotPasswordForm() {
       </div>
 
       {error && (
-        <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-bold font-mono-code flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+        <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-700 text-xs font-bold font-mono-code flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 text-rose-500 shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {successMsg && (
-        <div className="p-4 rounded-2xl bg-[#FF4500]/15 text-[#FF4500] border border-[#FF4500]/30 text-xs font-bold font-mono-code flex items-center gap-2">
+        <div className="p-4 rounded-2xl bg-[#FF4500]/10 text-[#FF4500] border border-[#FF4500]/30 text-xs font-bold font-mono-code flex items-center gap-2">
           <Check className="w-4 h-4 text-[#FF4500] shrink-0" />
           <span>{successMsg}</span>
         </div>
@@ -142,7 +142,7 @@ function ForgotPasswordForm() {
               placeholder="you@domain.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-full px-4 py-3.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500]"
+              className="w-full bg-zinc-50 border border-zinc-200 rounded-full px-4 py-3.5 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-[#FF4500]"
             />
           </div>
 
@@ -157,7 +157,7 @@ function ForgotPasswordForm() {
         </form>
       ) : mode === 'submitted' ? (
         <div className="space-y-4 pt-2 text-center">
-          <div className="p-4 rounded-2xl bg-zinc-950 border border-zinc-800 text-xs text-zinc-300 font-medium leading-relaxed">
+          <div className="p-4 rounded-2xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-600 font-medium leading-relaxed">
             Please check your email inbox and spam folder for instructions to reset your password.
           </div>
           <button
@@ -181,7 +181,7 @@ function ForgotPasswordForm() {
               placeholder="At least 6 characters"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-full px-4 py-3.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500]"
+              className="w-full bg-zinc-50 border border-zinc-200 rounded-full px-4 py-3.5 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-[#FF4500]"
             />
           </div>
 
@@ -196,7 +196,7 @@ function ForgotPasswordForm() {
               placeholder="Re-enter new password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-full px-4 py-3.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500]"
+              className="w-full bg-zinc-50 border border-zinc-200 rounded-full px-4 py-3.5 text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-[#FF4500]"
             />
           </div>
 
@@ -211,10 +211,10 @@ function ForgotPasswordForm() {
         </form>
       )}
 
-      <div className="pt-4 border-t border-zinc-800 text-center">
+      <div className="pt-4 border-t border-zinc-100 text-center">
         <Link
           href="/login"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-400 hover:text-white font-mono-code"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-500 hover:text-zinc-900 font-mono-code"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Sign In</span>
@@ -226,23 +226,23 @@ function ForgotPasswordForm() {
 
 export default function ForgotPasswordPage() {
   return (
-    <div className="min-h-screen bg-[#09090b] text-zinc-100 flex flex-col justify-between selection:bg-[#FF4500] selection:text-white font-sans">
-      <header className="w-full border-b border-zinc-800/80 bg-[#09090b]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div className="min-h-screen bg-white text-zinc-900 flex flex-col justify-between selection:bg-[#FF4500] selection:text-white font-sans">
+      <header className="w-full border-b border-zinc-200/60 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,69,0,0.4)]">
-              <Flame className="w-4 h-4 text-white" />
+            <div className="w-7 h-7 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center group-hover:scale-105 transition-transform">
+              <Flame className="w-4 h-4 text-[#FF4500]" />
             </div>
             <div>
-              <span className="font-fraunces text-lg tracking-tight font-bold text-white">
-                Stalkr Arc
+              <span className="font-fraunces text-lg tracking-tight font-medium text-zinc-900">
+                Arc 90
               </span>
             </div>
           </Link>
 
           <Link
             href="/login"
-            className="text-xs font-medium text-zinc-400 hover:text-white px-4 py-2 rounded-full hover:bg-white/[0.05] transition-all"
+            className="text-xs font-semibold text-zinc-500 hover:text-zinc-900 px-4 py-2 rounded-full hover:bg-zinc-100 transition-all"
           >
             Sign In
           </Link>
@@ -255,8 +255,8 @@ export default function ForgotPasswordPage() {
         </Suspense>
       </main>
 
-      <footer className="w-full border-t border-zinc-800/60 py-6 text-center text-xs text-zinc-500 font-mono-code">
-        WINTER ARC 90 • START BEFORE JANUARY. FINISH WITH PROOF.
+      <footer className="w-full border-t border-zinc-200/60 py-6 text-center text-xs text-zinc-500 font-mono-code">
+        ARC 90 • START BEFORE JANUARY. FINISH WITH PROOF.
       </footer>
     </div>
   );
