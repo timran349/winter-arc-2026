@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
-import prisma from '@/lib/prisma';
+import bcrypt from 'bcryptjs';
+import prisma from '@/src/lib/prisma';
 
 export async function POST(req) {
   try {
@@ -29,7 +30,7 @@ export async function POST(req) {
     const payload = JSON.parse(rawBody);
     const eventName = payload.meta?.event_name;
     const customData = payload.meta?.custom_data || payload.data?.attributes?.custom_data || {};
-    const userId = customData.user_id;
+    let userId = customData.user_id;
 
     const data = payload.data;
     if (!data) {
@@ -48,7 +49,6 @@ export async function POST(req) {
       console.warn(
         `Webhook variant mismatch. Received: ${variantId}, Expected: ${expectedVariantId}`
       );
-      // Return 200 to acknowledge webhook without upgrading access for wrong product
       return NextResponse.json(
         { message: 'Ignored webhook for different product variant' },
         { status: 200 }
@@ -59,42 +59,71 @@ export async function POST(req) {
       const orderStatus = attributes.status || 'paid';
       const amount = attributes.total || 1900;
       const currency = attributes.currency || 'USD';
+      const buyerEmail = (attributes.user_email || customData.email || '').toLowerCase().trim();
+      const buyerName = attributes.user_name || customData.name || 'Arc Traveler';
 
-      if (orderStatus === 'paid' && userId) {
-        // Idempotent purchase creation
-        await prisma.purchase.upsert({
-          where: {
-            provider_providerOrderId: {
-              provider: 'lemonsqueezy',
-              providerOrderId: orderId
-            }
-          },
-          update: {
-            status: orderStatus,
-            amount: amount,
-            currency: currency,
-            purchasedAt: new Date(attributes.created_at || Date.now())
-          },
-          create: {
-            userId: userId,
-            provider: 'lemonsqueezy',
-            providerOrderId: orderId,
-            providerProductId: String(attributes.product_id || ''),
-            providerVariantId: variantId,
-            amount: amount,
-            currency: currency,
-            status: orderStatus,
-            purchasedAt: new Date(attributes.created_at || Date.now())
+      if (orderStatus === 'paid') {
+        let targetUser = null;
+
+        if (userId) {
+          targetUser = await prisma.user.findUnique({ where: { id: userId } });
+        }
+
+        if (!targetUser && buyerEmail) {
+          targetUser = await prisma.user.findUnique({ where: { email: buyerEmail } });
+
+          if (!targetUser) {
+            // Auto-provision user account for guest buyer
+            const tempPasswordHash = await bcrypt.hash(crypto.randomBytes(16).toString('hex'), 10);
+            targetUser = await prisma.user.create({
+              data: {
+                name: buyerName,
+                email: buyerEmail,
+                passwordHash: tempPasswordHash,
+                accessStatus: 'PAID'
+              }
+            });
           }
-        });
+        }
 
-        // Grant PAID access status to User
-        await prisma.user.update({
-          where: { id: userId },
-          data: { accessStatus: 'PAID' }
-        });
+        if (targetUser) {
+          userId = targetUser.id;
 
-        console.log(`Successfully granted PAID access to user ${userId} for order ${orderId}`);
+          // Idempotent purchase creation
+          await prisma.purchase.upsert({
+            where: {
+              provider_providerOrderId: {
+                provider: 'lemonsqueezy',
+                providerOrderId: orderId
+              }
+            },
+            update: {
+              status: orderStatus,
+              amount: amount,
+              currency: currency,
+              purchasedAt: new Date(attributes.created_at || Date.now())
+            },
+            create: {
+              userId: userId,
+              provider: 'lemonsqueezy',
+              providerOrderId: orderId,
+              providerProductId: String(attributes.product_id || ''),
+              providerVariantId: variantId,
+              amount: amount,
+              currency: currency,
+              status: orderStatus,
+              purchasedAt: new Date(attributes.created_at || Date.now())
+            }
+          });
+
+          // Grant PAID access status to User
+          await prisma.user.update({
+            where: { id: userId },
+            data: { accessStatus: 'PAID' }
+          });
+
+          console.log(`Successfully granted PAID access to user ${userId} for order ${orderId}`);
+        }
       }
     } else if (eventName === 'order_refunded') {
       if (userId) {
