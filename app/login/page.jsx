@@ -33,11 +33,9 @@ export default function LoginPage() {
         return;
       }
 
-      // Check if user has an active Arc
       let arcRes = await fetch('/api/arc');
       let arcData = await arcRes.json();
 
-      // If user has no Arc but has a saved free contract in localStorage, transfer it!
       if (!arcData?.arc) {
         const freeContract = getFreeContract();
         if (freeContract && freeContract.commitments && freeContract.commitments.length >= 4) {
@@ -60,7 +58,6 @@ export default function LoginPage() {
         }
       }
 
-      // Honor redirect parameter if present
       const urlParams = new URLSearchParams(window.location.search);
       const redirectUrl = urlParams.get('redirect');
 
@@ -78,16 +75,16 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0c0a] flex items-center justify-center p-4">
-      <div className="w-full max-w-md card-wise p-8 sm:p-10 space-y-8">
+    <div className="min-h-screen bg-[#09090b] flex items-center justify-center p-4 selection:bg-[#FF4500] selection:text-white font-sans">
+      <div className="w-full max-w-md card-wise p-8 sm:p-10 space-y-8 bg-zinc-900 border border-zinc-800 shadow-2xl">
         <div className="text-center">
           <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
-            <div className="w-10 h-10 rounded-full bg-[#9fe870] flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Flame className="w-5 h-5 text-[#163300]" />
+            <div className="w-10 h-10 rounded-full bg-[#FF4500] flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(255,69,0,0.4)]">
+              <Flame className="w-5 h-5 text-white" />
             </div>
           </Link>
-          <h1 className="font-display-wise text-4xl font-black text-slate-100 uppercase leading-[0.88]">Welcome back</h1>
-          <p className="text-slate-400 text-xs font-semibold mt-2">Sign in to continue your 90-day Arc.</p>
+          <h1 className="font-fraunces text-3xl font-bold text-white uppercase leading-tight">Welcome back</h1>
+          <p className="text-zinc-400 text-xs font-medium mt-2">Sign in to continue your 90-day Arc.</p>
         </div>
 
         {error && (
@@ -99,7 +96,7 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider font-mono-code">Email Address</label>
+            <label className="block text-xs font-bold text-zinc-400 mb-2 uppercase tracking-wider font-mono-code">Email Address</label>
             <div className="relative">
               <input
                 type="email"
@@ -107,16 +104,16 @@ export default function LoginPage() {
                 placeholder="you@domain.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#161813] border border-white/10 rounded-full pl-10 pr-4 py-3.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870] transition-all font-medium"
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-full pl-10 pr-4 py-3.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500] transition-all font-medium"
               />
-              <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
+              <Mail className="w-4 h-4 text-zinc-500 absolute left-3.5 top-3.5" />
             </div>
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider font-mono-code">Password</label>
-              <Link href="/forgot-password" className="text-[11px] font-mono-code font-bold text-[#9fe870] hover:underline">
+              <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider font-mono-code">Password</label>
+              <Link href="/forgot-password" className="text-[11px] font-mono-code font-bold text-[#FF4500] hover:underline">
                 Forgot password?
               </Link>
             </div>
@@ -127,25 +124,25 @@ export default function LoginPage() {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-[#161813] border border-white/10 rounded-full pl-10 pr-4 py-3.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870] transition-all font-medium"
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-full pl-10 pr-4 py-3.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500] transition-all font-medium"
               />
-              <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
+              <Lock className="w-4 h-4 text-zinc-500 absolute left-3.5 top-3.5" />
             </div>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="btn-wise-primary w-full py-4 text-sm font-extrabold gap-2 mt-4 disabled:opacity-50"
+            className="btn-wise-primary w-full py-4 text-xs font-semibold gap-2 mt-4 disabled:opacity-50"
           >
             <span>{loading ? 'Signing in...' : 'Sign In'}</span>
-            <ArrowRight className="w-4 h-4 text-[#163300]" />
+            <ArrowRight className="w-4 h-4 text-white" />
           </button>
         </form>
 
-        <div className="text-center text-xs text-slate-400 border-t border-white/[0.08] pt-4 font-semibold">
+        <div className="text-center text-xs text-zinc-400 border-t border-zinc-800 pt-4 font-medium">
           Don't have an Arc yet?{' '}
-          <Link href="/signup" className="text-[#9fe870] hover:underline font-bold">
+          <Link href="/signup" className="text-[#FF4500] hover:underline font-bold">
             Build My Arc
           </Link>
         </div>

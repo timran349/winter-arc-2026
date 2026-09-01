@@ -314,20 +314,20 @@ export default function FreeContractBuilderPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0b0c0a] text-slate-100 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#09090b] text-zinc-100 flex flex-col justify-between selection:bg-[#FF4500] selection:text-white">
       {/* Header Navigation */}
-      <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#0b0c0a]/90 backdrop-blur-md">
+      <header className="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-[#09090b]/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-full bg-[#9fe870] flex items-center justify-center group-hover:scale-105 transition-transform">
-              <Flame className="w-4 h-4 text-[#163300]" />
+            <div className="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,69,0,0.4)]">
+              <Flame className="w-4 h-4 text-white" />
             </div>
             <div>
-              <span className="font-editorial text-lg tracking-tight font-black text-slate-100">
-                WINTER ARC 90
+              <span className="font-fraunces text-lg tracking-tight font-bold text-white">
+                Stalkr Arc
               </span>
-              <span className="text-[10px] font-mono-code text-[#9fe870] block -mt-1 tracking-widest uppercase font-bold">
-                FREE CONTRACT BUILDER
+              <span className="text-[10px] font-mono-code text-[#FF4500] block -mt-1 tracking-widest uppercase font-bold">
+                CONTRACT BUILDER
               </span>
             </div>
           </Link>
@@ -335,13 +335,13 @@ export default function FreeContractBuilderPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/login"
-              className="text-xs font-bold text-slate-300 hover:text-white px-4 py-2 rounded-full hover:bg-white/[0.05] transition-all"
+              className="text-xs font-bold text-zinc-400 hover:text-white px-4 py-2 rounded-full hover:bg-white/[0.05] transition-all"
             >
               Sign In
             </Link>
             <button
               onClick={handleUnlockPaid}
-              className="btn-wise-primary text-xs px-5 py-2"
+              className="btn-wise-primary text-xs px-5 py-2 font-medium"
             >
               Unlock $19 System
             </button>
@@ -364,7 +364,7 @@ export default function FreeContractBuilderPage() {
                   <div
                     key={s}
                     className={`h-2 flex-1 rounded-full transition-all ${
-                      s <= step ? 'bg-[#9fe870]' : 'bg-white/[0.08]'
+                      s <= step ? 'bg-[#FF4500]' : 'bg-zinc-800'
                     }`}
                   />
                 ))}
@@ -374,20 +374,20 @@ export default function FreeContractBuilderPage() {
               {step === 1 && (
                 <div className="space-y-6">
                   <div>
-                    <span className="text-xs font-mono-code text-[#9fe870] font-bold uppercase tracking-widest">
+                    <span className="text-xs font-mono-code text-[#FF4500] font-bold uppercase tracking-widest">
                       STEP 01 OF 04
                     </span>
-                    <h1 className="font-display-wise text-4xl sm:text-5xl font-black uppercase tracking-tight leading-[0.85] text-slate-100 mt-1">
+                    <h1 className="font-funnel text-4xl sm:text-5xl font-semibold uppercase tracking-tight leading-[0.95] text-white mt-1">
                       Build your Winter Arc.
                     </h1>
-                    <p className="text-slate-300 text-xs sm:text-sm font-semibold mt-2">
+                    <p className="text-zinc-400 text-xs sm:text-sm font-medium mt-2">
                       Pick what you're committing to before January. Free. Takes 30 seconds.
                     </p>
                   </div>
 
                   <div className="space-y-4 pt-2">
                     <div>
-                      <label className="block text-xs font-bold text-slate-300 mb-2 uppercase font-mono-code">
+                      <label className="block text-xs font-bold text-zinc-400 mb-2 uppercase font-mono-code">
                         Your Name
                       </label>
                       <input
@@ -395,7 +395,7 @@ export default function FreeContractBuilderPage() {
                         placeholder="Your name (e.g. Alex)"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full bg-[#161813] border border-white/10 rounded-full px-5 py-4 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870] font-medium transition-all"
+                        className="w-full bg-zinc-950 border border-zinc-800 rounded-full px-5 py-4 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500] font-medium transition-all"
                       />
                     </div>
                   </div>

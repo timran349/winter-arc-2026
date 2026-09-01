@@ -16,11 +16,11 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@700;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#0b0c0a] text-[#f4f6f3] antialiased selection:bg-[#9fe870] selection:text-[#163300] font-sans min-h-screen">
+      <body className="bg-[#09090b] text-zinc-100 antialiased selection:bg-[#FF4500] selection:text-white font-sans min-h-screen">
         {children}
       </body>
     </html>

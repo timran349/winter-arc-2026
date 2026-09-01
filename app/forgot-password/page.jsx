@@ -15,7 +15,7 @@ function ForgotPasswordForm() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [mode, setMode] = useState(tokenParam ? 'reset' : 'request'); // 'request' | 'reset' | 'submitted'
+  const [mode, setMode] = useState(tokenParam ? 'reset' : 'request');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
@@ -27,7 +27,6 @@ function ForgotPasswordForm() {
     }
   }, [tokenParam]);
 
-  // Request Reset Token API Call
   const handleRequestReset = async (e) => {
     e.preventDefault();
     setError('');
@@ -55,7 +54,6 @@ function ForgotPasswordForm() {
     }
   };
 
-  // Submit New Password API Call
   const handleResetPassword = async (e) => {
     e.preventDefault();
     setError('');
@@ -97,19 +95,19 @@ function ForgotPasswordForm() {
   };
 
   return (
-    <div className="w-full max-w-md card-wise p-8 sm:p-10 space-y-6 bg-gradient-to-b from-[#141712] via-[#0e100c] to-[#0b0c0a] border border-[#9fe870]/30 shadow-2xl relative">
+    <div className="w-full max-w-md card-wise p-8 sm:p-10 space-y-6 bg-zinc-900 border border-zinc-800 shadow-2xl relative">
       <div className="text-center space-y-2">
-        <div className="w-12 h-12 rounded-full bg-[#9fe870]/10 border border-[#9fe870]/30 flex items-center justify-center mx-auto mb-3">
+        <div className="w-12 h-12 rounded-full bg-[#FF4500]/10 border border-[#FF4500]/30 flex items-center justify-center mx-auto mb-3 shadow-[0_0_20px_rgba(255,69,0,0.3)]">
           {mode === 'submitted' ? (
-            <MailCheck className="w-6 h-6 text-[#9fe870]" />
+            <MailCheck className="w-6 h-6 text-[#FF4500]" />
           ) : (
-            <KeyRound className="w-6 h-6 text-[#9fe870]" />
+            <KeyRound className="w-6 h-6 text-[#FF4500]" />
           )}
         </div>
-        <h1 className="font-display-wise text-3xl sm:text-4xl font-black text-slate-100 uppercase tracking-tight leading-[0.88]">
+        <h1 className="font-fraunces text-3xl font-bold text-white uppercase leading-tight">
           {mode === 'reset' ? 'Reset Password' : mode === 'submitted' ? 'Check Your Email' : 'Forgot Password'}
         </h1>
-        <p className="text-xs text-slate-300 font-semibold leading-relaxed">
+        <p className="text-xs text-zinc-400 font-medium leading-relaxed">
           {mode === 'reset'
             ? 'Enter your new password below to regain access to your account.'
             : mode === 'submitted'
@@ -126,17 +124,16 @@ function ForgotPasswordForm() {
       )}
 
       {successMsg && (
-        <div className="p-4 rounded-2xl bg-[#e2f6d5] text-[#163300] text-xs font-bold font-mono-code flex items-center gap-2">
-          <Check className="w-4 h-4 text-[#163300] shrink-0" />
+        <div className="p-4 rounded-2xl bg-[#FF4500]/15 text-[#FF4500] border border-[#FF4500]/30 text-xs font-bold font-mono-code flex items-center gap-2">
+          <Check className="w-4 h-4 text-[#FF4500] shrink-0" />
           <span>{successMsg}</span>
         </div>
       )}
 
       {mode === 'request' ? (
-        /* REQUEST RESET LINK FORM */
         <form onSubmit={handleRequestReset} className="space-y-4 pt-2">
           <div className="space-y-1 text-left">
-            <label className="text-[10px] font-mono-code text-[#9fe870] font-bold uppercase tracking-wider">
+            <label className="text-[10px] font-mono-code text-[#FF4500] font-bold uppercase tracking-wider">
               Account Email
             </label>
             <input
@@ -145,38 +142,36 @@ function ForgotPasswordForm() {
               placeholder="you@domain.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-[#0b0c0a] border border-white/10 rounded-2xl px-4 py-3.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870]"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-full px-4 py-3.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500]"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="btn-wise-primary w-full py-4 text-sm font-black justify-center gap-2 shadow-[0_0_25px_rgba(159,232,112,0.4)]"
+            className="btn-wise-primary w-full py-4 text-xs font-semibold justify-center gap-2"
           >
             <span>{loading ? 'Sending Instructions...' : 'Send Reset Link'}</span>
-            <ArrowRight className="w-4 h-4 text-[#163300]" />
+            <ArrowRight className="w-4 h-4 text-white" />
           </button>
         </form>
       ) : mode === 'submitted' ? (
-        /* SUBMITTED CONFIRMATION */
         <div className="space-y-4 pt-2 text-center">
-          <div className="p-4 rounded-2xl bg-[#161813] border border-white/[0.08] text-xs text-slate-300 font-medium leading-relaxed">
+          <div className="p-4 rounded-2xl bg-zinc-950 border border-zinc-800 text-xs text-zinc-300 font-medium leading-relaxed">
             Please check your email inbox and spam folder for instructions to reset your password.
           </div>
           <button
             type="button"
             onClick={() => setMode('request')}
-            className="btn-wise-secondary w-full py-3.5 text-xs font-bold"
+            className="btn-wise-secondary w-full py-3.5 text-xs font-medium"
           >
             Try Another Email
           </button>
         </div>
       ) : (
-        /* NEW PASSWORD RESET FORM */
         <form onSubmit={handleResetPassword} className="space-y-4 pt-2">
           <div className="space-y-1 text-left">
-            <label className="text-[10px] font-mono-code text-[#9fe870] font-bold uppercase tracking-wider">
+            <label className="text-[10px] font-mono-code text-[#FF4500] font-bold uppercase tracking-wider">
               New Password
             </label>
             <input
@@ -186,12 +181,12 @@ function ForgotPasswordForm() {
               placeholder="At least 6 characters"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full bg-[#0b0c0a] border border-white/10 rounded-2xl px-4 py-3.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870]"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-full px-4 py-3.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500]"
             />
           </div>
 
           <div className="space-y-1 text-left">
-            <label className="text-[10px] font-mono-code text-[#9fe870] font-bold uppercase tracking-wider">
+            <label className="text-[10px] font-mono-code text-[#FF4500] font-bold uppercase tracking-wider">
               Confirm New Password
             </label>
             <input
@@ -201,25 +196,25 @@ function ForgotPasswordForm() {
               placeholder="Re-enter new password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full bg-[#0b0c0a] border border-white/10 rounded-2xl px-4 py-3.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-[#9fe870]"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-full px-4 py-3.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-[#FF4500]"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="btn-wise-primary w-full py-4 text-sm font-black justify-center gap-2 shadow-[0_0_25px_rgba(159,232,112,0.4)]"
+            className="btn-wise-primary w-full py-4 text-xs font-semibold justify-center gap-2"
           >
             <span>{loading ? 'Updating Password...' : 'Update Password'}</span>
-            <ShieldCheck className="w-4 h-4 text-[#163300]" />
+            <ShieldCheck className="w-4 h-4 text-white" />
           </button>
         </form>
       )}
 
-      <div className="pt-4 border-t border-white/[0.08] text-center">
+      <div className="pt-4 border-t border-zinc-800 text-center">
         <Link
           href="/login"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-white font-mono-code"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-400 hover:text-white font-mono-code"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Sign In</span>
@@ -231,39 +226,36 @@ function ForgotPasswordForm() {
 
 export default function ForgotPasswordPage() {
   return (
-    <div className="min-h-screen bg-[#0b0c0a] text-slate-100 flex flex-col justify-between selection:bg-[#9fe870] selection:text-[#163300]">
-      {/* Navigation Bar */}
-      <header className="w-full border-b border-white/[0.08] bg-[#0b0c0a]">
+    <div className="min-h-screen bg-[#09090b] text-zinc-100 flex flex-col justify-between selection:bg-[#FF4500] selection:text-white font-sans">
+      <header className="w-full border-b border-zinc-800/80 bg-[#09090b]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-full bg-[#9fe870] flex items-center justify-center group-hover:scale-105 transition-transform">
-              <Flame className="w-4 h-4 text-[#163300]" />
+            <div className="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,69,0,0.4)]">
+              <Flame className="w-4 h-4 text-white" />
             </div>
             <div>
-              <span className="font-editorial text-lg tracking-tight font-black text-slate-100">
-                WINTER ARC 90
+              <span className="font-fraunces text-lg tracking-tight font-bold text-white">
+                Stalkr Arc
               </span>
             </div>
           </Link>
 
           <Link
             href="/login"
-            className="text-xs font-bold text-slate-300 hover:text-white px-4 py-2 rounded-full hover:bg-white/[0.05] transition-all"
+            className="text-xs font-medium text-zinc-400 hover:text-white px-4 py-2 rounded-full hover:bg-white/[0.05] transition-all"
           >
             Sign In
           </Link>
         </div>
       </header>
 
-      {/* Main Content inside Suspense Boundary */}
       <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <Suspense fallback={<div className="text-xs text-[#9fe870] font-mono-code font-bold">Loading...</div>}>
+        <Suspense fallback={<div className="text-xs text-[#FF4500] font-mono-code font-bold">Loading...</div>}>
           <ForgotPasswordForm />
         </Suspense>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full border-t border-white/[0.06] py-6 text-center text-xs text-slate-400 font-mono-code font-bold">
+      <footer className="w-full border-t border-zinc-800/60 py-6 text-center text-xs text-zinc-500 font-mono-code">
         WINTER ARC 90 • START BEFORE JANUARY. FINISH WITH PROOF.
       </footer>
     </div>

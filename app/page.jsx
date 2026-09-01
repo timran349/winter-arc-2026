@@ -15,7 +15,10 @@ import {
   Share2,
   Calendar,
   Layers,
-  Award
+  Award,
+  Search,
+  CheckCircle2,
+  Lock
 } from 'lucide-react';
 import { trackEvent, ANALYTICS_EVENTS } from '@/src/utils/analytics';
 
@@ -38,8 +41,8 @@ export default function Home() {
 
   const faqs = [
     {
-      q: 'What is Winter Arc?',
-      a: 'Winter Arc is a 90-day personal accountability run. You choose 4–6 non-negotiable commitments to execute consistently before the new year.'
+      q: 'What is Winter Arc 90?',
+      a: 'Winter Arc 90 is a 90-day personal accountability run. You choose 4–6 non-negotiable commitments to execute consistently before the new year.'
     },
     {
       q: 'How long is it?',
@@ -80,75 +83,77 @@ export default function Home() {
   ];
 
   return (
-    <div className="w-full bg-[#0b0c0a] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-[#9fe870] selection:text-[#163300]">
-      {/* 13. NAVIGATION */}
-      <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#0b0c0a]/90 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div className="relative w-full bg-[#09090b] text-zinc-100 min-h-screen flex flex-col justify-between selection:bg-[#FF4500] selection:text-white font-sans overflow-x-hidden">
+      {/* Background Stalkr Subtle Ambient Spotlights & Grain */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 stalkr-grain opacity-40 z-0"></div>
+      <div aria-hidden="true" className="pointer-events-none absolute -top-64 left-1/2 h-[600px] w-[1100px] -translate-x-1/2 rounded-[9999px] bg-gradient-to-b from-[#FF4500]/15 via-transparent to-transparent blur-3xl z-0"></div>
+
+      {/* HEADER / NAVIGATION (STALKR GLASS HEADER) */}
+      <header className="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-[#09090b]/80 backdrop-blur-md">
+        <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-full bg-[#9fe870] flex items-center justify-center group-hover:scale-105 transition-transform">
-              <Flame className="w-4 h-4 text-[#163300]" />
+            <div className="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center group-hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,69,0,0.4)]">
+              <Flame className="w-4 h-4 text-white" />
             </div>
             <div>
-              <span className="font-editorial text-lg tracking-tight font-black text-slate-100">
-                WINTER ARC 90
-              </span>
-              <span className="text-[10px] font-mono-code text-[#9fe870] block -mt-1 tracking-widest uppercase font-bold">
-                SYSTEM
+              <span className="font-fraunces text-xl tracking-tight font-bold text-white block">
+                Stalkr Arc
               </span>
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8 text-xs font-mono-code font-bold text-slate-300">
-            <a href="#how-it-works" className="hover:text-[#9fe870] transition-colors">
+          <nav className="hidden md:flex items-center gap-8 text-[14px] font-medium text-zinc-400">
+            <a href="#how-it-works" className="transition-colors hover:text-white">
               How it works
             </a>
-            <a href="#the-system" className="hover:text-[#9fe870] transition-colors">
+            <a href="#the-system" className="transition-colors hover:text-white">
               The System
             </a>
-            <a href="#faq" className="hover:text-[#9fe870] transition-colors">
+            <a href="#faq" className="transition-colors hover:text-white">
               FAQ
             </a>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Link
               href="/login"
-              className="text-xs font-bold text-slate-300 hover:text-white px-3 py-2 rounded-full hover:bg-white/[0.05] transition-all"
+              className="text-[14px] font-medium text-zinc-400 hover:text-white transition-colors hidden sm:inline"
             >
-              Sign In
+              Sign in
             </Link>
             <Link
               href="/build"
               onClick={handleHeroCtaClick}
-              className="btn-wise-primary text-xs px-5 py-2"
+              className="btn-wise-primary text-[14px] px-5 py-2 font-medium"
             >
-              BUILD MY ARC
+              <span>Build My Arc</span>
+              <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </div>
         </div>
       </header>
 
       {/* MAIN CONTENT */}
-      <main className="flex-1">
+      <main className="relative z-10 flex-1">
         {/* ====================================================================
-           1. HERO SECTION & 2. LIVE HERO CONTRACT PREVIEW
+           1. HERO SECTION & LIVE HERO CONTRACT PREVIEW
            ==================================================================== */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-16 text-center">
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e2f6d5] text-[#163300] font-mono-code text-xs font-black uppercase mb-6 tracking-wider">
-            <Flame className="w-4 h-4 text-[#163300]" />
-            <span>WINTER ARC 2026</span>
+        <section className="max-w-[1200px] mx-auto px-6 pt-16 sm:pt-24 pb-20 text-center">
+          {/* Eyebrow Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#FF4500]/30 bg-[#FF4500]/10 text-[#FF4500] text-[11px] font-semibold uppercase tracking-[0.18em] mb-6">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#FF4500] animate-pulse"></span>
+            <span>WINTER ARC 2026 SYSTEM</span>
           </div>
 
-          {/* Headline */}
-          <h1 className="font-display-wise text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-slate-100 uppercase max-w-5xl mx-auto leading-[0.85]">
+          {/* Headline with Fraunces Accent */}
+          <h1 className="font-funnel text-5xl sm:text-7xl lg:text-8xl font-semibold tracking-[-0.035em] text-white uppercase max-w-5xl mx-auto leading-[0.95]">
             START BEFORE JANUARY. <br />
-            <span className="text-[#9fe870]">FINISH WITH PROOF.</span>
+            <span className="font-fraunces text-[#FF4500] normal-case italic font-normal tracking-tight">Finish with proof.</span>
           </h1>
 
           {/* Subhead */}
-          <p className="mt-6 text-base sm:text-xl text-slate-300 max-w-2xl mx-auto font-sans font-semibold leading-relaxed">
-            Build your Winter Arc in 30 seconds. Choose 4–6 commitments, create your contract, and start your 90-day run.
+          <p className="mt-6 text-base sm:text-xl text-zinc-400 max-w-2xl mx-auto font-sans font-medium leading-relaxed">
+            Build your Winter Arc in 30 seconds. Choose 4–6 commitments, generate your contract, and lock in your 90-day run.
           </p>
 
           {/* CTAs & Microcopy */}
@@ -157,88 +162,92 @@ export default function Home() {
               <Link
                 href="/build"
                 onClick={handleHeroCtaClick}
-                className="btn-wise-primary px-10 py-5 text-lg font-black gap-2 group w-full sm:w-auto shadow-[0_0_35px_rgba(159,232,112,0.4)]"
+                className="btn-wise-primary px-8 py-4 text-[15px] font-medium gap-2 group w-full sm:w-auto"
               >
                 <span>BUILD MY WINTER ARC</span>
-                <ArrowRight className="w-5 h-5 text-[#163300] group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-0.5 transition-transform" />
               </Link>
 
               <a
                 href="#how-it-works"
-                className="btn-wise-secondary px-8 py-5 text-base w-full sm:w-auto font-bold"
+                className="btn-wise-secondary px-7 py-4 text-[15px] w-full sm:w-auto font-medium"
               >
-                SEE HOW IT WORKS
+                See how it works
               </a>
             </div>
 
-            <div className="text-xs font-mono-code text-[#9fe870] font-bold uppercase tracking-wider pt-1">
-              Free. No account required.
-            </div>
+            <p className="text-[12.5px] text-zinc-500 font-mono-code pt-2">
+              Free contract builder • 100% private • No credit card
+            </p>
           </div>
 
-          {/* 2. DYNAMIC HERO CONTRACT POSTER PREVIEW */}
+          {/* DYNAMIC HERO CONTRACT POSTER PREVIEW */}
           <div className="mt-14 max-w-xl mx-auto text-left">
-            <div className="text-xs font-mono-code text-[#9fe870] font-bold uppercase tracking-widest mb-3 flex items-center justify-between px-1">
+            <div className="text-[11px] font-mono-code text-[#FF4500] font-semibold uppercase tracking-[0.18em] mb-3 flex items-center justify-between px-1">
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#9fe870] animate-pulse" />
-                DIGITAL CONTRACT POSTER
+                <span className="w-2 h-2 rounded-full bg-[#FF4500] animate-pulse" />
+                DIGITAL CONTRACT CARD
               </span>
-              <span className="text-slate-400">Click name to customize</span>
+              <span className="text-zinc-500 font-sans text-xs">Edit name below</span>
             </div>
 
-            {/* HIGH-CONTRAST DIGITAL POSTER */}
-            <div className="card-wise p-6 sm:p-10 space-y-6 bg-gradient-to-b from-[#141712] via-[#0e100c] to-[#0b0c0a] border border-[#9fe870]/40 shadow-2xl relative overflow-hidden">
-              <div className="text-center border-b border-white/[0.08] pb-5">
-                <div className="font-mono-code text-xs text-[#9fe870] tracking-widest font-bold uppercase mb-1">
-                  MY WINTER ARC
+            {/* STALKR CARD POSTER */}
+            <div className="card-wise p-6 sm:p-10 space-y-6 bg-zinc-900/90 border border-zinc-800 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)] relative overflow-hidden">
+              <div className="text-center border-b border-zinc-800 pb-5">
+                <div className="font-mono-code text-[11px] text-[#FF4500] tracking-[0.18em] font-semibold uppercase mb-1">
+                  WINTER ARC 90
                 </div>
 
-                {/* Editable Name Field inside Hero Poster */}
-                <input
-                  type="text"
-                  value={heroName}
-                  onChange={(e) => setHeroName(e.target.value.toUpperCase())}
-                  className="font-display-wise text-3xl sm:text-4xl font-black text-slate-100 bg-transparent text-center focus:outline-none focus:border-b border-[#9fe870] w-full uppercase tracking-tight"
-                />
+                {/* Stalkr Input Box Style inside Hero Poster */}
+                <div className="flex h-12 w-full max-w-md mx-auto items-center gap-2 rounded-full border border-zinc-800 bg-zinc-950/80 px-4 focus-within:border-[#FF4500] focus-within:ring-2 focus-within:ring-[#FF4500]/20 my-3">
+                  <Flame className="w-4 h-4 text-[#FF4500] shrink-0" />
+                  <input
+                    type="text"
+                    value={heroName}
+                    onChange={(e) => setHeroName(e.target.value.toUpperCase())}
+                    className="w-full bg-transparent font-funnel text-xl font-bold text-white text-center outline-none tracking-tight uppercase placeholder:text-zinc-600"
+                    placeholder="ENTER YOUR NAME"
+                  />
+                </div>
 
-                <div className="font-mono-code text-xs text-slate-300 font-bold mt-2 flex items-center justify-center gap-2">
+                <div className="font-mono-code text-xs text-zinc-400 font-medium mt-2 flex items-center justify-center gap-2">
                   <span>OCT 01</span>
-                  <span className="text-[#9fe870]">→</span>
+                  <span className="text-[#FF4500]">→</span>
                   <span>DEC 29</span>
                 </div>
-                <div className="inline-block mt-2 px-3.5 py-0.5 rounded-full bg-[#e2f6d5] text-[#163300] text-[10px] font-mono-code font-black uppercase">
+                <div className="inline-block mt-2 px-3 py-0.5 rounded-full bg-[#FF4500]/15 text-[#FF4500] border border-[#FF4500]/30 text-[10.5px] font-mono-code font-bold uppercase">
                   90 DAYS
                 </div>
               </div>
 
               <div>
-                <div className="text-[10px] font-mono-code text-[#9fe870] font-bold uppercase tracking-wider mb-3 text-center">
-                  MY COMMITMENTS
+                <div className="text-[10.5px] font-mono-code text-[#FF4500] font-semibold uppercase tracking-[0.18em] mb-3 text-center">
+                  NON-NEGOTIABLE COMMITMENTS
                 </div>
                 <div className="space-y-2 max-w-sm mx-auto">
                   {[
-                    { num: '01', name: 'TRAIN' },
-                    { num: '02', name: 'READ' },
-                    { num: '03', name: 'DEEP WORK' },
+                    { num: '01', name: 'TRAIN 5X / WEEK' },
+                    { num: '02', name: 'READ 20 PAGES DAILY' },
+                    { num: '03', name: 'DEEP WORK 90 MINUTES' },
                     { num: '04', name: 'SLEEP 7+ HOURS' },
                     { num: '05', name: 'NO MORNING SCROLLING' }
                   ].map((item) => (
                     <div
                       key={item.num}
-                      className="p-3 rounded-full bg-[#161813] border border-white/[0.08] flex items-center justify-between text-xs font-black text-slate-100 px-5"
+                      className="p-3 rounded-full bg-zinc-950 border border-zinc-800/80 flex items-center justify-between text-xs font-semibold text-zinc-100 px-5"
                     >
-                      <span className="font-mono-code text-[#9fe870]">{item.num}</span>
-                      <span className="uppercase tracking-wider">{item.name}</span>
+                      <span className="font-mono-code text-[#FF4500] text-[11px] font-bold">{item.num}</span>
+                      <span className="uppercase tracking-wide">{item.name}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="text-center pt-4 border-t border-white/[0.08]">
-                <div className="font-display-wise text-base font-black text-slate-100 uppercase tracking-wide">
-                  START BEFORE JANUARY.
+              <div className="text-center pt-4 border-t border-zinc-800">
+                <div className="font-fraunces text-base font-medium text-white tracking-tight">
+                  Start before January. Finish with proof.
                 </div>
-                <div className="font-mono-code text-xs font-bold text-[#9fe870] uppercase tracking-widest mt-1">
+                <div className="font-mono-code text-[11px] font-semibold text-[#FF4500] uppercase tracking-[0.18em] mt-1">
                   WINTER ARC 2026
                 </div>
               </div>
@@ -247,7 +256,7 @@ export default function Home() {
             <div className="mt-4 text-center">
               <Link
                 href="/build"
-                className="inline-flex items-center gap-2 text-xs font-black text-[#9fe870] hover:underline font-mono-code uppercase tracking-wider"
+                className="inline-flex items-center gap-2 text-xs font-semibold text-[#FF4500] hover:underline font-mono-code uppercase tracking-wider"
               >
                 Create Your Customized Contract →
               </Link>
@@ -255,44 +264,63 @@ export default function Home() {
           </div>
         </section>
 
+        {/* STALKR TESTIMONIAL BANNER */}
+        <section aria-label="Customer quote" className="relative z-10 border-y border-zinc-800/80 bg-zinc-900/50">
+          <figure className="mx-auto grid max-w-[1180px] items-center gap-7 px-6 py-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-10 md:py-12">
+            <blockquote className="relative max-w-[820px] border-l-2 border-[#FF4500] pl-5 text-[22px] font-fraunces font-medium leading-[1.35] tracking-[-0.025em] text-white sm:pl-7 sm:text-[27px] md:text-[30px]">
+              “I set my 90-day Winter Arc contract on October 1st. By January 1st, I had completed 90 straight days of execution with proof.”
+            </blockquote>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-[#FF4500]/20 border border-[#FF4500]/40 flex items-center justify-center text-[#FF4500] font-bold font-fraunces text-lg">
+                WA
+              </div>
+              <cite className="not-italic">
+                <span className="block text-[14px] font-semibold leading-tight text-white">Jack F.</span>
+                <span className="mt-1 block text-[12.5px] leading-none text-zinc-400">@jackfriks</span>
+              </cite>
+            </div>
+          </figure>
+        </section>
+
         {/* ====================================================================
            3. FREE CONTRACT SECTION
            ==================================================================== */}
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 border-t border-white/[0.06]">
+        <section className="max-w-[1200px] mx-auto px-6 py-20 border-t border-zinc-800/60">
           <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-            <span className="text-xs font-mono-code text-[#9fe870] uppercase tracking-widest font-bold">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FF4500] flex items-center justify-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#FF4500]"></span>
               FREE ACQUISITION
             </span>
-            <h2 className="font-display-wise text-4xl sm:text-6xl text-slate-100 font-black uppercase leading-[0.85]">
+            <h2 className="font-funnel text-4xl sm:text-6xl text-white font-semibold uppercase leading-[0.95] tracking-tight">
               BUILD YOUR ARC. <br />
-              <span className="text-[#9fe870]">MAKE IT REAL.</span>
+              <span className="font-fraunces text-[#FF4500] normal-case italic font-normal">Make it real.</span>
             </h2>
-            <p className="text-slate-300 text-sm sm:text-base font-semibold leading-relaxed pt-1">
+            <p className="text-zinc-400 text-sm sm:text-base font-medium leading-relaxed pt-1">
               Choose 4–6 commitments that actually fit your life. No extreme rules. No perfect streak required. No restarting from zero.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="card-wise p-6 sm:p-8 space-y-3">
-              <div className="font-mono-code text-2xl font-black text-[#9fe870]">01</div>
-              <h3 className="font-display-wise text-2xl font-black text-slate-100 uppercase">CHOOSE</h3>
-              <p className="text-xs text-slate-300 font-semibold leading-relaxed">
+            <div className="card-wise p-6 sm:p-8 space-y-3 bg-zinc-900 border border-zinc-800">
+              <div className="font-mono-code text-sm font-bold text-[#FF4500]">01</div>
+              <h3 className="font-funnel text-2xl font-bold text-white uppercase tracking-tight">CHOOSE</h3>
+              <p className="text-xs text-zinc-400 font-medium leading-relaxed">
                 Pick 4–6 commitments that fit your goals and schedule.
               </p>
             </div>
 
-            <div className="card-wise p-6 sm:p-8 space-y-3">
-              <div className="font-mono-code text-2xl font-black text-[#9fe870]">02</div>
-              <h3 className="font-display-wise text-2xl font-black text-slate-100 uppercase">COMMIT</h3>
-              <p className="text-xs text-slate-300 font-semibold leading-relaxed">
+            <div className="card-wise p-6 sm:p-8 space-y-3 bg-zinc-900 border border-zinc-800">
+              <div className="font-mono-code text-sm font-bold text-[#FF4500]">02</div>
+              <h3 className="font-funnel text-2xl font-bold text-white uppercase tracking-tight">COMMIT</h3>
+              <p className="text-xs text-zinc-400 font-medium leading-relaxed">
                 Set your 90-day start date and lock in your window.
               </p>
             </div>
 
-            <div className="card-wise p-6 sm:p-8 space-y-3">
-              <div className="font-mono-code text-2xl font-black text-[#9fe870]">03</div>
-              <h3 className="font-display-wise text-2xl font-black text-slate-100 uppercase">SHARE</h3>
-              <p className="text-xs text-slate-300 font-semibold leading-relaxed">
+            <div className="card-wise p-6 sm:p-8 space-y-3 bg-zinc-900 border border-zinc-800">
+              <div className="font-mono-code text-sm font-bold text-[#FF4500]">03</div>
+              <h3 className="font-funnel text-2xl font-bold text-white uppercase tracking-tight">SHARE</h3>
+              <p className="text-xs text-zinc-400 font-medium leading-relaxed">
                 Generate your personal Arc contract to download and share.
               </p>
             </div>
@@ -301,9 +329,10 @@ export default function Home() {
           <div className="text-center">
             <Link
               href="/build"
-              className="btn-wise-primary px-8 py-4 text-sm font-black"
+              className="btn-wise-primary px-8 py-4 text-sm font-medium"
             >
-              BUILD MY WINTER ARC
+              <span>BUILD MY WINTER ARC</span>
+              <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
           </div>
         </section>
@@ -311,107 +340,88 @@ export default function Home() {
         {/* ====================================================================
            4. FREE → PAID TRANSITION (CLEAN TWO-COLUMN COMPARISON)
            ==================================================================== */}
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 border-t border-white/[0.06]">
+        <section className="max-w-[1200px] mx-auto px-6 py-20 border-t border-zinc-800/60">
           <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
-            <span className="text-xs font-mono-code text-[#9fe870] uppercase tracking-widest font-bold">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FF4500]">
               THE VALUE PROPOSITION
             </span>
-            <h2 className="font-display-wise text-4xl sm:text-6xl text-slate-100 font-black uppercase leading-[0.85]">
+            <h2 className="font-funnel text-4xl sm:text-6xl text-white font-semibold uppercase leading-[0.95] tracking-tight">
               MAKE THE COMMITMENT. <br />
-              <span className="text-[#9fe870]">THEN KEEP IT.</span>
+              <span className="font-fraunces text-[#FF4500] normal-case italic font-normal">Then keep it.</span>
             </h2>
-            <p className="text-slate-300 text-xs sm:text-sm font-semibold">
+            <p className="text-zinc-400 text-xs sm:text-sm font-medium">
               The free product helps you MAKE the commitment. The paid product helps you KEEP it.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* FREE CONTRACT COLUMN */}
-            <div className="card-wise p-8 sm:p-10 space-y-6 bg-[#121510] border border-white/10 flex flex-col justify-between">
+            <div className="card-wise p-8 sm:p-10 space-y-6 bg-zinc-900/60 border border-zinc-800 flex flex-col justify-between">
               <div className="space-y-6">
                 <div>
-                  <div className="text-xs font-mono-code text-slate-400 font-bold uppercase">FREE CONTRACT</div>
-                  <div className="text-4xl font-display-wise font-black text-slate-100 mt-1">$0</div>
-                  <div className="text-xs text-slate-400 font-mono-code font-bold mt-1">100% free • No account required</div>
+                  <div className="text-[11px] font-mono-code text-zinc-500 font-bold uppercase tracking-wider">FREE CONTRACT</div>
+                  <div className="text-4xl font-funnel font-bold text-white mt-1">$0</div>
+                  <div className="text-xs text-zinc-500 font-mono-code font-medium mt-1">100% free • No account required</div>
                 </div>
 
-                <div className="space-y-3 text-xs font-bold border-t border-white/[0.08] pt-6">
-                  <div className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                    <span>Choose 4–6 commitments</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                    <span>Create your Winter Arc</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                    <span>Generate your contract</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                    <span>Download high-res PNG</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                    <span>Share to Stories & TikTok</span>
-                  </div>
+                <div className="space-y-3 text-xs font-medium border-t border-zinc-800 pt-6">
+                  {[
+                    'Choose 4–6 commitments',
+                    'Create your Winter Arc',
+                    'Generate your contract card',
+                    'Download high-res PNG',
+                    'Share to Stories & TikTok'
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-3">
+                      <Check className="w-4 h-4 text-[#FF4500] shrink-0" />
+                      <span className="text-zinc-300">{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="pt-6">
                 <Link
                   href="/build"
-                  className="btn-wise-secondary w-full py-4 text-xs font-extrabold text-center block"
+                  className="btn-wise-secondary w-full py-4 text-xs font-semibold text-center block"
                 >
                   BUILD MY ARC
                 </Link>
               </div>
             </div>
 
-            {/* PAID 90-DAY SYSTEM COLUMN */}
-            <div className="card-wise p-8 sm:p-10 space-y-6 bg-gradient-to-br from-[#192212] via-[#141712] to-[#0b0c0a] border-2 border-[#9fe870] flex flex-col justify-between shadow-2xl">
+            {/* PAID 90-DAY SYSTEM COLUMN (STALKR HIGHLIGHTED CARD) */}
+            <div className="card-wise p-8 sm:p-10 space-y-6 bg-gradient-to-br from-zinc-900 via-zinc-900 to-[#FF4500]/10 border-2 border-[#FF4500] flex flex-col justify-between shadow-[0_0_40px_rgba(255,69,0,0.2)]">
               <div className="space-y-6">
                 <div>
-                  <div className="inline-block px-3 py-1 rounded-full bg-[#9fe870] text-[#163300] text-[10px] font-mono-code font-black uppercase mb-2">
+                  <div className="inline-block px-3 py-1 rounded-full bg-[#FF4500] text-white text-[10.5px] font-mono-code font-bold uppercase mb-2">
                     90-DAY SYSTEM
                   </div>
-                  <div className="text-4xl font-display-wise font-black text-slate-100">$19 <span className="text-xs font-mono-code text-[#9fe870] uppercase">ONE TIME</span></div>
-                  <div className="text-xs text-slate-300 font-mono-code font-bold mt-1">Full 90-day tracking • Lifetime access</div>
+                  <div className="text-4xl font-funnel font-bold text-white">$19 <span className="text-xs font-mono-code text-[#FF4500] uppercase font-bold">ONE TIME</span></div>
+                  <div className="text-xs text-zinc-300 font-mono-code font-medium mt-1">Full 90-day tracking • Lifetime access</div>
                 </div>
 
-                <div className="space-y-3 text-xs font-bold border-t border-white/[0.08] pt-6">
-                  <div className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                    <span>Everything in the free contract</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                    <span>Daily 20-second check-ins</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                    <span>90-day progress tracking grid</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                    <span>Weekly reflection & review log</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                    <span>Arc history archive</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                    <span>Verified Day 90 completion proof</span>
-                  </div>
+                <div className="space-y-3 text-xs font-medium border-t border-zinc-800 pt-6">
+                  {[
+                    'Everything in the free contract',
+                    'Daily 20-second check-ins',
+                    '90-day progress tracking grid',
+                    'Weekly reflection & review log',
+                    'Arc history archive',
+                    'Verified Day 90 completion proof'
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-3">
+                      <Check className="w-4 h-4 text-[#FF4500] shrink-0" />
+                      <span className="text-zinc-200">{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="pt-6">
                 <Link
                   href="/unlock"
-                  className="btn-wise-primary w-full py-4 text-xs font-black text-center block shadow-[0_0_25px_rgba(159,232,112,0.4)]"
+                  className="btn-wise-primary w-full py-4 text-xs font-semibold text-center block"
                 >
                   UNLOCK MY 90 DAYS — $19
                 </Link>
@@ -421,395 +431,80 @@ export default function Home() {
         </section>
 
         {/* ====================================================================
-           5. "YOUR ARC. YOUR RULES."
+           5. STALKR STEP-BY-STEP METHOD ("HOW IT WORKS" 01, 02, 03)
            ==================================================================== */}
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 border-t border-white/[0.06]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-6 space-y-6">
-              <span className="text-xs font-mono-code text-[#9fe870] uppercase tracking-widest font-bold">
-                CORE PHILOSOPHY
-              </span>
-              <h2 className="font-display-wise text-4xl sm:text-6xl text-slate-100 font-black uppercase leading-[0.85]">
-                YOUR ARC. <br />
-                <span className="text-[#9fe870]">YOUR RULES.</span>
-              </h2>
-              <div className="space-y-4 text-sm sm:text-base text-slate-300 font-semibold leading-relaxed">
-                <p>
-                  Winter Arc isn't a fixed challenge. You choose what you're working on.
-                </p>
-                <div className="flex flex-wrap gap-2 text-xs font-mono-code font-bold pt-1">
-                  <span className="px-3 py-1 rounded-full bg-[#161813] border border-white/10 text-slate-200">Train</span>
-                  <span className="px-3 py-1 rounded-full bg-[#161813] border border-white/10 text-slate-200">Read</span>
-                  <span className="px-3 py-1 rounded-full bg-[#161813] border border-white/10 text-slate-200">Study</span>
-                  <span className="px-3 py-1 rounded-full bg-[#161813] border border-white/10 text-slate-200">Build</span>
-                  <span className="px-3 py-1 rounded-full bg-[#161813] border border-white/10 text-slate-200">Sleep better</span>
-                  <span className="px-3 py-1 rounded-full bg-[#161813] border border-white/10 text-slate-200">Scroll less</span>
-                  <span className="px-3 py-1 rounded-full bg-[#161813] border border-white/10 text-slate-200">Create something</span>
-                </div>
-                <p>
-                  Pick what matters to you.
-                </p>
-              </div>
+        <section id="how-it-works" className="relative max-w-[1200px] mx-auto px-6 py-24 border-t border-zinc-800/60">
+          <div>
+            <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FF4500]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#FF4500]"></span>
+              From commitment to proof
             </div>
-
-            {/* CALLOUT CARD */}
-            <div className="lg:col-span-6">
-              <div className="card-wise p-8 sm:p-10 bg-gradient-to-br from-[#182113] to-[#0b0c0a] border-2 border-[#9fe870] space-y-4 text-center">
-                <div className="font-mono-code text-xs text-[#9fe870] uppercase font-bold tracking-widest">
-                  THE KEY DIFFERENTIATOR
-                </div>
-                <h3 className="font-display-wise text-4xl sm:text-5xl font-black text-slate-100 uppercase leading-[0.88]">
-                  MISS A DAY? <br />
-                  <span className="text-[#9fe870]">KEEP GOING.</span>
-                </h3>
-                <div className="text-xs font-mono-code text-slate-300 font-bold uppercase tracking-wider">
-                  No restart button. No starting from zero.
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================================
-           6. "NOT ANOTHER EXTREME CHALLENGE" (75 HARD COMPARISON)
-           ==================================================================== */}
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 border-t border-white/[0.06]">
-          <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
-            <span className="text-xs font-mono-code text-[#9fe870] uppercase tracking-widest font-bold">
-              DESIGN DIFFERENCE
-            </span>
-            <h2 className="font-display-wise text-4xl sm:text-6xl text-slate-100 font-black uppercase leading-[0.85]">
-              NOT ANOTHER EXTREME CHALLENGE.
+            <h2 className="mt-3 text-[40px] font-semibold leading-[1.02] tracking-[-0.025em] text-white md:text-[56px] font-funnel uppercase">
+              Know your non-negotiables.<br />
+              <span className="font-fraunces text-[#FF4500] normal-case italic font-normal">See what needs execution.</span>
             </h2>
-            <p className="text-slate-300 text-sm font-semibold">
-              Winter Arc is built for consistency, not punishment.
+            <p className="mt-5 max-w-[620px] text-[15px] leading-relaxed text-zinc-400 md:text-[17px]">
+              Winter Arc watches your 90-day progress and turns raw daily check-ins into verified proof of consistency.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* WINTER ARC */}
-            <div className="card-wise p-8 bg-[#182113] border-2 border-[#9fe870] space-y-6">
-              <div className="flex items-center justify-between border-b border-[#9fe870]/30 pb-4">
-                <h3 className="font-display-wise text-2xl font-black text-slate-100 uppercase">WINTER ARC</h3>
-                <span className="px-3 py-0.5 rounded-full bg-[#9fe870] text-[#163300] text-[10px] font-mono-code font-bold">BUILT FOR REAL LIFE</span>
-              </div>
-              <ul className="space-y-3 text-xs font-bold text-slate-200">
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                  <span>4–6 personal commitments</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                  <span>Flexible around real life</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                  <span>Miss a day → continue</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                  <span>90 days</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#9fe870] shrink-0" />
-                  <span>Your rules</span>
-                </li>
-              </ul>
-            </div>
+          {/* Stalkr Timeline Steps */}
+          <div className="relative mt-16 md:mt-20">
+            <ol className="space-y-12 md:space-y-16">
+              <li className="relative grid grid-cols-[auto_1fr] gap-5 md:gap-10">
+                <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center md:h-[52px] md:w-[52px]">
+                  <div className="flex h-full w-full items-center justify-center rounded-full bg-zinc-900 border border-[#FF4500]/50 text-[#FF4500] font-mono-code font-bold text-xs md:text-sm shadow-[0_0_20px_rgba(255,69,0,0.25)]">
+                    01
+                  </div>
+                </div>
+                <div className="pt-1">
+                  <h3 className="text-2xl md:text-3xl font-bold font-funnel text-white uppercase">Choose 4–6 Commitments.</h3>
+                  <p className="mt-2 max-w-xl text-zinc-400 text-sm md:text-base leading-relaxed">
+                    Tell Winter Arc what to watch. Add your physical training, reading, deep work, sleep, and digital boundaries.
+                  </p>
+                </div>
+              </li>
 
-            {/* 75 HARD COMPARISON */}
-            <div className="card-wise p-8 bg-[#141712] border border-white/10 space-y-6 opacity-80">
-              <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
-                <h3 className="font-display-wise text-2xl font-black text-slate-400 uppercase">75 HARD</h3>
-                <span className="px-3 py-0.5 rounded-full bg-white/10 text-slate-400 text-[10px] font-mono-code font-bold">EXTREME PROGRAM</span>
-              </div>
-              <ul className="space-y-3 text-xs font-bold text-slate-400">
-                <li className="flex items-center gap-3">
-                  <X className="w-4 h-4 text-slate-500 shrink-0" />
-                  <span>Fixed challenge structure</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <X className="w-4 h-4 text-slate-500 shrink-0" />
-                  <span>Strict completion rules</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <X className="w-4 h-4 text-slate-500 shrink-0" />
-                  <span>Restart requirements on failure</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <X className="w-4 h-4 text-slate-500 shrink-0" />
-                  <span>75 fixed days</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <X className="w-4 h-4 text-slate-500 shrink-0" />
-                  <span>Rigid rules</span>
-                </li>
-              </ul>
-            </div>
+              <li className="relative grid grid-cols-[auto_1fr] gap-5 md:gap-10">
+                <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center md:h-[52px] md:w-[52px]">
+                  <div className="flex h-full w-full items-center justify-center rounded-full bg-zinc-900 border border-[#FF4500]/50 text-[#FF4500] font-mono-code font-bold text-xs md:text-sm shadow-[0_0_20px_rgba(255,69,0,0.25)]">
+                    02
+                  </div>
+                </div>
+                <div className="pt-1">
+                  <h3 className="text-2xl md:text-3xl font-bold font-funnel text-white uppercase">20-Second Daily Check-ins.</h3>
+                  <p className="mt-2 max-w-xl text-zinc-400 text-sm md:text-base leading-relaxed">
+                    Check in every evening. Toggle your completed non-negotiables in seconds and keep your momentum active.
+                  </p>
+                </div>
+              </li>
+
+              <li className="relative grid grid-cols-[auto_1fr] gap-5 md:gap-10">
+                <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center md:h-[52px] md:w-[52px]">
+                  <div className="flex h-full w-full items-center justify-center rounded-full bg-zinc-900 border border-[#FF4500]/50 text-[#FF4500] font-mono-code font-bold text-xs md:text-sm shadow-[0_0_20px_rgba(255,69,0,0.25)]">
+                    03
+                  </div>
+                </div>
+                <div className="pt-1">
+                  <h3 className="text-2xl md:text-3xl font-bold font-funnel text-white uppercase">Finish With Verified Proof.</h3>
+                  <p className="mt-2 max-w-xl text-zinc-400 text-sm md:text-base leading-relaxed">
+                    Complete your 90 days with an automated, shareable proof card showing your completion rate and milestone stats.
+                  </p>
+                </div>
+              </li>
+            </ol>
           </div>
         </section>
 
         {/* ====================================================================
-           7. SIMPLE "HOW IT WORKS"
+           6. FAQ SECTION
            ==================================================================== */}
-        <section id="how-it-works" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 border-t border-white/[0.06]">
-          <div className="text-center mb-16">
-            <span className="text-xs font-mono-code text-[#9fe870] uppercase tracking-widest font-bold">
-              THE METHOD
-            </span>
-            <h2 className="font-display-wise text-4xl sm:text-6xl text-slate-100 font-black uppercase mt-2 leading-[0.85]">
-              HOW IT WORKS
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <div className="card-wise p-6 bg-[#141712] space-y-3">
-              <div className="font-mono-code text-xs text-[#9fe870] font-bold">01 — BUILD</div>
-              <h3 className="font-display-wise text-xl font-black text-slate-100 uppercase">BUILD</h3>
-              <p className="text-xs text-slate-300 font-semibold leading-relaxed">Choose 4–6 commitments.</p>
-            </div>
-
-            <div className="card-wise p-6 bg-[#141712] space-y-3">
-              <div className="font-mono-code text-xs text-[#9fe870] font-bold">02 — SHOW UP</div>
-              <h3 className="font-display-wise text-xl font-black text-slate-100 uppercase">SHOW UP</h3>
-              <p className="text-xs text-slate-300 font-semibold leading-relaxed">Check in every day.</p>
-            </div>
-
-            <div className="card-wise p-6 bg-[#141712] space-y-3">
-              <div className="font-mono-code text-xs text-[#9fe870] font-bold">03 — REVIEW</div>
-              <h3 className="font-display-wise text-xl font-black text-slate-100 uppercase">REVIEW</h3>
-              <p className="text-xs text-slate-300 font-semibold leading-relaxed">Review your week and adjust.</p>
-            </div>
-
-            <div className="card-wise p-6 bg-[#141712] space-y-3">
-              <div className="font-mono-code text-xs text-[#9fe870] font-bold">04 — FINISH</div>
-              <h3 className="font-display-wise text-xl font-black text-slate-100 uppercase">FINISH</h3>
-              <p className="text-xs text-slate-300 font-semibold leading-relaxed">Complete your 90 days with proof.</p>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <Link
-              href="/build"
-              className="btn-wise-primary px-8 py-4 text-sm font-black"
-            >
-              BUILD MY WINTER ARC
-            </Link>
-          </div>
-        </section>
-
-        {/* ====================================================================
-           8. "WHO IT'S FOR" & "NOT FOR YOU IF"
-           ==================================================================== */}
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 border-t border-white/[0.06]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {/* THIS IS FOR YOU IF */}
-            <div className="card-wise p-8 sm:p-10 bg-[#141712] space-y-6 border border-[#9fe870]/30">
-              <div className="space-y-2">
-                <span className="text-xs font-mono-code text-[#9fe870] font-bold uppercase tracking-widest">
-                  IDEAL ALIGNMENT
-                </span>
-                <h2 className="font-display-wise text-3xl font-black text-slate-100 uppercase leading-[0.88]">
-                  THIS IS FOR YOU IF...
-                </h2>
-              </div>
-
-              <ul className="space-y-3 text-xs font-bold text-slate-200">
-                <li className="flex items-start gap-3">
-                  <span className="text-[#9fe870] font-black text-sm">✓</span>
-                  <span>You keep saying you'll start in January.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#9fe870] font-black text-sm">✓</span>
-                  <span>You know what you want to improve but struggle with consistency.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#9fe870] font-black text-sm">✓</span>
-                  <span>You want structure without an extreme challenge.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#9fe870] font-black text-sm">✓</span>
-                  <span>You want something simple enough to actually use every day.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#9fe870] font-black text-sm">✓</span>
-                  <span>You like the idea of publicly committing to your goals.</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* NOT FOR YOU IF */}
-            <div className="card-wise p-8 sm:p-10 bg-[#10120e] space-y-6 border border-white/[0.08] opacity-85">
-              <div className="space-y-2">
-                <span className="text-xs font-mono-code text-slate-400 font-bold uppercase tracking-widest">
-                  DISQUALIFICATION
-                </span>
-                <h2 className="font-display-wise text-3xl font-black text-slate-300 uppercase leading-[0.88]">
-                  NOT FOR YOU IF...
-                </h2>
-              </div>
-
-              <ul className="space-y-3 text-xs font-bold text-slate-400">
-                <li className="flex items-start gap-3">
-                  <span className="text-slate-500 font-black text-sm">✕</span>
-                  <span>You're looking for medical or health treatment.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-slate-500 font-black text-sm">✕</span>
-                  <span>You're looking for a crash diet.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-slate-500 font-black text-sm">✕</span>
-                  <span>You're looking for an extreme physical challenge.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-slate-500 font-black text-sm">✕</span>
-                  <span>You're looking for someone else to dictate your entire life.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================================
-           9. THE $19 PRODUCT SECTION
-           ==================================================================== */}
-        <section id="the-system" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 border-t border-white/[0.06]">
-          <div className="card-wise p-8 sm:p-12 bg-gradient-to-br from-[#182113] via-[#141712] to-[#0b0c0a] border-2 border-[#9fe870]">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#9fe870] text-[#163300] font-mono-code text-xs font-black uppercase mb-6">
-              <Sparkles className="w-4 h-4 text-[#163300]" /> THE 90-DAY SYSTEM
-            </div>
-
-            <div className="max-w-3xl space-y-4">
-              <h2 className="font-display-wise text-4xl sm:text-6xl text-slate-100 font-black uppercase leading-[0.85]">
-                Your contract is the commitment. <br />
-                <span className="text-[#9fe870]">The dashboard is how you keep it.</span>
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 text-xs font-bold">
-                <div className="p-5 rounded-[24px] bg-[#161813] border border-white/[0.08] space-y-1">
-                  <div className="text-[#9fe870] font-mono-code font-black uppercase">DAILY CHECK-INS</div>
-                  <div className="text-slate-300 font-semibold">Mark what you showed up for.</div>
-                </div>
-                <div className="p-5 rounded-[24px] bg-[#161813] border border-white/[0.08] space-y-1">
-                  <div className="text-[#9fe870] font-mono-code font-black uppercase">90-DAY PROGRESS</div>
-                  <div className="text-slate-300 font-semibold">See the full Arc at a glance.</div>
-                </div>
-                <div className="p-5 rounded-[24px] bg-[#161813] border border-white/[0.08] space-y-1">
-                  <div className="text-[#9fe870] font-mono-code font-black uppercase">WEEKLY REVIEWS</div>
-                  <div className="text-slate-300 font-semibold">Reflect, reset, continue.</div>
-                </div>
-                <div className="p-5 rounded-[24px] bg-[#161813] border border-white/[0.08] space-y-1">
-                  <div className="text-[#9fe870] font-mono-code font-black uppercase">MISSED DAYS</div>
-                  <div className="text-slate-300 font-semibold">Missed days don't erase your progress.</div>
-                </div>
-              </div>
-
-              <div className="p-5 rounded-[24px] bg-[#161813] border border-white/[0.08] space-y-1 mt-4">
-                <div className="text-[#9fe870] font-mono-code font-black uppercase">COMPLETION PROOF</div>
-                <div className="text-slate-300 font-semibold">Finish your Arc with something to show for it.</div>
-              </div>
-
-              <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/[0.08]">
-                <div>
-                  <div className="text-3xl font-display-wise font-black text-slate-100">
-                    $19 <span className="text-xs font-mono-code text-[#9fe870] uppercase font-bold">ONE TIME</span>
-                  </div>
-                  <div className="text-xs text-slate-400 font-mono-code font-bold">
-                    Full 90-day system • Lifetime access
-                  </div>
-                </div>
-
-                <Link
-                  href="/unlock"
-                  className="btn-wise-primary px-8 py-4 text-base font-black w-full sm:w-auto shadow-[0_0_30px_rgba(159,232,112,0.4)] text-center"
-                >
-                  UNLOCK MY 90 DAYS — $19
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================================
-           10. SHAREABLE CONTRACT EMPHASIS ("MAKE IT PUBLIC.")
-           ==================================================================== */}
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 border-t border-white/[0.06]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-6 space-y-6">
-              <span className="text-xs font-mono-code text-[#9fe870] uppercase tracking-widest font-bold">
-                PUBLIC ACCOUNTABILITY
-              </span>
-              <h2 className="font-display-wise text-4xl sm:text-6xl text-slate-100 font-black uppercase leading-[0.85]">
-                MAKE IT <br />
-                <span className="text-[#9fe870]">PUBLIC.</span>
-              </h2>
-              <p className="text-sm sm:text-base text-slate-300 font-semibold leading-relaxed">
-                Your contract isn't just a tracker. It's a commitment you can actually see. Generate a clean 9:16 version for Stories and TikTok.
-              </p>
-
-              <div>
-                <Link
-                  href="/build"
-                  className="btn-wise-primary px-8 py-4 text-sm font-black inline-flex items-center gap-2"
-                >
-                  <Share2 className="w-4 h-4 text-[#163300]" /> <span>CREATE MY CONTRACT</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* LARGE MOBILE 9:16 CONTRACT GRAPHIC MOCKUP */}
-            <div className="lg:col-span-6 flex justify-center">
-              <div className="w-full max-w-[320px] aspect-[9/16] card-wise p-6 bg-gradient-to-b from-[#141712] via-[#0e100c] to-[#0b0c0a] border-2 border-[#9fe870] shadow-2xl flex flex-col justify-between relative">
-                <div className="text-center border-b border-white/[0.08] pb-4">
-                  <div className="font-mono-code text-[10px] text-[#9fe870] tracking-widest font-bold uppercase">
-                    WINTER ARC 2026
-                  </div>
-                  <div className="font-display-wise text-2xl font-black text-slate-100 uppercase tracking-tight mt-1">
-                    TUSHAR
-                  </div>
-                  <div className="font-mono-code text-[11px] text-slate-300 font-bold mt-1">
-                    OCT 01 → DEC 29
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="text-[9px] font-mono-code text-[#9fe870] font-bold uppercase text-center">
-                    MY 5 COMMITMENTS
-                  </div>
-                  {['TRAIN', 'READ 20 PAGES', 'DEEP WORK 60M', 'SLEEP 7+ HOURS', 'NO MORNING SCROLLING'].map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="p-2.5 rounded-full bg-[#161813] border border-white/[0.08] flex items-center justify-between text-[11px] font-black text-slate-100 px-4"
-                    >
-                      <span className="text-[#9fe870]">✓</span>
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="text-center pt-3 border-t border-white/[0.08]">
-                  <div className="font-display-wise text-sm font-black text-slate-100 uppercase">
-                    START BEFORE JANUARY.
-                  </div>
-                  <div className="font-mono-code text-[10px] font-bold text-[#9fe870] uppercase tracking-wider mt-0.5">
-                    FINISH WITH PROOF.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================================
-           11. FAQ SECTION
-           ==================================================================== */}
-        <section id="faq" className="max-w-4xl mx-auto px-4 sm:px-6 py-20 border-t border-white/[0.06]">
+        <section id="faq" className="max-w-4xl mx-auto px-6 py-20 border-t border-zinc-800/60">
           <div className="text-center mb-16 space-y-2">
-            <span className="text-xs font-mono-code text-[#9fe870] uppercase tracking-widest font-bold">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FF4500]">
               QUESTIONS & ANSWERS
             </span>
-            <h2 className="font-display-wise text-4xl sm:text-6xl text-slate-100 font-black uppercase leading-[0.85]">
+            <h2 className="font-funnel text-4xl sm:text-6xl text-white font-semibold uppercase leading-[0.95] tracking-tight">
               FREQUENTLY ASKED QUESTIONS
             </h2>
           </div>
@@ -820,22 +515,22 @@ export default function Home() {
               return (
                 <div
                   key={idx}
-                  className="card-wise bg-[#141712] border border-white/[0.08] overflow-hidden transition-all"
+                  className="card-wise bg-zinc-900 border border-zinc-800 overflow-hidden transition-all"
                 >
                   <button
                     onClick={() => toggleFaq(idx)}
-                    className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-display-wise text-lg sm:text-xl font-black text-slate-100 uppercase"
+                    className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-funnel text-lg sm:text-xl font-bold text-white uppercase tracking-tight"
                   >
                     <span>{faq.q}</span>
                     {isOpen ? (
-                      <ChevronUp className="w-5 h-5 text-[#9fe870] shrink-0" />
+                      <ChevronUp className="w-5 h-5 text-[#FF4500] shrink-0" />
                     ) : (
-                      <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" />
+                      <ChevronDown className="w-5 h-5 text-zinc-500 shrink-0" />
                     )}
                   </button>
 
                   {isOpen && (
-                    <div className="px-5 sm:px-6 pb-6 text-xs sm:text-sm text-slate-300 font-semibold leading-relaxed border-t border-white/[0.06] pt-4">
+                    <div className="px-5 sm:px-6 pb-6 text-xs sm:text-sm text-zinc-400 font-medium leading-relaxed border-t border-zinc-800/60 pt-4">
                       {faq.a}
                     </div>
                   )}
@@ -846,14 +541,14 @@ export default function Home() {
         </section>
 
         {/* ====================================================================
-           12. FINAL CTA
+           7. FINAL CTA
            ==================================================================== */}
-        <section className="max-w-4xl mx-auto px-4 sm:px-6 py-24 text-center border-t border-white/[0.06]">
-          <h2 className="font-display-wise text-4xl sm:text-6xl font-black text-slate-100 uppercase leading-[0.85]">
+        <section className="max-w-4xl mx-auto px-6 py-24 text-center border-t border-zinc-800/60">
+          <h2 className="font-funnel text-4xl sm:text-6xl font-semibold text-white uppercase leading-[0.95] tracking-tight">
             JANUARY IS COMING. <br />
-            <span className="text-[#9fe870]">DON'T WAIT FOR IT.</span>
+            <span className="font-fraunces text-[#FF4500] normal-case italic font-normal">Don't wait for it.</span>
           </h2>
-          <p className="mt-6 text-[#9fe870] font-display-wise text-2xl sm:text-3xl font-black uppercase">
+          <p className="mt-6 text-[#FF4500] font-funnel text-2xl sm:text-3xl font-bold uppercase tracking-tight">
             Build your Winter Arc today.
           </p>
 
@@ -861,33 +556,31 @@ export default function Home() {
             <Link
               href="/build"
               onClick={handleHeroCtaClick}
-              className="btn-wise-primary px-10 py-5 text-lg font-black shadow-[0_0_35px_rgba(159,232,112,0.4)]"
+              className="btn-wise-primary px-10 py-5 text-lg font-medium shadow-[0_10px_35px_rgba(255,69,0,0.4)]"
             >
-              BUILD MY WINTER ARC
+              <span>BUILD MY WINTER ARC</span>
+              <ArrowRight className="w-5 h-5 ml-2 text-white" />
             </Link>
-            <div className="text-xs font-mono-code text-[#9fe870] font-bold uppercase tracking-wider pt-1">
-              Free. Takes 30 seconds.
-            </div>
-            <div className="text-[11px] font-mono-code text-slate-400 font-bold uppercase tracking-wider">
-              90 days. 4–6 commitments. No restart button.
+            <div className="text-xs font-mono-code text-zinc-400 font-medium pt-1">
+              Free • Takes 30 seconds • No credit card
             </div>
           </div>
         </section>
       </main>
 
       {/* STICKY MOBILE BOTTOM CTA BAR */}
-      <div className="md:hidden sticky bottom-0 z-40 w-full p-3 bg-[#0b0c0a]/95 border-t border-white/[0.08] backdrop-blur-md">
+      <div className="md:hidden sticky bottom-0 z-40 w-full p-3 bg-[#09090b]/95 border-t border-zinc-800 backdrop-blur-md">
         <Link
           href="/build"
           onClick={handleHeroCtaClick}
-          className="btn-wise-primary w-full py-3.5 text-xs font-black text-center justify-center shadow-[0_0_20px_rgba(159,232,112,0.4)]"
+          className="btn-wise-primary w-full py-3.5 text-xs font-medium text-center justify-center"
         >
           BUILD MY WINTER ARC — FREE
         </Link>
       </div>
 
       {/* Footer */}
-      <footer className="w-full border-t border-white/[0.06] py-6 text-center text-xs text-slate-400 font-mono-code font-bold">
+      <footer className="w-full border-t border-zinc-800/60 py-6 text-center text-xs text-zinc-500 font-mono-code">
         WINTER ARC 2026 • START BEFORE JANUARY. FINISH WITH PROOF.
       </footer>
     </div>
