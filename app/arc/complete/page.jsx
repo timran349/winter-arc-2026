@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import Day90Completion from '@/components/Day90Completion';
+import Navbar from '@/src/components/Navbar';
+import Footer from '@/src/components/Footer';
+import Day90Completion from '@/src/components/Day90Completion';
 
 export default function ArcCompletePage() {
   const router = useRouter();
@@ -51,14 +51,14 @@ export default function ArcCompletePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#07080a] flex items-center justify-center text-xs text-slate-500 font-mono-code">
+      <div className="min-h-screen bg-white flex items-center justify-center text-xs text-zinc-500 font-mono-code">
         Loading Arc Completion...
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#07080a] text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-white text-zinc-900 flex flex-col selection:bg-[#FF4500] selection:text-white font-sans">
       <Navbar
         currentView="dashboard"
         setCurrentView={(v) => router.push(`/${v}`)}

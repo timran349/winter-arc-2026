@@ -3,12 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import DailyCheckIn from '@/components/DailyCheckIn';
-import MissedDayBanner from '@/components/MissedDayBanner';
-import CalendarGrid from '@/components/CalendarGrid';
-import WeeklyReviewModal from '@/components/WeeklyReviewModal';
+import Navbar from '@/src/components/Navbar';
+import Footer from '@/src/components/Footer';
+import DailyCheckIn from '@/src/components/DailyCheckIn';
+import MissedDayBanner from '@/src/components/MissedDayBanner';
+import CalendarGrid from '@/src/components/CalendarGrid';
+import WeeklyReviewModal from '@/src/components/WeeklyReviewModal';
 import { MessageSquare, Flame, ArrowUpRight, Sparkles } from 'lucide-react';
 
 import {
@@ -18,7 +18,7 @@ import {
   formatFullDate,
   getWeekForDay,
   TOTAL_ARC_DAYS
-} from '@/lib/dates';
+} from '@/src/utils/dates';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -58,12 +58,10 @@ export default function DashboardPage() {
 
         setArc(arcData.arc);
 
-        // Calculate real day number based on start date
         const todayStr = new Date().toISOString().split('T')[0];
         const currentDay = getCurrentArcDay(arcData.arc.startDate, todayStr);
         setSimulatedDayNum(currentDay);
 
-        // Format checkIns into object map by date
         const cMap = {};
         if (arcData.arc.checkIns) {
           arcData.arc.checkIns.forEach((c) => {
@@ -139,8 +137,8 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#07080a] flex items-center justify-center text-xs text-slate-500 font-mono-code">
-        Loading Winter Arc...
+      <div className="min-h-screen bg-white flex items-center justify-center text-xs text-zinc-500 font-mono-code">
+        Loading Arc 90...
       </div>
     );
   }
@@ -162,7 +160,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07080a] text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-white text-zinc-900 flex flex-col selection:bg-[#FF4500] selection:text-white font-sans">
       <Navbar
         currentView="dashboard"
         setCurrentView={(v) => router.push(`/${v === 'dashboard' ? 'dashboard' : v}`)}
@@ -173,38 +171,38 @@ export default function DashboardPage() {
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 w-full">
         {/* HERO PROGRESS CARD */}
-        <div className="card-wise p-6 sm:p-10 relative overflow-hidden bg-gradient-to-br from-[#131610] via-[#0e100c] to-[#0b0c0a]">
+        <div className="card-wise p-6 sm:p-10 relative overflow-hidden bg-white border-2 border-[#FF4500] shadow-[0_20px_60px_-15px_rgba(255,69,0,0.12)]">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e2f6d5] text-[#163300] font-mono-code text-xs font-bold mb-4">
-                <Flame className="w-3.5 h-3.5 text-[#163300]" /> MY WINTER ARC
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FF4500]/10 text-[#FF4500] border border-[#FF4500]/30 font-mono-code text-xs font-bold mb-4">
+                <Flame className="w-3.5 h-3.5 text-[#FF4500]" /> MY ARC 90 RUN
               </div>
 
-              <h1 className="font-display-wise text-5xl sm:text-7xl font-black text-slate-100 uppercase tracking-tight leading-[0.85]">
-                <span className="text-[#9fe870]">Day {simulatedDayNum}</span> <span className="text-slate-400 font-extrabold text-3xl sm:text-5xl">of 90</span>
+              <h1 className="font-funnel text-5xl sm:text-7xl font-bold text-zinc-900 uppercase tracking-tight leading-[0.95]">
+                <span className="text-[#FF4500]">Day {simulatedDayNum}</span> <span className="text-zinc-400 font-bold text-3xl sm:text-5xl">of 90</span>
               </h1>
 
-              <div className="flex flex-wrap items-center gap-4 text-xs font-mono-code text-slate-300 font-semibold mt-4">
-                <span className="text-[#9fe870] font-bold">{daysRemaining} days remaining</span>
+              <div className="flex flex-wrap items-center gap-4 text-xs font-mono-code text-zinc-600 font-semibold mt-4">
+                <span className="text-[#FF4500] font-bold">{daysRemaining} days remaining</span>
                 <span>•</span>
-                <span className="text-slate-300">{formatFullDate(currentDateStr)}</span>
+                <span className="text-zinc-500">{formatFullDate(currentDateStr)}</span>
               </div>
 
-              <p className="text-slate-300 text-xs sm:text-sm font-semibold mt-4 font-mono-code uppercase tracking-wide border-l-2 border-[#9fe870] pl-3 py-0.5">
+              <p className="text-zinc-600 text-xs sm:text-sm font-medium mt-4 font-mono-code uppercase tracking-wide border-l-2 border-[#FF4500] pl-3 py-0.5">
                 "{arc?.intention || 'Start before January. Finish with proof.'}"
               </p>
             </div>
 
             {/* CIRCULAR PROGRESS RING */}
-            <div className="flex items-center gap-6 p-6 rounded-[24px] bg-[#0b0c0a] border border-white/[0.08] shrink-0">
+            <div className="flex items-center gap-6 p-6 rounded-2xl bg-zinc-50 border border-zinc-200 shrink-0">
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-                  <circle cx="50" cy="50" r="42" className="stroke-slate-800" strokeWidth="8" fill="none" />
+                  <circle cx="50" cy="50" r="42" className="stroke-zinc-200" strokeWidth="8" fill="none" />
                   <circle
                     cx="50"
                     cy="50"
                     r="42"
-                    className="stroke-[#9fe870] transition-all duration-1000"
+                    className="stroke-[#FF4500] transition-all duration-1000"
                     strokeWidth="8"
                     strokeDasharray="264"
                     strokeDashoffset={264 - (264 * arcProgressPct) / 100}
@@ -213,25 +211,25 @@ export default function DashboardPage() {
                   />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                  <span className="font-display-wise font-black text-2xl sm:text-3xl text-slate-100">
+                  <span className="font-funnel font-bold text-2xl sm:text-3xl text-zinc-900">
                     {arcProgressPct}%
                   </span>
-                  <span className="text-[9px] font-mono-code text-[#9fe870] uppercase tracking-widest font-bold -mt-1">
+                  <span className="text-[9px] font-mono-code text-[#FF4500] uppercase tracking-widest font-bold -mt-1">
                     COMPLETE
                   </span>
                 </div>
               </div>
 
               <div className="space-y-1">
-                <div className="text-xs font-mono-code text-slate-400 font-bold uppercase">Week {currentWeekNum} of 12</div>
-                <div className="text-sm font-bold text-slate-200">
+                <div className="text-xs font-mono-code text-zinc-500 font-bold uppercase">Week {currentWeekNum} of 12</div>
+                <div className="text-sm font-semibold text-zinc-800">
                   You're still in the Arc.
                 </div>
                 <button
                   onClick={() => setIsReviewModalOpen(true)}
-                  className="inline-flex items-center gap-1 text-xs text-[#9fe870] font-mono-code font-bold pt-1 hover:underline"
+                  className="inline-flex items-center gap-1 text-xs text-[#FF4500] font-mono-code font-bold pt-1 hover:underline"
                 >
-                  Week {currentWeekNum} Review <ArrowUpRight className="w-3.5 h-3.5 text-[#9fe870]" />
+                  Week {currentWeekNum} Review <ArrowUpRight className="w-3.5 h-3.5 text-[#FF4500]" />
                 </button>
               </div>
             </div>
@@ -263,23 +261,23 @@ export default function DashboardPage() {
         />
 
         {/* DISCORD COMMUNITY PLACEHOLDER */}
-        <div className="p-6 rounded-3xl border border-white/[0.08] bg-white/[0.01] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="p-6 rounded-2xl border border-zinc-200 bg-zinc-50 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-[#FF4500]/10 border border-[#FF4500]/20 text-[#FF4500] flex items-center justify-center">
               <MessageSquare className="w-5 h-5" />
             </div>
             <div>
-              <div className="font-editorial text-lg font-medium text-slate-200">
-                Join the Winter Arc Community
+              <div className="font-fraunces text-lg font-medium text-zinc-900">
+                Join the Arc 90 Community
               </div>
-              <div className="text-xs text-slate-400 mt-0.5">
-                Connect with fellow Arc travelers showing up every day before the new year.
+              <div className="text-xs text-zinc-500 mt-0.5">
+                Connect with fellow travelers showing up every day before the new year.
               </div>
             </div>
           </div>
           <button
-            onClick={() => alert('Winter Arc Discord invitation link coming soon!')}
-            className="px-4 py-2.5 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-semibold transition-colors shrink-0"
+            onClick={() => alert('Arc 90 Discord invitation link coming soon!')}
+            className="px-4 py-2.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition-colors shrink-0"
           >
             Discord Community (Coming Soon)
           </button>
