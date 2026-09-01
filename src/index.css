@@ -7,19 +7,22 @@
     --font-sans: 'Inter', system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
 
-    /* Stalkr Brand Colors */
+    /* Stalkr Light Theme Colors */
     --color-stalkr-orange: #FF4500;
     --color-stalkr-orange-dark: #d83a0a;
-    --color-stalkr-zinc-950: #09090b;
     --color-stalkr-zinc-900: #18181b;
     --color-stalkr-zinc-800: #27272a;
     --color-stalkr-zinc-700: #3f3f46;
+    --color-stalkr-zinc-500: #71717a;
+    --color-stalkr-zinc-200: #e4e4e7;
+    --color-stalkr-zinc-100: #f4f4f5;
+    --color-stalkr-zinc-50: #fafafa;
   }
 
   body {
     font-family: var(--font-sans);
-    background-color: #09090b;
-    color: #f4f4f5;
+    background-color: #ffffff;
+    color: #18181b;
     overflow-x: hidden;
     font-feature-settings: "calt" 1;
   }
@@ -36,7 +39,7 @@
 
 .font-display-wise {
   font-family: var(--font-funnel);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.035em;
 }
 
@@ -50,8 +53,33 @@
   font-family: var(--font-mono);
 }
 
-/* Stalkr Buttons */
+/* Stalkr Light Mode Buttons with Hover & Click/Active Micro-animations */
 .btn-wise-primary {
+  background-color: #18181b;
+  color: #ffffff;
+  font-weight: 500;
+  border-radius: 9999px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(24, 24, 27, 0.15);
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-wise-primary:hover {
+  background-color: #27272a;
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 22px rgba(24, 24, 27, 0.25);
+}
+
+.btn-wise-primary:active {
+  transform: translateY(0.5px) scale(0.97);
+  box-shadow: 0 2px 8px rgba(24, 24, 27, 0.15);
+}
+
+.btn-wise-orange {
   background-color: #FF4500;
   color: #ffffff;
   font-weight: 600;
@@ -60,65 +88,92 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 30px -10px rgba(255, 69, 0, 0.4);
+  box-shadow: 0 8px 25px -5px rgba(255, 69, 0, 0.35);
+  cursor: pointer;
+  user-select: none;
 }
 
-.btn-wise-primary:hover {
-  transform: translateY(-1px);
+.btn-wise-orange:hover {
   background-color: #e03d00;
-  box-shadow: 0 14px 35px -8px rgba(255, 69, 0, 0.55);
+  transform: translateY(-1.5px);
+  box-shadow: 0 12px 30px -4px rgba(255, 69, 0, 0.45);
 }
 
-.btn-wise-primary:active {
-  transform: translateY(0) scale(0.98);
+.btn-wise-orange:active {
+  transform: translateY(0.5px) scale(0.97);
+  box-shadow: 0 4px 12px -2px rgba(255, 69, 0, 0.3);
 }
 
 .btn-wise-secondary {
-  background-color: #18181b;
-  color: #f4f4f5;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #ffffff;
+  color: #18181b;
+  border: 1px solid #e4e4e7;
   font-weight: 500;
   border-radius: 9999px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 8px rgba(24, 24, 27, 0.04);
+  cursor: pointer;
+  user-select: none;
 }
 
 .btn-wise-secondary:hover {
-  background-color: #27272a;
-  border-color: rgba(255, 255, 255, 0.25);
-  color: #ffffff;
+  background-color: #fafafa;
+  border-color: #a1a1aa;
+  color: #09090b;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(24, 24, 27, 0.08);
 }
 
 .btn-wise-secondary:active {
-  transform: scale(0.98);
+  transform: translateY(0.5px) scale(0.97);
+  box-shadow: 0 1px 4px rgba(24, 24, 27, 0.04);
 }
 
-/* Stalkr Cards & Glass Containers */
+/* Stalkr Light Cards & Containers */
 .card-wise {
-  background: #18181b;
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6);
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(228, 228, 231, 0.8);
+  box-shadow: 0 30px 80px -30px rgba(24, 24, 27, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.frost-glass {
-  background: rgba(24, 24, 27, 0.85);
+.card-wise-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 40px 90px -20px rgba(24, 24, 27, 0.12);
+  border-color: #d4d4d8;
+}
+
+.frost-glass-light {
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(228, 228, 231, 0.6);
 }
 
 .badge-wise-mint {
-  background-color: rgba(255, 69, 0, 0.12);
+  background-color: rgba(255, 69, 0, 0.08);
   color: #FF4500;
-  border: 1px solid rgba(255, 69, 0, 0.25);
+  border: 1px solid rgba(255, 69, 0, 0.2);
   font-weight: 600;
   border-radius: 9999px;
 }
 
 /* Stalkr Keyframe Animations */
+@keyframes stalkr-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes stalkr-sweep {
   from {
     transform: rotate(0deg);
@@ -143,12 +198,16 @@
   }
 }
 
+.stalkr-fade-up {
+  animation: stalkr-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 .stalkr-sweep {
   animation: stalkr-sweep 8s linear infinite;
 }
 
 .stalkr-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
 }
 
 /* Custom Scrollbar */
@@ -157,12 +216,12 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #09090b;
+  background: #ffffff;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: #e4e4e7;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #d4d4d8;
 }

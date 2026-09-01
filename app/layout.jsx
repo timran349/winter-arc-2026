@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="light">
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#09090b] text-zinc-100 antialiased selection:bg-[#FF4500] selection:text-white font-sans min-h-screen">
+      <body className="bg-white text-zinc-900 antialiased selection:bg-[#FF4500] selection:text-white font-sans min-h-screen">
         {children}
       </body>
     </html>

@@ -29,29 +29,26 @@ export default function Navbar({
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-[#09090b]/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-zinc-200/60 bg-white/80 backdrop-blur-md">
       {/* Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
         {/* Brand Logo */}
         <div
           onClick={() => handleNavClick('dashboard')}
           className="flex items-center gap-2.5 cursor-pointer group"
         >
-          <div className="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center group-hover:scale-105 transition-transform duration-200 shadow-[0_0_20px_rgba(255,69,0,0.4)]">
-            <Flame className="w-4 h-4 text-white" />
+          <div className="w-7 h-7 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+            <Flame className="w-4 h-4 text-[#FF4500]" />
           </div>
           <div>
-            <span className="font-fraunces text-lg tracking-tight font-bold text-white group-hover:text-[#FF4500] transition-colors">
+            <span className="font-fraunces text-lg tracking-tight font-medium text-zinc-900 group-hover:text-[#FF4500] transition-colors">
               Stalkr Arc
-            </span>
-            <span className="text-[10px] font-mono-code text-[#FF4500] block -mt-1 tracking-widest uppercase font-bold">
-              SYSTEM
             </span>
           </div>
         </div>
 
         {/* View Tabs */}
-        <nav className="hidden md:flex items-center gap-1 bg-zinc-900 border border-zinc-800 p-1.5 rounded-full">
+        <nav className="hidden md:flex items-center gap-1 bg-zinc-100/80 border border-zinc-200/80 p-1 rounded-full">
           {[
             { id: 'dashboard', label: 'Dashboard', icon: Flame },
             { id: 'progress', label: 'Progress', icon: BarChart3 },
@@ -64,10 +61,10 @@ export default function Navbar({
               <button
                 key={tab.id}
                 onClick={() => handleNavClick(tab.id)}
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-medium transition-all duration-200 active:scale-95 ${
                   isActive
-                    ? 'bg-[#FF4500] text-white shadow-sm scale-105'
-                    : 'text-zinc-400 hover:text-white hover:bg-white/[0.06] hover:scale-105'
+                    ? 'bg-zinc-900 text-white shadow-sm scale-105'
+                    : 'text-zinc-500 hover:text-zinc-900 hover:bg-white'
                 }`}
               >
                 <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-zinc-400'}`} />
@@ -83,14 +80,14 @@ export default function Navbar({
             <div className="flex items-center gap-2">
               <button
                 onClick={() => handleNavClick('arc')}
-                className="flex items-center gap-2 text-xs text-zinc-200 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-4 py-1.5 rounded-full transition-all hover:scale-105"
+                className="flex items-center gap-2 text-xs text-zinc-700 bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 px-4 py-1.5 rounded-full transition-all hover:scale-105 active:scale-95"
               >
                 <UserCheck className="w-3.5 h-3.5 text-[#FF4500]" />
                 <span className="font-semibold">{userProfile.name}</span>
               </button>
               <button
                 onClick={handleSignOut}
-                className="p-2 text-zinc-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-full transition-all hover:scale-110"
+                className="p-2 text-zinc-400 hover:text-rose-500 hover:bg-rose-50 rounded-full transition-all active:scale-90"
                 title="Sign Out"
               >
                 <LogOut className="w-4 h-4" />
@@ -108,7 +105,7 @@ export default function Navbar({
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#09090b]/95 border-t border-zinc-800 backdrop-blur-lg px-2 py-2 flex items-center justify-around">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 border-t border-zinc-200 backdrop-blur-lg px-2 py-2 flex items-center justify-around">
         {[
           { id: 'dashboard', label: 'Home', icon: Flame },
           { id: 'progress', label: 'Progress', icon: BarChart3 },
@@ -121,8 +118,8 @@ export default function Navbar({
             <button
               key={tab.id}
               onClick={() => handleNavClick(tab.id)}
-              className={`flex flex-col items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-semibold transition-all ${
-                isActive ? 'text-[#FF4500]' : 'text-zinc-400 hover:text-zinc-200'
+              className={`flex flex-col items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-semibold transition-all active:scale-95 ${
+                isActive ? 'text-[#FF4500]' : 'text-zinc-400 hover:text-zinc-900'
               }`}
             >
               <Icon className="w-4 h-4" />
