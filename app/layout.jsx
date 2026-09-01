@@ -1,4 +1,5 @@
 import '../src/index.css';
+import { ArcProvider } from '@/src/context/ArcContext';
 
 export const metadata = {
   title: 'Arc 90 — Start before January. Finish with proof.',
@@ -21,7 +22,9 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="bg-white text-zinc-900 antialiased selection:bg-[#FF4500] selection:text-white font-sans min-h-screen">
-        {children}
+        <ArcProvider>
+          {children}
+        </ArcProvider>
       </body>
     </html>
   );

@@ -6,84 +6,56 @@ import Navbar from '@/src/components/Navbar';
 import Footer from '@/src/components/Footer';
 import ProgressStats from '@/src/components/ProgressStats';
 import { getCurrentArcDay } from '@/src/utils/dates';
+import { useArc } from '@/src/context/ArcContext';
+import { Loader2 } from 'lucide-react';
 
 export default function ProgressPage() {
   const router = useRouter();
-  const [arc, setArc] = useState(null);
-  const [checkInsMap, setCheckInsMap] = useState({});
-  const [simulatedDayNum, setSimulatedDayNum] = useState(18);
-  const [loading, setLoading] = useState(true);
+  const { user, arc, checkInsMap, loading } = useArc();
+  const [simulatedDayNum, setSimulatedDayNum] = useState(1);
 
   useEffect(() => {
-    async function loadData() {
-      try {
-        const [meRes, arcRes] = await Promise.all([
-          fetch('/api/auth/me'),
-          fetch('/api/arc')
-        ]);
-        const meData = await meRes.json();
-        const arcData = await arcRes.json();
-
-        if (!meData.user) {
-          router.push('/login');
-          return;
-        }
-
-        if (meData.user.accessStatus !== 'PAID') {
-          router.push('/unlock');
-          return;
-        }
-
-        if (!arcData.arc) {
-          router.push('/onboarding');
-          return;
-        }
-
-        setArc(arcData.arc);
-
-        const todayStr = new Date().toISOString().split('T')[0];
-        const currentDay = getCurrentArcDay(arcData.arc.startDate, todayStr);
-        setSimulatedDayNum(currentDay);
-
-        const cMap = {};
-        if (arcData.arc.checkIns) {
-          arcData.arc.checkIns.forEach((c) => {
-            if (!cMap[c.date]) cMap[c.date] = { completedIds: [], saved: true };
-            if (c.completed) cMap[c.date].completedIds.push(c.commitmentId);
-          });
-        }
-        setCheckInsMap(cMap);
-        setLoading(false);
-      } catch (err) {
-        setLoading(false);
+    if (!loading) {
+      if (!user) {
+        router.push('/login');
+        return;
       }
-    }
-    loadData();
-  }, [router]);
+      if (user.accessStatus !== 'PAID') {
+        router.push('/unlock');
+        return;
+      }
+      if (!arc) {
+        router.push('/onboarding');
+        return;
+      }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center text-xs text-zinc-500 font-mono-code">
-        Loading Progress...
-      </div>
-    );
-  }
+      const todayStr = new Date().toISOString().split('T')[0];
+      const currentDay = getCurrentArcDay(arc.startDate, todayStr);
+      setSimulatedDayNum(currentDay);
+    }
+  }, [loading, user, arc, router]);
 
   return (
     <div className="min-h-screen bg-white text-zinc-900 flex flex-col selection:bg-[#FF4500] selection:text-white font-sans">
       <Navbar
         currentView="progress"
-        setCurrentView={(v) => router.push(`/${v}`)}
         simulatedDay={simulatedDayNum}
-        setSimulatedDay={setSimulatedDayNum}
+        userProfile={{ name: user?.name }}
       />
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        <ProgressStats
-          startDateStr={arc?.startDate || '2026-10-01'}
-          currentDayNum={simulatedDayNum}
-          commitments={arc?.commitments || []}
-          checkIns={checkInsMap}
-        />
+        {loading ? (
+          <div className="py-20 flex flex-col items-center justify-center gap-3 text-zinc-400 font-mono-code text-xs">
+            <Loader2 className="w-6 h-6 animate-spin text-[#FF4500]" />
+            <span>Loading Progress...</span>
+          </div>
+        ) : (
+          <ProgressStats
+            startDateStr={arc?.startDate || '2026-10-01'}
+            currentDayNum={simulatedDayNum}
+            commitments={arc?.commitments || []}
+            checkIns={checkInsMap}
+          />
+        )}
       </main>
       <Footer onOpenOnboarding={() => router.push('/onboarding')} />
     </div>
