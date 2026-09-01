@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Flame, ShieldCheck, CheckCircle2, ArrowRight, Lock, Sparkles, Loader2 } from 'lucide-react';
+import { Flame, CheckCircle2, ArrowRight, Lock, Loader2 } from 'lucide-react';
 import { trackEvent, ANALYTICS_EVENTS } from '@/src/utils/analytics';
+import { getFreeContract } from '@/src/utils/freeContract';
 
 export default function UnlockPage() {
   const router = useRouter();
@@ -40,7 +41,11 @@ export default function UnlockPage() {
     setErrorMsg('');
 
     try {
-      const savedContract = getFreeContract();
+      let savedContract = null;
+      try {
+        savedContract = getFreeContract();
+      } catch (e) {}
+
       const payload = {
         name: user?.name || savedContract?.name || '',
         email: user?.email || ''
@@ -52,7 +57,12 @@ export default function UnlockPage() {
         body: JSON.stringify(payload)
       });
 
-      const data = await res.json();
+      let data = {};
+      try {
+        data = await res.json();
+      } catch (jsonErr) {
+        console.error('Failed to parse checkout JSON response:', jsonErr);
+      }
 
       if (res.ok && data.url) {
         window.location.href = data.url;
@@ -62,7 +72,7 @@ export default function UnlockPage() {
       }
     } catch (err) {
       console.error('Checkout error:', err);
-      setErrorMsg('Network error. Please try again.');
+      setErrorMsg(err?.message || 'Network error. Please try again.');
       setLoading(false);
     }
   };
