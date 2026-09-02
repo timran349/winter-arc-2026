@@ -219,7 +219,7 @@ export default function OnboardingModal({ isOpen, onClose, onCompleteOnboarding 
                           onClick={() => toggleSuggested(item, cat)}
                           className={`px-3.5 py-2 rounded-full text-xs font-semibold transition-all ${
                             active
-                              ? 'bg-[#FF4500] text-white scale-105'
+                              ? 'bg-[#FF4500] text-white shadow-sm'
                               : 'bg-zinc-50 text-zinc-700 border border-zinc-200 hover:border-zinc-300'
                           }`}
                         >
@@ -298,8 +298,8 @@ export default function OnboardingModal({ isOpen, onClose, onCompleteOnboarding 
                     onClick={() => setIntention(opt)}
                     className={`w-full p-4 rounded-full text-left border transition-all flex items-center justify-between px-6 ${
                       active
-                        ? 'bg-[#FF4500]/10 border-[#FF4500] text-zinc-900 scale-105'
-                        : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-300'
+                        ? 'bg-[#FF4500]/10 border-[#FF4500] text-zinc-900 shadow-sm'
+                        : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-400 hover:bg-white hover:-translate-y-0.5'
                     }`}
                   >
                     <span className="text-xs font-semibold">{opt}</span>
@@ -312,8 +312,8 @@ export default function OnboardingModal({ isOpen, onClose, onCompleteOnboarding 
                 onClick={() => setIntention('Create my own')}
                 className={`w-full p-4 rounded-full text-left border transition-all flex items-center justify-between px-6 ${
                   intention === 'Create my own'
-                    ? 'bg-[#FF4500]/10 border-[#FF4500] text-zinc-900 scale-105'
-                    : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-300'
+                    ? 'bg-[#FF4500]/10 border-[#FF4500] text-zinc-900 shadow-sm'
+                    : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-400 hover:bg-white hover:-translate-y-0.5'
                 }`}
               >
                 <span className="text-xs font-semibold">+ Create my own</span>

@@ -82,29 +82,29 @@ export default function DailyCheckIn({
             <div
               key={comm.id}
               onClick={() => toggleCommitment(comm.id)}
-              className={`group flex items-center justify-between p-4 rounded-full border transition-all cursor-pointer select-none px-6 active:scale-95 ${
+              className={`group flex items-center justify-between p-4 rounded-full border transition-all duration-200 cursor-pointer select-none px-6 active:scale-[0.98] ${
                 checked
-                  ? 'bg-[#FF4500]/10 border-[#FF4500]/40 text-zinc-900 scale-105 shadow-sm'
-                  : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-300 hover:scale-105'
+                  ? 'bg-[#FF4500]/10 border-[#FF4500]/50 text-zinc-900 shadow-sm'
+                  : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-white hover:border-[#FF4500]/40 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(255,69,0,0.08)]'
               }`}
             >
               <div className="flex items-center gap-3.5">
                 <div
-                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
+                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-200 ${
                     checked
-                      ? 'bg-[#FF4500] text-white'
-                      : 'border border-zinc-300 bg-white group-hover:border-zinc-500'
+                      ? 'bg-[#FF4500] text-white shadow-sm'
+                      : 'border border-zinc-300 bg-white group-hover:border-[#FF4500] group-hover:scale-110'
                   }`}
                 >
                   {checked && <Check className="w-4 h-4 text-white stroke-[3]" />}
                 </div>
-                <span className={`text-sm sm:text-base font-semibold ${checked ? 'line-through text-zinc-400' : ''}`}>
+                <span className={`text-sm sm:text-base font-semibold transition-colors duration-200 ${checked ? 'line-through text-zinc-400' : 'group-hover:text-zinc-900'}`}>
                   {comm.name}
                 </span>
               </div>
 
               {comm.category && (
-                <span className="text-[10px] font-mono-code px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 text-[#FF4500] font-bold">
+                <span className="text-[10px] font-mono-code px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 text-[#FF4500] font-bold group-hover:bg-[#FF4500]/10 group-hover:border-[#FF4500]/30 transition-colors">
                   {comm.category}
                 </span>
               )}

@@ -465,10 +465,10 @@ export default function FreeContractBuilderPage() {
                                 type="button"
                                 onClick={() => toggleSuggested(item, catKey)}
                                 disabled={!active && selectedCommitments.length >= 6}
-                                className={`px-3.5 py-2 rounded-full text-xs font-semibold transition-all ${
+                                className={`px-3.5 py-2 rounded-full text-xs font-semibold transition-all duration-150 ${
                                   active
-                                    ? 'bg-[#FF4500] text-white scale-105 shadow-sm'
-                                    : 'bg-zinc-50 text-zinc-700 border border-zinc-200 hover:border-zinc-300 disabled:opacity-40'
+                                    ? 'bg-[#FF4500] text-white shadow-sm'
+                                    : 'bg-zinc-50 text-zinc-700 border border-zinc-200 hover:border-zinc-400 hover:bg-white disabled:opacity-40'
                                 }`}
                               >
                                 {active ? '✓ ' : '+ '}
@@ -716,10 +716,10 @@ export default function FreeContractBuilderPage() {
                           key={item}
                           type="button"
                           onClick={() => setIntention(item)}
-                          className={`w-full p-4 rounded-2xl border text-left text-xs font-semibold transition-all flex items-center justify-between ${
+                          className={`w-full p-4 rounded-2xl border text-left text-xs font-semibold transition-all duration-200 flex items-center justify-between active:scale-[0.99] ${
                             active
-                              ? 'bg-[#FF4500]/10 border-[#FF4500] text-zinc-900 scale-105'
-                              : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-300'
+                              ? 'bg-[#FF4500]/10 border-[#FF4500] text-zinc-900 shadow-sm'
+                              : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-400 hover:bg-white hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(24,24,27,0.06)]'
                           }`}
                         >
                           <span>"{item}"</span>
@@ -731,10 +731,10 @@ export default function FreeContractBuilderPage() {
                     <button
                       type="button"
                       onClick={() => setIntention('Create my own')}
-                      className={`w-full p-4 rounded-2xl border text-left text-xs font-semibold transition-all flex items-center justify-between ${
+                      className={`w-full p-4 rounded-2xl border text-left text-xs font-semibold transition-all duration-200 flex items-center justify-between active:scale-[0.99] ${
                         intention === 'Create my own'
-                          ? 'bg-[#FF4500]/10 border-[#FF4500] text-zinc-900 scale-105'
-                          : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-300'
+                          ? 'bg-[#FF4500]/10 border-[#FF4500] text-zinc-900 shadow-sm'
+                          : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-400 hover:bg-white hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(24,24,27,0.06)]'
                       }`}
                     >
                       <span>+ Create my own intention</span>

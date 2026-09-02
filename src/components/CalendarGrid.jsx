@@ -94,16 +94,16 @@ export default function CalendarGrid({
               key={dayNum}
               onClick={() => handleDayClick(dayNum)}
               disabled={isFuture}
-              className={`relative group aspect-square rounded-2xl flex flex-col items-center justify-center p-1 font-mono-code transition-all select-none active:scale-95 ${
+              className={`relative group aspect-square rounded-2xl flex flex-col items-center justify-center p-1 font-mono-code transition-all duration-200 select-none active:scale-[0.96] ${
                 isFuture
                   ? 'bg-zinc-100 border border-zinc-200 text-zinc-400 cursor-not-allowed'
                   : isToday
-                  ? 'bg-zinc-900 text-white font-bold border-2 border-[#FF4500] cursor-pointer hover:scale-105 shadow-md'
+                  ? 'bg-zinc-900 text-white font-bold border-2 border-[#FF4500] cursor-pointer hover:-translate-y-0.5 shadow-md hover:shadow-lg'
                   : tileState === 'completed'
-                  ? 'bg-[#FF4500] text-white font-bold cursor-pointer hover:scale-105 shadow-sm'
+                  ? 'bg-[#FF4500] text-white font-bold cursor-pointer hover:-translate-y-0.5 shadow-sm hover:shadow-md'
                   : tileState === 'partial'
-                  ? 'bg-[#FF4500]/15 border border-[#FF4500] text-[#FF4500] font-bold cursor-pointer hover:scale-105'
-                  : 'bg-amber-50 border border-amber-200 text-amber-700 font-bold cursor-pointer hover:scale-105'
+                  ? 'bg-[#FF4500]/15 border border-[#FF4500] text-[#FF4500] font-bold cursor-pointer hover:-translate-y-0.5 hover:bg-[#FF4500]/25'
+                  : 'bg-amber-50 border border-amber-200 text-amber-700 font-bold cursor-pointer hover:-translate-y-0.5 hover:bg-amber-100'
               }`}
             >
               <span className="text-[11px] sm:text-xs">Day {dayNum}</span>

@@ -251,7 +251,7 @@ export default function OnboardingPage() {
                           onClick={() => toggleSuggested(item, cat)}
                           className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
                             active
-                              ? 'bg-[#FF4500] text-white scale-105'
+                              ? 'bg-[#FF4500] text-white shadow-sm'
                               : 'bg-zinc-50 text-zinc-700 border border-zinc-200 hover:border-zinc-300'
                           }`}
                         >
@@ -321,10 +321,10 @@ export default function OnboardingPage() {
                   <button
                     key={opt}
                     onClick={() => setIntention(opt)}
-                    className={`w-full p-4 rounded-full text-left border transition-all flex items-center justify-between px-6 ${
+                    className={`w-full p-4 rounded-full text-left border transition-all duration-200 flex items-center justify-between px-6 active:scale-[0.99] ${
                       active
-                        ? 'bg-[#FF4500]/10 border-[#FF4500] text-zinc-900 scale-105'
-                        : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-300'
+                        ? 'bg-[#FF4500]/10 border-[#FF4500] text-zinc-900 shadow-sm'
+                        : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-400 hover:bg-white hover:-translate-y-0.5'
                     }`}
                   >
                     <span className="text-sm font-semibold">{opt}</span>

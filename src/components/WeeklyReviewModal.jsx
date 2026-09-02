@@ -71,7 +71,7 @@ export default function WeeklyReviewModal({
             onClick={() => setActiveTab('new')}
             className={`px-4 py-2 rounded-full text-xs font-semibold transition-all active:scale-95 ${
               activeTab === 'new'
-                ? 'bg-zinc-900 text-white scale-105'
+                ? 'bg-zinc-900 text-white shadow-sm'
                 : 'text-zinc-500 hover:text-zinc-900 bg-zinc-100'
             }`}
           >
@@ -81,7 +81,7 @@ export default function WeeklyReviewModal({
             onClick={() => setActiveTab('archive')}
             className={`px-4 py-2 rounded-full text-xs font-semibold transition-all active:scale-95 ${
               activeTab === 'archive'
-                ? 'bg-zinc-900 text-white scale-105'
+                ? 'bg-zinc-900 text-white shadow-sm'
                 : 'text-zinc-500 hover:text-zinc-900 bg-zinc-100'
             }`}
           >
